@@ -6,11 +6,11 @@ spring:
         active: dev
     datasource:
         dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
-        url: 
+        url:
         databaseName: PolCo
         serverName: localhost
-        username: PolCo
-        password: 
+        username: postgres
+        password: admin
 
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQL82Dialect
