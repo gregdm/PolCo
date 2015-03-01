@@ -6,6 +6,7 @@
             "home": "Home",
             "entities": {
                 "main": "Entities",
+                "badWord": "BadWord",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {

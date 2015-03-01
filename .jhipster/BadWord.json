@@ -1,0 +1,37 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "translation",
+            "relationshipNameCapitalized": "Translation",
+            "relationshipFieldName": "translation",
+            "otherEntityName": "goodWord",
+            "relationshipType": "one-to-many",
+            "otherEntityNameCapitalized": "GoodWord"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "value",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Value",
+            "fieldNameUnderscored": "value"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "type",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Type",
+            "fieldNameUnderscored": "type"
+        }
+    ],
+    "fieldsContainOwnerManyToMany": false,
+    "fieldsContainOneToMany": true,
+    "fieldsContainLocalDate": false,
+    "fieldsContainCustomTime": false,
+    "fieldsContainBigDecimal": false,
+    "fieldsContainDateTime": false,
+    "fieldsContainDate": false,
+    "changelogDate": "20150301161843"
+}

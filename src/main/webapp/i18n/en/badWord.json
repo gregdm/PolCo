@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "badWord" : {
+            "home": {
+                "title": "BadWords",
+                "createLabel": "Create a new BadWord",
+                "createOrEditLabel": "Create or edit a BadWord"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete BadWord {{ id }}?"
+            },
+            "detail": {
+                "title": "BadWord"
+            },
+            "value": "Value",
+            "type": "Type",
+            "translation": "translation"
+        }
+    }
+}
