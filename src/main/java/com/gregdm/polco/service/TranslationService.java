@@ -7,6 +7,7 @@ import com.gregdm.polco.repository.GoodWordRepository;
 import com.gregdm.polco.repository.SearchBadWordRepository;
 import com.gregdm.polco.repository.SearchGoodWordRepository;
 import liquibase.util.csv.CSVReader;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,9 @@ public class TranslationService {
                     BadWord badWord = new BadWord();
                     List<BadWord> badWordFind = searchBadWordRepository.findByValue(row[0].trim().toLowerCase());
                     if(CollectionUtils.isEmpty(badWordFind)){
+                        if(StringUtils.isBlank(row[0])){
+                            break;
+                        }
                         badWord.setValue(row[0].trim().toLowerCase());
                         badWord.setType("NONE");
                         badWord = badWordRepository.save(badWord);
@@ -62,8 +66,11 @@ public class TranslationService {
                     }
 
                     for(int i=1; i<row.length-1; i++) {
-                        boolean goodWordPresent = false;
+                        if(StringUtils.isBlank(row[i])){
+                            break;
+                        }
 
+                        boolean goodWordPresent = false;
 
                         //Si la traduction est déjà présente
                         for(GoodWord good : badWord.getTranslations()){
@@ -79,6 +86,7 @@ public class TranslationService {
                             goodWord.setValue(row[i].trim().toLowerCase());
                             goodWord.setLevel("NORMAL");
                             goodWord.setBadWord(badWord);
+                            goodWordRepository.save(goodWord);
                         }
                     }
                 }

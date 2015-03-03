@@ -17,5 +17,5 @@ public interface SearchBadWordRepository extends JpaRepository<BadWord,String>  
 
     List<BadWord> findByValue(String value);
 
-    List<BadWord> findByPrincipalAndType(String value, String type);
+    List<BadWord> findByValueAndType(String value, String type);
 }

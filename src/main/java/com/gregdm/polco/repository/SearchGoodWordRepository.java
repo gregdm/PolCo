@@ -15,5 +15,5 @@ public interface SearchGoodWordRepository extends JpaRepository<GoodWord,String>
 
     List<GoodWord> findByValue(String value);
 
-    List<GoodWord> findByPrincipalAndType(String value, String level);
+    List<GoodWord> findByValueAndLevel(String value, String level);
 }

@@ -53,7 +53,7 @@ public class TranslationResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public String create(@RequestBody MultipartFile file) throws URISyntaxException {
-
+        translationService.importCSV(file);
         return "{ \"value\":\"greg\"}";
     }
 }
