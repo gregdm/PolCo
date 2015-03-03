@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface BadWordRepository extends JpaRepository<BadWord,Long> {
 
+
 }
