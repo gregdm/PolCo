@@ -39,9 +39,22 @@ public class TranslationService {
     private SearchBadWordRepository searchBadWordRepository;
 
     public String translateText(String text){
+        //Put into set
+        String tokens[] = text.split("\\s+");
+        String textTranslated = new String(text);
 
+        for(int i=0; i<tokens.length;i++){
+            List<BadWord> badWordFind = searchBadWordRepository.findByValue(tokens[i].trim().toLowerCase());
+            if(!CollectionUtils.isEmpty(badWordFind)){
+                BadWord badWord = badWordFind.iterator().next();
+                String toReplace = badWord.getTranslations().iterator().next().getValue() ;
+                if(StringUtils.isNotBlank(toReplace)) {
+                    textTranslated = textTranslated.replace(tokens[i], toReplace);
+                }
+            }
+        }
 
-        return text + "Greg";
+        return textTranslated;
     }
 
     public String importCSV(MultipartFile file){
