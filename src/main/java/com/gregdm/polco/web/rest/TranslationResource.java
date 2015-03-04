@@ -56,4 +56,13 @@ public class TranslationResource {
         translationService.importCSV(file);
         return "{ \"value\":\"greg\"}";
     }
+
+    @RequestMapping(value = "/translation/importXML",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public String importXML(@RequestBody MultipartFile file) throws URISyntaxException {
+        translationService.importXML(file);
+        return "{ \"value\":\"greg\"}";
+    }
 }

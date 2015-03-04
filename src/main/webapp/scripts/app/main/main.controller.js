@@ -8,8 +8,17 @@ angular.module('polcoApp')
 
         $scope.uploadFile = function(){
             var file = $scope.myFile;
-            var uploadUrl = "/fileUpload";
-            Translation.uploadFileToUrl(file, uploadUrl)
+            Translation.uploadFileToUrl(file)
+                .success(function(data){
+                $scope.translatedText = data.value;})
+                .error(function(data){
+                    $scope.translatedText = data;
+                });
+        };
+
+        $scope.uploadXMLFile = function(){
+            var file = $scope.myFile;
+            Translation.uploadFileXML(file)
                 .success(function(data){
                 $scope.translatedText = data.value;})
                 .error(function(data){
