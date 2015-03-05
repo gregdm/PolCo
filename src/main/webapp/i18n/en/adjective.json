@@ -1,0 +1,21 @@
+{
+    "polcoApp": {
+        "adjective" : {
+            "home": {
+                "title": "Adjectives",
+                "createLabel": "Create a new Adjective",
+                "createOrEditLabel": "Create or edit a Adjective"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Adjective {{ id }}?"
+            },
+            "detail": {
+                "title": "Adjective"
+            },
+            "value": "Value",
+            "gender": "Gender",
+            "number": "Number",
+            "translations": "translations"
+        }
+    }
+}

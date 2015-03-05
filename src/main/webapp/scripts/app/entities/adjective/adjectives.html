@@ -1,0 +1,122 @@
+<div>
+
+    <h2 translate="polcoApp.adjective.home.title">Adjective</h2>
+
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveAdjectiveModal" ng-click="clear()">
+        <span class="glyphicon glyphicon-flash"></span> <span translate="polcoApp.adjective.home.createLabel">Create a new Adjective</span>
+    </button>
+    <div class="modal fade" id="saveAdjectiveModal" tabindex="-1" role="dialog" aria-labelledby="myAdjectiveLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate
+                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                      ng-submit="create()">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myAdjectiveLabel" translate="polcoApp.adjective.home.createOrEditLabel">Create or edit a Adjective</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="adjective.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label translate="polcoApp.adjective.value">Value</label>
+                            <input type="text" class="form-control" name="value"
+                                   ng-model="adjective.value">
+                        </div>
+                        <div class="form-group">
+                            <label translate="polcoApp.adjective.gender">Gender</label>
+                            <input type="text" class="form-control" name="gender"
+                                   ng-model="adjective.gender">
+                        </div>
+                        <div class="form-group">
+                            <label translate="polcoApp.adjective.number">Number</label>
+                            <input type="text" class="form-control" name="number"
+                                   ng-model="adjective.number">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteAdjectiveConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(adjective.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="polcoApp.adjective.delete.question" translate-values="{id: '{{adjective.id}}'}">Are you sure you want to delete this Adjective?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th translate="polcoApp.adjective.value">Value</th>
+                    <th translate="polcoApp.adjective.gender">Gender</th>
+                    <th translate="polcoApp.adjective.number">Number</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="adjective in adjectives">
+                    <td><a ui-sref="adjectiveDetail({id:adjective.id})">{{adjective.id}}</a></td>
+                    <td>{{adjective.value}}</td>
+                    <td>{{adjective.gender}}</td>
+                    <td>{{adjective.number}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="adjectiveDetail({id:adjective.id})"
+                                class="btn btn-info">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="update(adjective.id)"
+                                class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(adjective.id)"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

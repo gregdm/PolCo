@@ -12,6 +12,8 @@
                 "verbTrad": "VerbTrad",
                 "noun": "Noun",
                 "nounTrans": "NounTrans",
+                "adjective": "Adjective",
+                "adjectiveTrans": "AdjectiveTrans",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {

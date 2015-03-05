@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "adjectiveTrans" : {
+            "home": {
+                "title": "AdjectiveTranss",
+                "createLabel": "Créer un nouveau AdjectiveTrans",
+                "createOrEditLabel": "Créer ou éditer un AdjectiveTrans"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le AdjectiveTrans {{ id }} ?"
+            },
+            "detail": {
+                "title": "AdjectiveTrans"
+            },
+            "value": "Value",
+            "adjective": "adjective"
+        }
+    }
+}
+

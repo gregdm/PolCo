@@ -1,0 +1,31 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "adjective",
+            "relationshipNameCapitalized": "Adjective",
+            "relationshipFieldName": "adjective",
+            "otherEntityName": "adjective",
+            "relationshipType": "many-to-one",
+            "otherEntityNameCapitalized": "Adjective",
+            "otherEntityField": "value"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "value",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Value",
+            "fieldNameUnderscored": "value"
+        }
+    ],
+    "fieldsContainOwnerManyToMany": false,
+    "fieldsContainOneToMany": false,
+    "fieldsContainLocalDate": false,
+    "fieldsContainCustomTime": false,
+    "fieldsContainBigDecimal": false,
+    "fieldsContainDateTime": false,
+    "fieldsContainDate": false,
+    "changelogDate": "20150305022649"
+}
