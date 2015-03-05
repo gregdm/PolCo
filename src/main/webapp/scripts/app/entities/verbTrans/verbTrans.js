@@ -3,42 +3,42 @@
 angular.module('polcoApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('verbTrad', {
+            .state('verbTrans', {
                 parent: 'entity',
-                url: '/verbTrad',
+                url: '/verbTrans',
                 data: {
                     roles: ['ROLE_USER'],
-                    pageTitle: 'polcoApp.verbTrad.home.title'
+                    pageTitle: 'polcoApp.verbTrans.home.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/verbTrad/verbTrads.html',
-                        controller: 'VerbTradController'
+                        templateUrl: 'scripts/app/entities/verbTrans/verbTranss.html',
+                        controller: 'VerbTransController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('verbTrad');
+                        $translatePartialLoader.addPart('verbTrans');
                         return $translate.refresh();
                     }]
                 }
             })
-            .state('verbTradDetail', {
+            .state('verbTransDetail', {
                 parent: 'entity',
-                url: '/verbTrad/:id',
+                url: '/verbTrans/:id',
                 data: {
                     roles: ['ROLE_USER'],
-                    pageTitle: 'polcoApp.verbTrad.detail.title'
+                    pageTitle: 'polcoApp.verbTrans.detail.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/verbTrad/verbTrad-detail.html',
-                        controller: 'VerbTradDetailController'
+                        templateUrl: 'scripts/app/entities/verbTrans/verbTrans-detail.html',
+                        controller: 'VerbTransDetailController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('verbTrad');
+                        $translatePartialLoader.addPart('verbTrans');
                         return $translate.refresh();
                     }]
                 }

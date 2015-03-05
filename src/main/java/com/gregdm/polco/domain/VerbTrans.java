@@ -10,12 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A VerbTrad.
+ * A VerbTrans.
  */
 @Entity
-@Table(name = "T_VERBTRAD")
+@Table(name = "T_VERBTRANS")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class VerbTrad implements Serializable {
+public class VerbTrans implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -60,9 +60,9 @@ public class VerbTrad implements Serializable {
             return false;
         }
 
-        VerbTrad verbTrad = (VerbTrad) o;
+        VerbTrans verbTrans = (VerbTrans) o;
 
-        if (id != null ? !id.equals(verbTrad.id) : verbTrad.id != null) return false;
+        if (id != null ? !id.equals(verbTrans.id) : verbTrans.id != null) return false;
 
         return true;
     }
@@ -74,7 +74,7 @@ public class VerbTrad implements Serializable {
 
     @Override
     public String toString() {
-        return "VerbTrad{" +
+        return "VerbTrans{" +
                 "id=" + id +
                 ", value='" + value + "'" +
                 '}';

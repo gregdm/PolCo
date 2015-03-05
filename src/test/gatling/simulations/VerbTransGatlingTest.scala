@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the VerbTrad entity.
+ * Performance test for the VerbTrans entity.
  */
-class VerbTradGatlingTest extends Simulation {
+class VerbTransGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
@@ -37,7 +37,7 @@ class VerbTradGatlingTest extends Simulation {
         "X-CSRF-TOKEN" -> "${csrf_token}"
     )
 
-    val scn = scenario("Test the VerbTrad entity")
+    val scn = scenario("Test the VerbTrans entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
@@ -59,26 +59,26 @@ class VerbTradGatlingTest extends Simulation {
         .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token")))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all verbTrads")
-            .get("/api/verbTrads")
+            exec(http("Get all verbTranss")
+            .get("/api/verbTranss")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new verbTrad")
-            .put("/api/verbTrads")
+            .exec(http("Create new verbTrans")
+            .put("/api/verbTranss")
             .headers(headers_http_authenticated)
             .body(StringBody("""{"id":null, "value":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_verbTrad_url")))
+            .check(headerRegex("Location", "(.*)").saveAs("new_verbTrans_url")))
             .pause(10)
             .repeat(5) {
-                exec(http("Get created verbTrad")
-                .get("${new_verbTrad_url}")
+                exec(http("Get created verbTrans")
+                .get("${new_verbTrans_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created verbTrad")
-            .delete("${new_verbTrad_url}")
+            .exec(http("Delete created verbTrans")
+            .delete("${new_verbTrans_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }

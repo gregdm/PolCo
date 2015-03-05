@@ -9,7 +9,6 @@
                 "badWord": "BadWord",
                 "goodWord": "GoodWord",
                 "verb": "Verb",
-                "verbTrad": "VerbTrad",
                 "noun": "Noun",
                 "nounTrans": "NounTrans",
                 "adjective": "Adjective",
@@ -24,6 +23,7 @@
                 "adverbTrans": "AdverbTrans",
                 "nominalDet": "NominalDet",
                 "nominalDetTrans": "NominalDetTrans",
+                "verbTrans": "VerbTrans",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {

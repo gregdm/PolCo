@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('polcoApp')
-    .factory('VerbTrad', function ($resource) {
-        return $resource('api/verbTrads/:id', {}, {
+    .factory('VerbTrans', function ($resource) {
+        return $resource('api/verbTranss/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

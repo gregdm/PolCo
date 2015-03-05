@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "verbTrans" : {
+            "home": {
+                "title": "VerbTranss",
+                "createLabel": "Créer un nouveau VerbTrans",
+                "createOrEditLabel": "Créer ou éditer un VerbTrans"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le VerbTrans {{ id }} ?"
+            },
+            "detail": {
+                "title": "VerbTrans"
+            },
+            "value": "Value",
+            "verb": "verb"
+        }
+    }
+}
+
