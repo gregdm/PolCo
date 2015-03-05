@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "prefixTrans" : {
+            "home": {
+                "title": "PrefixTranss",
+                "createLabel": "Créer un nouveau PrefixTrans",
+                "createOrEditLabel": "Créer ou éditer un PrefixTrans"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le PrefixTrans {{ id }} ?"
+            },
+            "detail": {
+                "title": "PrefixTrans"
+            },
+            "value": "Value",
+            "prefix": "prefix"
+        }
+    }
+}
+

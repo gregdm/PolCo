@@ -18,6 +18,12 @@
                 "prepositionTrans": "PrepositionTrans",
                 "interjection": "Interjection",
                 "interjectionTrans": "InterjectionTrans",
+                "prefix": "Prefix",
+                "prefixTrans": "PrefixTrans",
+                "adverb": "Adverb",
+                "adverbTrans": "AdverbTrans",
+                "nominalDet": "NominalDet",
+                "nominalDetTrans": "NominalDetTrans",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {

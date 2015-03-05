@@ -1,0 +1,31 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "nominalDet",
+            "relationshipNameCapitalized": "NominalDet",
+            "relationshipFieldName": "nominalDet",
+            "otherEntityName": "nominalDet",
+            "relationshipType": "many-to-one",
+            "otherEntityNameCapitalized": "NominalDet",
+            "otherEntityField": "value"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "value",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Value",
+            "fieldNameUnderscored": "value"
+        }
+    ],
+    "fieldsContainOwnerManyToMany": false,
+    "fieldsContainOneToMany": false,
+    "fieldsContainLocalDate": false,
+    "fieldsContainCustomTime": false,
+    "fieldsContainBigDecimal": false,
+    "fieldsContainDateTime": false,
+    "fieldsContainDate": false,
+    "changelogDate": "20150305023542"
+}

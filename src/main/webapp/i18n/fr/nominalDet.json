@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "nominalDet" : {
+            "home": {
+                "title": "NominalDets",
+                "createLabel": "Créer un nouveau NominalDet",
+                "createOrEditLabel": "Créer ou éditer un NominalDet"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le NominalDet {{ id }} ?"
+            },
+            "detail": {
+                "title": "NominalDet"
+            },
+            "value": "Value",
+            "translations": "translations"
+        }
+    }
+}
+

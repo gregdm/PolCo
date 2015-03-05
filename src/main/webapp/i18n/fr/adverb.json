@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "adverb" : {
+            "home": {
+                "title": "Adverbs",
+                "createLabel": "Créer un nouveau Adverb",
+                "createOrEditLabel": "Créer ou éditer un Adverb"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Adverb {{ id }} ?"
+            },
+            "detail": {
+                "title": "Adverb"
+            },
+            "value": "Value",
+            "translations": "translations"
+        }
+    }
+}
+

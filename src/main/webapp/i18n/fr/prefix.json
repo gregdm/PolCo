@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "prefix" : {
+            "home": {
+                "title": "Prefixs",
+                "createLabel": "Créer un nouveau Prefix",
+                "createOrEditLabel": "Créer ou éditer un Prefix"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Prefix {{ id }} ?"
+            },
+            "detail": {
+                "title": "Prefix"
+            },
+            "value": "Value",
+            "translations": "translations"
+        }
+    }
+}
+

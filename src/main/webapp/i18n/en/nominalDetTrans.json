@@ -1,0 +1,19 @@
+{
+    "polcoApp": {
+        "nominalDetTrans" : {
+            "home": {
+                "title": "NominalDetTranss",
+                "createLabel": "Create a new NominalDetTrans",
+                "createOrEditLabel": "Create or edit a NominalDetTrans"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete NominalDetTrans {{ id }}?"
+            },
+            "detail": {
+                "title": "NominalDetTrans"
+            },
+            "value": "Value",
+            "nominalDet": "nominalDet"
+        }
+    }
+}
