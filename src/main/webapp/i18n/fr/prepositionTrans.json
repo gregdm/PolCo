@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "prepositionTrans" : {
+            "home": {
+                "title": "PrepositionTranss",
+                "createLabel": "Créer un nouveau PrepositionTrans",
+                "createOrEditLabel": "Créer ou éditer un PrepositionTrans"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le PrepositionTrans {{ id }} ?"
+            },
+            "detail": {
+                "title": "PrepositionTrans"
+            },
+            "value": "Value",
+            "preposition": "preposition"
+        }
+    }
+}
+

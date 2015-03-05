@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "preposition" : {
+            "home": {
+                "title": "Prepositions",
+                "createLabel": "Créer un nouveau Preposition",
+                "createOrEditLabel": "Créer ou éditer un Preposition"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Preposition {{ id }} ?"
+            },
+            "detail": {
+                "title": "Preposition"
+            },
+            "value": "Value",
+            "translations": "translations"
+        }
+    }
+}
+

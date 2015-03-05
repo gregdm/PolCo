@@ -14,6 +14,10 @@
                 "nounTrans": "NounTrans",
                 "adjective": "Adjective",
                 "adjectiveTrans": "AdjectiveTrans",
+                "preposition": "Preposition",
+                "prepositionTrans": "PrepositionTrans",
+                "interjection": "Interjection",
+                "interjectionTrans": "InterjectionTrans",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {

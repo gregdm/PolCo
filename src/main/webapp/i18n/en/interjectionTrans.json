@@ -1,0 +1,19 @@
+{
+    "polcoApp": {
+        "interjectionTrans" : {
+            "home": {
+                "title": "InterjectionTranss",
+                "createLabel": "Create a new InterjectionTrans",
+                "createOrEditLabel": "Create or edit a InterjectionTrans"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete InterjectionTrans {{ id }}?"
+            },
+            "detail": {
+                "title": "InterjectionTrans"
+            },
+            "value": "Value",
+            "interjection": "interjection"
+        }
+    }
+}
