@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "nounTrans" : {
+            "home": {
+                "title": "NounTranss",
+                "createLabel": "Créer un nouveau NounTrans",
+                "createOrEditLabel": "Créer ou éditer un NounTrans"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le NounTrans {{ id }} ?"
+            },
+            "detail": {
+                "title": "NounTrans"
+            },
+            "value": "Value",
+            "noun": "noun"
+        }
+    }
+}
+

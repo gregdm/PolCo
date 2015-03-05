@@ -1,0 +1,115 @@
+<div>
+
+    <h2 translate="polcoApp.verbTrad.home.title">VerbTrad</h2>
+
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveVerbTradModal" ng-click="clear()">
+        <span class="glyphicon glyphicon-flash"></span> <span translate="polcoApp.verbTrad.home.createLabel">Create a new VerbTrad</span>
+    </button>
+    <div class="modal fade" id="saveVerbTradModal" tabindex="-1" role="dialog" aria-labelledby="myVerbTradLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate
+                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                      ng-submit="create()">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myVerbTradLabel" translate="polcoApp.verbTrad.home.createOrEditLabel">Create or edit a VerbTrad</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="verbTrad.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label translate="polcoApp.verbTrad.value">Value</label>
+                            <input type="text" class="form-control" name="value"
+                                   ng-model="verbTrad.value">
+                        </div>
+
+                        <div class="form-group">
+                            <label translate="polcoApp.verbTrad.verb">verb</label>
+                            <select class="form-control" name="verb" ng-model="verbTrad.verb.id" ng-options="verb.id as verb.value for verb in verbs">
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteVerbTradConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(verbTrad.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="polcoApp.verbTrad.delete.question" translate-values="{id: '{{verbTrad.id}}'}">Are you sure you want to delete this VerbTrad?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th translate="polcoApp.verbTrad.value">Value</th>
+                    <th translate="polcoApp.verbTrad.verb">verb</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="verbTrad in verbTrads">
+                    <td><a ui-sref="verbTradDetail({id:verbTrad.id})">{{verbTrad.id}}</a></td>
+                    <td>{{verbTrad.value}}</td>
+                    <td>{{verbTrad.verb.value}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="verbTradDetail({id:verbTrad.id})"
+                                class="btn btn-info">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="update(verbTrad.id)"
+                                class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(verbTrad.id)"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -8,5 +8,8 @@
     <include file="classpath:config/liquibase/changelog/20150301161843_added_entity_BadWord.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150301162626_added_entity_GoodWord.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150305021938_added_entity_Verb.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20150305022049_added_entity_VerbTrad.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20150305022215_added_entity_Noun.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20150305022254_added_entity_NounTrans.xml" relativeToChangelogFile="false"/>
     <!-- JHipster will add liquibase changelogs here -->
 </databaseChangeLog>

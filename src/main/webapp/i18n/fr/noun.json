@@ -1,0 +1,23 @@
+{
+    "polcoApp": {
+        "noun" : {
+            "home": {
+                "title": "Nouns",
+                "createLabel": "Créer un nouveau Noun",
+                "createOrEditLabel": "Créer ou éditer un Noun"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Noun {{ id }} ?"
+            },
+            "detail": {
+                "title": "Noun"
+            },
+            "value": "Value",
+            "gender": "Gender",
+            "number": "Number",
+            "compound": "Compound",
+            "translations": "translations"
+        }
+    }
+}
+

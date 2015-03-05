@@ -1,0 +1,51 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "translations",
+            "relationshipNameCapitalized": "Translations",
+            "relationshipFieldName": "translations",
+            "otherEntityName": "nounTrans",
+            "relationshipType": "one-to-many",
+            "otherEntityNameCapitalized": "NounTrans"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "value",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Value",
+            "fieldNameUnderscored": "value"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "gender",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Gender",
+            "fieldNameUnderscored": "gender"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "number",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Number",
+            "fieldNameUnderscored": "number"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "compound",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Compound",
+            "fieldNameUnderscored": "compound"
+        }
+    ],
+    "fieldsContainOwnerManyToMany": false,
+    "fieldsContainOneToMany": true,
+    "fieldsContainLocalDate": false,
+    "fieldsContainCustomTime": false,
+    "fieldsContainBigDecimal": false,
+    "fieldsContainDateTime": false,
+    "fieldsContainDate": false,
+    "changelogDate": "20150305022215"
+}
