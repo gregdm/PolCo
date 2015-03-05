@@ -8,6 +8,7 @@
                 "main": "Entities",
                 "badWord": "BadWord",
                 "goodWord": "GoodWord",
+                "verb": "Verb",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {

@@ -1,0 +1,22 @@
+{
+    "polcoApp": {
+        "verb" : {
+            "home": {
+                "title": "Verbs",
+                "createLabel": "Create a new Verb",
+                "createOrEditLabel": "Create or edit a Verb"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Verb {{ id }}?"
+            },
+            "detail": {
+                "title": "Verb"
+            },
+            "value": "Value",
+            "tense": "Tense",
+            "person": "Person",
+            "number": "Number",
+            "translations": "translations"
+        }
+    }
+}
