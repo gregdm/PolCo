@@ -9,5 +9,5 @@ import java.util.List;
  * Spring Data JPA repository for the Prefix entity.
  */
 public interface PrefixRepository extends JpaRepository<Prefix,Long> {
-
+    List<Prefix> findByValue(String value);
 }

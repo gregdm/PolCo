@@ -9,6 +9,6 @@ import java.util.List;
  * Spring Data JPA repository for the BadWord entity.
  */
 public interface BadWordRepository extends JpaRepository<BadWord,Long> {
-
+    List<BadWord> findByValue(String value);
 
 }

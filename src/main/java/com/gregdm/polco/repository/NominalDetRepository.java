@@ -9,5 +9,5 @@ import java.util.List;
  * Spring Data JPA repository for the NominalDet entity.
  */
 public interface NominalDetRepository extends JpaRepository<NominalDet,Long> {
-
+    List<NominalDet> findByValue(String value);
 }

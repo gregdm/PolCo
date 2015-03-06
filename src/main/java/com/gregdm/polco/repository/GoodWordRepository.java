@@ -11,5 +11,5 @@ import java.util.List;
  * Spring Data JPA repository for the GoodWord entity.
  */
 public interface GoodWordRepository extends JpaRepository<GoodWord,Long> {
-
+    List<GoodWord> findByValue(String value);
 }

@@ -9,5 +9,5 @@ import java.util.List;
  * Spring Data JPA repository for the Adjective entity.
  */
 public interface AdjectiveRepository extends JpaRepository<Adjective,Long> {
-
+    List<Adjective> findByValue(String value);
 }

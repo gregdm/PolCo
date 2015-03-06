@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface NounTransRepository extends JpaRepository<NounTrans,Long> {
 
+    List<NounTrans> findByValue(String value);
 }

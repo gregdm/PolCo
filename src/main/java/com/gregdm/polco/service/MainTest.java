@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class MainTest {
 
-
+/*
     public static void main(java.lang.String[] args) {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -35,7 +35,8 @@ public class MainTest {
             e.printStackTrace();
         }
     }
-}
+    */
+} 
 
 
 class MySaxParser extends DefaultHandler {

@@ -10,4 +10,7 @@ import java.util.List;
  */
 public interface NounRepository extends JpaRepository<Noun,Long> {
 
+    List<Noun> findByValue(String value);
+
+
 }

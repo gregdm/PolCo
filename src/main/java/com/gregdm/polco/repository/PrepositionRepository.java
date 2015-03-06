@@ -9,5 +9,5 @@ import java.util.List;
  * Spring Data JPA repository for the Preposition entity.
  */
 public interface PrepositionRepository extends JpaRepository<Preposition,Long> {
-
+    List<Preposition> findByValue(String value);
 }

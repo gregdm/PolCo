@@ -9,5 +9,5 @@ import java.util.List;
  * Spring Data JPA repository for the Adverb entity.
  */
 public interface AdverbRepository extends JpaRepository<Adverb,Long> {
-
+    List<Adverb> findByValue(String value);
 }

@@ -9,5 +9,5 @@ import java.util.List;
  * Spring Data JPA repository for the Verb entity.
  */
 public interface VerbRepository extends JpaRepository<Verb,Long> {
-
+    List<Verb> findByValue(String value);
 }
