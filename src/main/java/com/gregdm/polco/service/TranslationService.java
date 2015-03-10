@@ -2,12 +2,15 @@ package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.BadWord;
 import com.gregdm.polco.domain.GoodWord;
+import com.gregdm.polco.domain.Noun;
 import com.gregdm.polco.repository.BadWordRepository;
 import com.gregdm.polco.repository.GoodWordRepository;
 import com.gregdm.polco.repository.SearchBadWordRepository;
 import com.gregdm.polco.repository.SearchGoodWordRepository;
+import com.gregdm.polco.service.ImportXML.DicoSAXParser;
 import liquibase.util.csv.CSVReader;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.BatchSize;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
+import org.xml.sax.DTDHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -44,7 +48,14 @@ public class TranslationService {
     @Inject
     private SearchBadWordRepository searchBadWordRepository;
 
+    @Inject
+    private NounService nounService;
+
+    @Inject
+    private AdjectiveService adjectiveService;
+
     public String translateText(String text){
+        //TODO GREG keep the uppercase in word
         //Put into set
         String tokens[] = text.split("\\s+");
         String textTranslated = new String(text);
@@ -65,89 +76,31 @@ public class TranslationService {
 
     public File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException
     {
+        //TODO GREG Add header improve with category of word
         File convFile = new File( multipart.getOriginalFilename());
         multipart.transferTo(convFile);
         return convFile;
     }
 
     public String importXML(MultipartFile file){
+        //TODO GREG A ameliorer faire un batch avec des commit flush par paquet dans hibernate
+
+        //TODO GREG Arriver a récupere les nouveaux mots en temps réel du parser XML (peut être pas)
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
+            DicoSAXParser dicoSAXParser = new DicoSAXParser();
 
+            saxParser.parse(file.getInputStream(), dicoSAXParser);
 
+            dicoSAXParser.getNounList().forEach(n -> nounService.add(n));
+            dicoSAXParser.getAdjectiveList().forEach(n -> adjectiveService.add(n));
 
-            DefaultHandler handler = new DefaultHandler() {
-                boolean bfname = false;
-                boolean blname = false;
-                boolean bnname = false;
-                boolean bsalary = false;
-
-
-                public void startElement(String uri, String localName,String qName,
-                                         Attributes attributes) throws SAXException {
-
-                    System.out.println("Start Element :" + qName);
-
-                    if (qName.equalsIgnoreCase("FIRSTNAME")) {
-                        bfname = true;
-                    }
-
-                    if (qName.equalsIgnoreCase("LASTNAME")) {
-                        blname = true;
-                    }
-
-                    if (qName.equalsIgnoreCase("NICKNAME")) {
-                        bnname = true;
-                    }
-
-                    if (qName.equalsIgnoreCase("SALARY")) {
-                        bsalary = true;
-                    }
-
-                }
-
-                public void endElement(String uri, String localName,
-                                       String qName) throws SAXException {
-
-                    System.out.println("End Element :" + qName);
-
-                }
-
-                public void characters(char ch[], int start, int length) throws SAXException {
-
-                    if (bfname) {
-                        System.out.println("First Name : " + new String(ch, start, length));
-                        bfname = false;
-                    }
-
-                    if (blname) {
-                        System.out.println("Last Name : " + new String(ch, start, length));
-                        blname = false;
-                    }
-
-                    if (bnname) {
-                        System.out.println("Nick Name : " + new String(ch, start, length));
-                        bnname = false;
-                    }
-
-                    if (bsalary) {
-                        System.out.println("Salary : " + new String(ch, start, length));
-                        bsalary = false;
-                    }
-
-                }
-
-            };
-
-            saxParser.parse(file.getInputStream(), handler);
         } catch (Exception e){
             e.printStackTrace();
         }
         return "XML";
     }
-
-
 
     public String importCSV(MultipartFile file){
         if (!file.isEmpty()) {

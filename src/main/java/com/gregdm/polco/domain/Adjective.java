@@ -105,4 +105,10 @@ public class Adjective implements Serializable {
                 ", number='" + number + "'" +
                 '}';
     }
+
+    public void lowerStrings() {
+        this.setValue(this.getValue().toLowerCase().trim());
+        this.setGender(this.getGender().toLowerCase().trim());
+        this.setNumber(this.getNumber().toLowerCase().trim());
+    }
 }

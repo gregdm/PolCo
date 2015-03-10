@@ -9,5 +9,5 @@ import java.util.List;
  * Spring Data JPA repository for the InterjectionTrans entity.
  */
 public interface InterjectionTransRepository extends JpaRepository<InterjectionTrans,Long> {
-
+    List<InterjectionTrans> findByValue(String value);
 }

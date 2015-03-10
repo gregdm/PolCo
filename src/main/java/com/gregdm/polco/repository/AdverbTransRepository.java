@@ -9,5 +9,5 @@ import java.util.List;
  * Spring Data JPA repository for the AdverbTrans entity.
  */
 public interface AdverbTransRepository extends JpaRepository<AdverbTrans,Long> {
-
+    List<AdverbTrans> findByValue(String value);
 }

@@ -1,5 +1,6 @@
 package com.gregdm.polco.repository;
 
+import com.gregdm.polco.domain.Adjective;
 import com.gregdm.polco.domain.AdjectiveTrans;
 import org.springframework.data.jpa.repository.*;
 
@@ -10,4 +11,5 @@ import java.util.List;
  */
 public interface AdjectiveTransRepository extends JpaRepository<AdjectiveTrans,Long> {
 
+    List<AdjectiveTrans> findByValue(String value);
 }

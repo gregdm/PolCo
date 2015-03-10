@@ -15,7 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "T_NOUN")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Noun implements Serializable {
+public class Noun extends  AbstractWord implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -80,6 +80,13 @@ public class Noun implements Serializable {
 
     public Set<NounTrans> getTranslationss() {
         return translationss;
+    }
+
+    public void lowerStrings(){
+        this.setValue(this.getValue().toLowerCase().trim());
+        this.setCompound(this.getCompound().toLowerCase().trim());
+        this.setGender(this.getGender().toLowerCase().trim());
+        this.setNumber(this.getNumber().toLowerCase().trim());
     }
 
     public void setTranslationss(Set<NounTrans> nounTranss) {

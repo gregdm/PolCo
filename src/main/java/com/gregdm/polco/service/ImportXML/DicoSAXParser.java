@@ -1,45 +1,29 @@
-package com.gregdm.polco.service;
+package com.gregdm.polco.service.ImportXML;
 
 import com.gregdm.polco.domain.*;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
+import com.gregdm.polco.repository.*;
+import com.gregdm.polco.service.NounService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.persistence.Entity;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by Greg on 04/03/2015.
+ * Created by Greg on 09/03/2015.
  */
-public class MainTest {
+public class DicoSAXParser extends DefaultHandler {
 
-/*
-    public static void main(java.lang.String[] args) {
-        try {
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            SAXParser saxParser = factory.newSAXParser();
-
-            // made new external class extending DefaultHandler
-            MySaxParser handler = new MySaxParser();
-
-
-            saxParser.parse("C:\\Users\\Greg\\Desktop\\dela-fr-public-u8.dic.xml",
-                handler);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    */
-} 
-
-
-class MySaxParser extends DefaultHandler {
+    @Inject
+    private NounService nounService;
 
     public static final String NOUN = "noun";
     public static final String ADJ = "adj";
@@ -66,6 +50,16 @@ class MySaxParser extends DefaultHandler {
     Inflected inflectedTemp;
     String tmpValue;
     boolean lvlEntry = true;
+
+    private List<Noun> nounList = new LinkedList<>();
+
+    private List<Verb> verbList = new LinkedList<>();
+    private List<Adjective> adjectiveList = new LinkedList<>();
+    private List<Adverb> adverbList = new LinkedList<>();
+    private List<Prefix> prefixList = new LinkedList<>();
+    private List<Interjection> interjectionList = new LinkedList<>();
+    private List<Preposition> prepositionList = new LinkedList<>();
+    private List<NominalDet> nominalDetList = new LinkedList<>();
 
     public void startElement(String uri, String localName, String qName,
                              Attributes attributes)
@@ -130,7 +124,7 @@ class MySaxParser extends DefaultHandler {
                 if (StringUtils.isNotBlank(i.map.get(NUMBER))) {
                     noun.setNumber(i.map.get(NUMBER));
                 }
-                System.out.println(noun.toString());
+                nounList.add(noun);
             }
         } else if (VERB.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
@@ -146,7 +140,7 @@ class MySaxParser extends DefaultHandler {
                 if (StringUtils.isNotBlank(i.map.get(NUMBER))) {
                     verb.setNumber(i.map.get(NUMBER));
                 }
-                System.out.println(verb.toString());
+                verbList.add(verb);
             }
         } else if (ADJ.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
@@ -163,52 +157,79 @@ class MySaxParser extends DefaultHandler {
                 } else {
                     adj.setNumber(NONE);
                 }
-                System.out.println(adj.toString());
+                adjectiveList.add(adj);
             }
         } else if (PREP.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
                 Preposition prep = new Preposition();
                 prep.setValue(i.form);
-                System.out.println(prep.toString());
+                prepositionList.add(prep);
             }
         }  else if (INTJ.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
                 Interjection intj = new Interjection();
                 intj.setValue(i.form);
-                System.out.println(intj.toString());
+                interjectionList.add(intj);
             }
         }  else if (PREFIX.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
                 Prefix prefix = new Prefix();
                 prefix.setValue(i.form);
-                System.out.println(prefix.toString());
+                prefixList.add(prefix);
             }
         }  else if (ADVERB.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
                 Adverb adv = new Adverb();
                 adv.setValue(i.form);
-                System.out.println(adv.toString());
+                adverbList.add(adv);
             }
         }   else if (NOMINALDET.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
                 NominalDet nomDet = new NominalDet();
                 nomDet.setValue(i.form);
-                System.out.println(nomDet.toString());
+                nominalDetList.add(nomDet);
             }
         }
     }
+
+    public List<Noun> getNounList() {
+        return nounList;
+    }
+
+
+    public List<Verb> getVerbList() {
+        return verbList;
+    }
+
+
+
+    public List<Adjective> getAdjectiveList() {
+        return adjectiveList;
+    }
+
+
+
+    public List<Adverb> getAdverbList() {
+        return adverbList;
+    }
+
+
+    public List<Prefix> getPrefixList() {
+        return prefixList;
+    }
+
+
+    public List<Interjection> getInterjectionList() {
+        return interjectionList;
+    }
+
+
+    public List<Preposition> getPrepositionList() {
+        return prepositionList;
+    }
+
+    public List<NominalDet> getNominalDetList() {
+        return nominalDetList;
+    }
+
 };
-
-
-class Entry {
-    String pos = new String();
-    String compound = new String();
-    public List<Inflected> inflecteds = new ArrayList<Inflected>();
-}
-
-
-class Inflected {
-    public String form;
-    Map<String,String> map = new HashMap<>();
-}
-

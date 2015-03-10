@@ -9,5 +9,6 @@ import java.util.List;
  * Spring Data JPA repository for the VerbTrans entity.
  */
 public interface VerbTransRepository extends JpaRepository<VerbTrans,Long> {
+    List<VerbTrans> findByValue(String value);
 
 }

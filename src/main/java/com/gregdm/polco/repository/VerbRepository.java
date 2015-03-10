@@ -10,4 +10,7 @@ import java.util.List;
  */
 public interface VerbRepository extends JpaRepository<Verb,Long> {
     List<Verb> findByValue(String value);
+
+    List<Verb> findByValueAndPersonAndTenseAndNumber(String value, String person, String tense, String number);
+
 }

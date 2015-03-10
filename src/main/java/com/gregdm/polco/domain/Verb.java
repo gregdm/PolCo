@@ -86,6 +86,13 @@ public class Verb implements Serializable {
         this.translationss = verbTranss;
     }
 
+    public void lowerStrings(){
+        this.setValue(this.getValue().toLowerCase().trim());
+        this.setTense(this.getTense().toLowerCase().trim());
+        this.setPerson(this.getPerson().toLowerCase().trim());
+        this.setNumber(this.getNumber().toLowerCase().trim());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -9,5 +9,6 @@ import java.util.List;
  * Spring Data JPA repository for the PrepositionTrans entity.
  */
 public interface PrepositionTransRepository extends JpaRepository<PrepositionTrans,Long> {
+    List<PrepositionTrans> findByValue(String value);
 
 }

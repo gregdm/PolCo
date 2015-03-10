@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface AdjectiveRepository extends JpaRepository<Adjective,Long> {
     List<Adjective> findByValue(String value);
+
+    List<Adjective> findByValueAndGenderAndNumber(String value, String gender, String Number);
 }
