@@ -9,5 +9,5 @@ import java.util.List;
  * Spring Data JPA repository for the Expression entity.
  */
 public interface ExpressionRepository extends JpaRepository<Expression,Long> {
-
+    List<Expression> findByValue(String value);
 }

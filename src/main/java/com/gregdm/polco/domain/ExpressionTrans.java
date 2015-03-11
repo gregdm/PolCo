@@ -10,12 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A Expression.
+ * A ExpressionTrans.
  */
 @Entity
-@Table(name = "T_EXPRESSION")
+@Table(name = "T_EXPRESSIONTRANS")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Expression implements Serializable {
+public class ExpressionTrans implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,10 +24,8 @@ public class Expression implements Serializable {
     @Column(name = "value")
     private String value;
 
-    @OneToMany(mappedBy = "expression")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ExpressionTrans> expressionTranss = new HashSet<>();
+    @ManyToOne
+    private Expression expression;
 
     public Long getId() {
         return id;
@@ -45,16 +43,12 @@ public class Expression implements Serializable {
         this.value = value;
     }
 
-    public Set<ExpressionTrans> getExpressionTranss() {
-        return expressionTranss;
+    public Expression getExpression() {
+        return expression;
     }
 
-    public void setExpressionTranss(Set<ExpressionTrans> expressionTranss) {
-        this.expressionTranss = expressionTranss;
-    }
-
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
+    public void setExpression(Expression expression) {
+        this.expression = expression;
     }
 
     @Override
@@ -66,9 +60,9 @@ public class Expression implements Serializable {
             return false;
         }
 
-        Expression expression = (Expression) o;
+        ExpressionTrans expressionTrans = (ExpressionTrans) o;
 
-        if (id != null ? !id.equals(expression.id) : expression.id != null) return false;
+        if (id != null ? !id.equals(expressionTrans.id) : expressionTrans.id != null) return false;
 
         return true;
     }
@@ -80,7 +74,7 @@ public class Expression implements Serializable {
 
     @Override
     public String toString() {
-        return "Expression{" +
+        return "ExpressionTrans{" +
                 "id=" + id +
                 ", value='" + value + "'" +
                 '}';

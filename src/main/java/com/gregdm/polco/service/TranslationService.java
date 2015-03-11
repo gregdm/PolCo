@@ -1,8 +1,6 @@
 package com.gregdm.polco.service;
 
-import com.gregdm.polco.domain.BadWord;
-import com.gregdm.polco.domain.GoodWord;
-import com.gregdm.polco.domain.Noun;
+import com.gregdm.polco.domain.*;
 import com.gregdm.polco.repository.BadWordRepository;
 import com.gregdm.polco.repository.GoodWordRepository;
 import com.gregdm.polco.repository.SearchBadWordRepository;
@@ -10,7 +8,6 @@ import com.gregdm.polco.repository.SearchGoodWordRepository;
 import com.gregdm.polco.service.ImportXML.DicoSAXParser;
 import liquibase.util.csv.CSVReader;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.annotations.BatchSize;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,15 +16,13 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import org.xml.sax.Attributes;
-import org.xml.sax.DTDHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -65,6 +60,8 @@ public class TranslationService {
     private InterjectionService interjectionService;
     @Inject
     private AdverbService adverbService;
+    @Inject
+    private ExpressionService expressionService;
 
     public String translateText(String text){
         //TODO GREG keep the uppercase in word
@@ -86,6 +83,44 @@ public class TranslationService {
         return textTranslated;
     }
 
+    private String translateExpression(String text){
+        List<Expression> expressions = expressionService.findAll();
+        String newString = text;
+        for(Expression expression : expressions){
+            if(text.contains(expression.getValue())){
+                newString.replace(expression.getValue(), expression.getExpressionTranss().iterator().next().getValue());
+            }
+        }
+        return newString;
+    }
+
+    private String findTraduction(String s){
+        List<Noun> nouns = nounService.findByValue(s);
+        List<Adjective> adjectives = adjectiveService.findByValue(s);
+        List<Interjection> interjections = interjectionService.findByValue(s);
+        List<Verb> verbs = verbService.findByValue(s);
+
+        if(collectionsEmpty(nouns, adjectives,interjections,verbs)){
+            return s;
+        }else {
+            if(onlyOneCollectionNotEmpty(nouns, adjectives,interjections,verbs)){
+                if(!CollectionUtils.isEmpty(nouns)){
+                    return nouns.iterator().next().getTranslationss().iterator().next().getValue();
+                }
+                if(!CollectionUtils.isEmpty(adjectives)){
+                    return adjectives.iterator().next().getTranslationss().iterator().next().getValue();
+                }
+                if(!CollectionUtils.isEmpty(verbs)){
+                    return verbs.iterator().next().getTranslationss().iterator().next().getValue();
+                }
+                if(!CollectionUtils.isEmpty(interjections)){
+                    return interjections.iterator().next().getTranslationss().iterator().next().getValue();
+                }
+            }
+            return s;
+        }
+    }
+
     public File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException
     {
         //TODO GREG Add header improve with category of word
@@ -104,8 +139,7 @@ public class TranslationService {
             DicoSAXParser dicoSAXParser = new DicoSAXParser();
 
             //saxParser.parse(file.getInputStream(), dicoSAXParser);
-            saxParser.parse("C:\\Users\\Greg\\Desktop\\Dictio\\dico-a-1.xml", dicoSAXParser);
-
+            saxParser.parse("C:\\Users\\Greg\\Desktop\\Dictio\\dico-a-c.xml", dicoSAXParser);
 
             dicoSAXParser.getVerbList().forEach(n -> verbService.add(n));
             dicoSAXParser.getAdverbList().forEach(n -> adverbService.add(n));
@@ -120,6 +154,30 @@ public class TranslationService {
             e.printStackTrace();
         }
         return "XML";
+    }
+
+    private boolean onlyOneCollectionNotEmpty(Collection... collections){
+        int nbCollectionNotEmpty = 0;
+        for(int i=0;i<collections.length;i++){
+            if(!CollectionUtils.isEmpty(collections[i])){
+                nbCollectionNotEmpty ++;
+            }
+        }
+
+        if(nbCollectionNotEmpty==1){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean collectionsEmpty(Collection... collections){
+        for(int i=0;i<collections.length;i++){
+            if(!CollectionUtils.isEmpty(collections[i])){
+                return false;
+            }
+        }
+        return true;
     }
 
     public String importCSV(MultipartFile file){

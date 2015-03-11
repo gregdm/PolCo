@@ -1,0 +1,115 @@
+<div>
+
+    <h2 translate="polcoApp.expressionTrans.home.title">ExpressionTrans</h2>
+
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveExpressionTransModal" ng-click="clear()">
+        <span class="glyphicon glyphicon-flash"></span> <span translate="polcoApp.expressionTrans.home.createLabel">Create a new ExpressionTrans</span>
+    </button>
+    <div class="modal fade" id="saveExpressionTransModal" tabindex="-1" role="dialog" aria-labelledby="myExpressionTransLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate
+                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                      ng-submit="create()">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myExpressionTransLabel" translate="polcoApp.expressionTrans.home.createOrEditLabel">Create or edit a ExpressionTrans</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="expressionTrans.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label translate="polcoApp.expressionTrans.value">Value</label>
+                            <input type="text" class="form-control" name="value"
+                                   ng-model="expressionTrans.value">
+                        </div>
+
+                        <div class="form-group">
+                            <label translate="polcoApp.expressionTrans.Expression">Expression</label>
+                            <select class="form-control" name="Expression" ng-model="expressionTrans.expression.id" ng-options="expression.id as expression.value for expression in expressions">
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteExpressionTransConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(expressionTrans.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="polcoApp.expressionTrans.delete.question" translate-values="{id: '{{expressionTrans.id}}'}">Are you sure you want to delete this ExpressionTrans?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th translate="polcoApp.expressionTrans.value">Value</th>
+                    <th translate="polcoApp.expressionTrans.Expression">Expression</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="expressionTrans in expressionTranss">
+                    <td><a ui-sref="expressionTransDetail({id:expressionTrans.id})">{{expressionTrans.id}}</a></td>
+                    <td>{{expressionTrans.value}}</td>
+                    <td>{{expressionTrans.Expression.value}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="expressionTransDetail({id:expressionTrans.id})"
+                                class="btn btn-info">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="update(expressionTrans.id)"
+                                class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(expressionTrans.id)"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

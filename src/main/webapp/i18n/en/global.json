@@ -25,6 +25,7 @@
                 "nominalDetTrans": "NominalDetTrans",
                 "verbTrans": "VerbTrans",
                 "expression": "Expression",
+                "expressionTrans": "ExpressionTrans",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {
