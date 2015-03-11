@@ -53,6 +53,10 @@ public class Preposition implements Serializable {
         this.translationss = prepositionTranss;
     }
 
+    public void lowerStrings(){
+        this.setValue(this.getValue().toLowerCase().trim());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

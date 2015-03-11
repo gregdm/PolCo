@@ -23,5 +23,6 @@
     <include file="classpath:config/liquibase/changelog/20150305023501_added_entity_NominalDet.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150305023542_added_entity_NominalDetTrans.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150305023731_added_entity_VerbTrans.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20150311231241_added_entity_Expression.xml" relativeToChangelogFile="false"/>
     <!-- JHipster will add liquibase changelogs here -->
 </databaseChangeLog>

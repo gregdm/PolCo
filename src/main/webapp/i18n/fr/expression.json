@@ -1,0 +1,20 @@
+{
+    "polcoApp": {
+        "expression" : {
+            "home": {
+                "title": "Expressions",
+                "createLabel": "Créer un nouveau Expression",
+                "createOrEditLabel": "Créer ou éditer un Expression"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Expression {{ id }} ?"
+            },
+            "detail": {
+                "title": "Expression"
+            },
+            "value": "Value",
+            "ExpressionTrans": "ExpressionTrans"
+        }
+    }
+}
+

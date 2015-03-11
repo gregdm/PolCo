@@ -56,6 +56,4 @@ public class NounService extends AbstractService{
            return nounList.iterator().next();
         }
     }
-
-
 }

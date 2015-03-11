@@ -15,7 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "T_ADVERB")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Adverb implements Serializable {
+public class Adverb extends AbstractWord implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,6 +52,11 @@ public class Adverb implements Serializable {
     public void setTranslationss(Set<AdverbTrans> adverbTranss) {
         this.translationss = adverbTranss;
     }
+
+    public void lowerStrings(){
+        this.setValue(this.getValue().toLowerCase().trim());
+    }
+
 
     @Override
     public boolean equals(Object o) {

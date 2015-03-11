@@ -120,9 +120,13 @@ public class DicoSAXParser extends DefaultHandler {
                 }
                 if (StringUtils.isNotBlank(i.map.get(GENDER))) {
                     noun.setGender(i.map.get(GENDER));
+                } else {
+                    noun.setGender(NONE);
                 }
                 if (StringUtils.isNotBlank(i.map.get(NUMBER))) {
                     noun.setNumber(i.map.get(NUMBER));
+                } else {
+                    noun.setNumber(NONE);
                 }
                 nounList.add(noun);
             }
@@ -133,12 +137,18 @@ public class DicoSAXParser extends DefaultHandler {
 
                 if (StringUtils.isNotBlank(i.map.get(TENSE))) {
                     verb.setTense(i.map.get(TENSE));
+                } else {
+                    verb.setTense(NONE);
                 }
                 if (StringUtils.isNotBlank(i.map.get(PERSON))) {
                     verb.setPerson(i.map.get(PERSON));
+                } else {
+                    verb.setPerson(NONE);
                 }
                 if (StringUtils.isNotBlank(i.map.get(NUMBER))) {
                     verb.setNumber(i.map.get(NUMBER));
+                } else {
+                    verb.setNumber(NONE);
                 }
                 verbList.add(verb);
             }

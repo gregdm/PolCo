@@ -10,12 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A Interjection.
+ * A Expression.
  */
 @Entity
-@Table(name = "T_INTERJECTION")
+@Table(name = "T_EXPRESSION")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Interjection implements Serializable {
+public class Expression implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,10 +24,10 @@ public class Interjection implements Serializable {
     @Column(name = "value")
     private String value;
 
-    @OneToMany(mappedBy = "interjection")
+    @OneToMany(mappedBy = "expression")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<InterjectionTrans> translationss = new HashSet<>();
+    private Set<ExpressionTrans> expressionTranss = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -45,16 +45,12 @@ public class Interjection implements Serializable {
         this.value = value;
     }
 
-    public Set<InterjectionTrans> getTranslationss() {
-        return translationss;
+    public Set<ExpressionTrans> getExpressionTranss() {
+        return expressionTranss;
     }
 
-    public void setTranslationss(Set<InterjectionTrans> interjectionTranss) {
-        this.translationss = interjectionTranss;
-    }
-
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
+    public void setExpressionTranss(Set<ExpressionTrans> expressionTranss) {
+        this.expressionTranss = expressionTranss;
     }
 
     @Override
@@ -66,9 +62,9 @@ public class Interjection implements Serializable {
             return false;
         }
 
-        Interjection interjection = (Interjection) o;
+        Expression expression = (Expression) o;
 
-        if (id != null ? !id.equals(interjection.id) : interjection.id != null) return false;
+        if (id != null ? !id.equals(expression.id) : expression.id != null) return false;
 
         return true;
     }
@@ -80,7 +76,7 @@ public class Interjection implements Serializable {
 
     @Override
     public String toString() {
-        return "Interjection{" +
+        return "Expression{" +
                 "id=" + id +
                 ", value='" + value + "'" +
                 '}';

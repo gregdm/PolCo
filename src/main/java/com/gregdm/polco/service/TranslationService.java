@@ -53,6 +53,18 @@ public class TranslationService {
 
     @Inject
     private AdjectiveService adjectiveService;
+    @Inject
+    private VerbService verbService;
+    @Inject
+    private PrefixService prefixService;
+    @Inject
+    private PrepositionService prepositionService;
+    @Inject
+    private NominalDetService nominalDetService;
+    @Inject
+    private InterjectionService interjectionService;
+    @Inject
+    private AdverbService adverbService;
 
     public String translateText(String text){
         //TODO GREG keep the uppercase in word
@@ -91,8 +103,16 @@ public class TranslationService {
             SAXParser saxParser = factory.newSAXParser();
             DicoSAXParser dicoSAXParser = new DicoSAXParser();
 
-            saxParser.parse(file.getInputStream(), dicoSAXParser);
+            //saxParser.parse(file.getInputStream(), dicoSAXParser);
+            saxParser.parse("C:\\Users\\Greg\\Desktop\\Dictio\\dico-a-1.xml", dicoSAXParser);
 
+
+            dicoSAXParser.getVerbList().forEach(n -> verbService.add(n));
+            dicoSAXParser.getAdverbList().forEach(n -> adverbService.add(n));
+            dicoSAXParser.getInterjectionList().forEach(n -> interjectionService.add(n));
+            dicoSAXParser.getNominalDetList().forEach(n -> nominalDetService.add(n));
+            dicoSAXParser.getPrefixList().forEach(n -> prefixService.add(n));
+            dicoSAXParser.getPrepositionList().forEach(n -> prepositionService.add(n));
             dicoSAXParser.getNounList().forEach(n -> nounService.add(n));
             dicoSAXParser.getAdjectiveList().forEach(n -> adjectiveService.add(n));
 
@@ -109,7 +129,6 @@ public class TranslationService {
             String[] row = null;
             while((row = reader.readNext()) != null) {
                 if(row.length>1){
-
                     BadWord badWord = new BadWord();
                     List<BadWord> badWordFind = searchBadWordRepository.findByValue(row[0].trim().toLowerCase());
                     if(CollectionUtils.isEmpty(badWordFind)){
@@ -153,9 +172,7 @@ public class TranslationService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return "fILE Greg";
-
     } else {
         return "You failed to upload " + file.getName() + " because the file was empty.";
     }
