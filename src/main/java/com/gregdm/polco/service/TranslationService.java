@@ -129,7 +129,7 @@ public class TranslationService {
         return convFile;
     }
 
-    public String importXML(MultipartFile file){
+    public String importXML(String path){
         //TODO GREG A ameliorer faire un batch avec des commit flush par paquet dans hibernate
 
         //TODO GREG Arriver a récupere les nouveaux mots en temps réel du parser XML (peut être pas)
@@ -139,7 +139,7 @@ public class TranslationService {
             DicoSAXParser dicoSAXParser = new DicoSAXParser();
 
             //saxParser.parse(file.getInputStream(), dicoSAXParser);
-            saxParser.parse("C:\\Users\\Greg\\Desktop\\Dictio\\dico-a-c.xml", dicoSAXParser);
+            saxParser.parse(path, dicoSAXParser);
 
             dicoSAXParser.getVerbList().forEach(n -> verbService.add(n));
             dicoSAXParser.getAdverbList().forEach(n -> adverbService.add(n));

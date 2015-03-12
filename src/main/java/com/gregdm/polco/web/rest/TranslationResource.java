@@ -62,7 +62,16 @@ public class TranslationResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public String importXML(@RequestBody MultipartFile file) throws URISyntaxException {
-        translationService.importXML(file);
+        translationService.importXML("C:\\Users\\Greg\\Desktop\\Dictio\\dico-c-d.xml");
+        translationService.importXML("C:\\Users\\Greg\\Desktop\\Dictio\\dico-d-e.xml");
+        translationService.importXML("C:\\Users\\Greg\\Desktop\\Dictio\\dico-d-e-2.xml");
+        translationService.importXML("C:\\Users\\Greg\\Desktop\\Dictio\\dico-e-f.xml");
+        translationService.importXML("C:\\Users\\Greg\\Desktop\\Dictio\\dico-f-l.xml");
+        translationService.importXML("C:\\Users\\Greg\\Desktop\\Dictio\\dico-l-p.xml");
+        translationService.importXML("C:\\Users\\Greg\\Desktop\\Dictio\\dico-o-p.xml");
+        translationService.importXML("C:\\Users\\Greg\\Desktop\\Dictio\\dico-p-r.xml");
+        translationService.importXML("C:\\Users\\Greg\\Desktop\\Dictio\\dico-r-t.xml");
+        translationService.importXML("C:\\Users\\Greg\\Desktop\\Dictio\\dico-t-z.xml");
         return "{ \"value\":\"greg\"}";
     }
 }
