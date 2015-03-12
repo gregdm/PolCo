@@ -14,4 +14,6 @@ public interface NounRepository extends JpaRepository<Noun,Long> {
 
     List<Noun> findByValueAndGenderAndNumberAndCompound(String value, String gender, String number, String compound);
 
+    List<Noun> findByValueAndGenderAndNumber(String value, String gender, String number);
+
 }

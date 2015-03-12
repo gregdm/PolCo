@@ -129,7 +129,7 @@ public class TranslationService {
         return convFile;
     }
 
-    public String importXML(String path){
+    public boolean importXML(MultipartFile file){
         //TODO GREG A ameliorer faire un batch avec des commit flush par paquet dans hibernate
 
         //TODO GREG Arriver a récupere les nouveaux mots en temps réel du parser XML (peut être pas)
@@ -139,7 +139,7 @@ public class TranslationService {
             DicoSAXParser dicoSAXParser = new DicoSAXParser();
 
             //saxParser.parse(file.getInputStream(), dicoSAXParser);
-            saxParser.parse(path, dicoSAXParser);
+            saxParser.parse(file.getInputStream(), dicoSAXParser);
 
             dicoSAXParser.getVerbList().forEach(n -> verbService.add(n));
             dicoSAXParser.getAdverbList().forEach(n -> adverbService.add(n));
@@ -149,11 +149,11 @@ public class TranslationService {
             dicoSAXParser.getPrepositionList().forEach(n -> prepositionService.add(n));
             dicoSAXParser.getNounList().forEach(n -> nounService.add(n));
             dicoSAXParser.getAdjectiveList().forEach(n -> adjectiveService.add(n));
-
         } catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage());
+            return false;
         }
-        return "XML";
+        return true;
     }
 
     private boolean onlyOneCollectionNotEmpty(Collection... collections){
