@@ -1,6 +1,6 @@
 package com.gregdm.polco.service;
 
-import com.gregdm.polco.domain.Verb;
+import com.gregdm.polco.domain.*;
 import com.gregdm.polco.domain.Verb;
 import com.gregdm.polco.exception.BadObjectException;
 import com.gregdm.polco.repository.*;
@@ -23,6 +23,31 @@ public class VerbService extends  AbstractService{
 
     @Inject
     private VerbRepository verbRepository;
+
+    @Inject
+    private VerbTransRepository verbTransRepository;
+
+    public boolean add(WordValidation word){
+        if(StringUtils.isBlank(word.getValue())){
+            return false;
+        }
+        Verb verb = new Verb();
+        verb.setValue(word.getValue());
+        verb.setPerson(word.getPerson());
+        verb.setTense(word.getTense());
+        verb.setNumber(word.getNumber());
+
+        verb = add(verb);
+
+        VerbTrans verbTrans = new VerbTrans();
+        verbTrans.setValue(word.getTranslation());
+        verbTrans.setVerb(verb);
+        if(CollectionUtils.isEmpty(verbTransRepository.findByValueAndVerb(verbTrans.getValue(), verbTrans.getVerb()))){
+            verbTransRepository.save(verbTrans);
+            return true;
+        }
+        return false;
+    }
 
     public List<Verb> findByValue(String value){
         return verbRepository.findByValue(this.stringBDD(value));

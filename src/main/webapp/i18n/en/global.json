@@ -26,6 +26,7 @@
                 "verbTrans": "VerbTrans",
                 "expression": "Expression",
                 "expressionTrans": "ExpressionTrans",
+                "wordValidation": "WordValidation",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {

@@ -1,8 +1,10 @@
 package com.gregdm.polco.service;
 
-import com.gregdm.polco.domain.Interjection;
+import com.gregdm.polco.domain.*;
 import com.gregdm.polco.exception.BadObjectException;
+import com.gregdm.polco.repository.InterjectionTransRepository;
 import com.gregdm.polco.repository.InterjectionRepository;
+import com.gregdm.polco.repository.InterjectionTransRepository;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,27 @@ public class InterjectionService extends AbstractService{
 
     @Inject
     private InterjectionRepository interjectionRepository;
+    @Inject
+    private InterjectionTransRepository interjectionTransRepository;
+
+
+    public boolean add(WordValidation word){
+        if(StringUtils.isBlank(word.getValue())){
+            return false;
+        }
+        Interjection interjection = new Interjection();
+        interjection.setValue(word.getValue());
+        interjection = add(interjection);
+
+        InterjectionTrans interjectionTrans = new InterjectionTrans();
+        interjectionTrans.setValue(word.getTranslation());
+        interjectionTrans.setInterjection(interjection);
+        if(CollectionUtils.isEmpty(interjectionTransRepository.findByValueAndInterjection(interjectionTrans.getValue(), interjectionTrans.getInterjection()))){
+            interjectionTransRepository.save(interjectionTrans);
+            return true;
+        }
+        return false;
+    }
 
     public List<Interjection> findByValue(String value){
         return interjectionRepository.findByValue(this.stringBDD(value));

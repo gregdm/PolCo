@@ -12,4 +12,5 @@ import java.util.List;
 public interface AdjectiveTransRepository extends JpaRepository<AdjectiveTrans,Long> {
 
     List<AdjectiveTrans> findByValue(String value);
+    List<Adjective> findByValueAndAdjective(String value, Adjective adjective);
 }

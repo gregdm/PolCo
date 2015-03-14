@@ -1,0 +1,78 @@
+
+<div>
+    <h2><span translate="polcoApp.wordValidation.detail.title">WordValidation</span> {{wordValidation.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="entity.detail.field">Field</th>
+                    <th translate="entity.detail.value">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span translate="polcoApp.wordValidation.value">Value</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{wordValidation.value}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="polcoApp.wordValidation.translation">Translation</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{wordValidation.translation}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="polcoApp.wordValidation.wordType">WordType</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{wordValidation.wordType}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="polcoApp.wordValidation.number">Number</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{wordValidation.number}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="polcoApp.wordValidation.gender">Gender</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{wordValidation.gender}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="polcoApp.wordValidation.person">Person</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{wordValidation.person}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="polcoApp.wordValidation.tense">Tense</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{wordValidation.tense}}" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="wordValidation"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

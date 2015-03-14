@@ -1,0 +1,25 @@
+{
+    "polcoApp": {
+        "wordValidation" : {
+            "home": {
+                "title": "WordValidations",
+                "createLabel": "Créer un nouveau WordValidation",
+                "createOrEditLabel": "Créer ou éditer un WordValidation"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le WordValidation {{ id }} ?"
+            },
+            "detail": {
+                "title": "WordValidation"
+            },
+            "value": "Value",
+            "translation": "Translation",
+            "wordType": "WordType",
+            "number": "Number",
+            "gender": "Gender",
+            "person": "Person",
+            "tense": "Tense"
+        }
+    }
+}
+

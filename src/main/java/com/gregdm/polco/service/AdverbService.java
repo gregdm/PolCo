@@ -1,7 +1,6 @@
 package com.gregdm.polco.service;
 
-import com.gregdm.polco.domain.Adjective;
-import com.gregdm.polco.domain.Adverb;
+import com.gregdm.polco.domain.*;
 import com.gregdm.polco.exception.BadObjectException;
 import com.gregdm.polco.repository.*;
 import org.apache.commons.lang.StringUtils;
@@ -23,6 +22,26 @@ public class AdverbService extends AbstractService{
 
     @Inject
     private AdverbRepository adverbRepository;
+    @Inject
+    private AdverbTransRepository adverbTransRepository;
+
+    public boolean add(WordValidation word){
+        if(StringUtils.isBlank(word.getValue())){
+            return false;
+        }
+        Adverb adverb = new Adverb();
+        adverb.setValue(word.getValue());
+        adverb = add(adverb);
+
+        AdverbTrans adverbTrans = new AdverbTrans();
+        adverbTrans.setValue(word.getTranslation());
+        adverbTrans.setAdverb(adverb);
+        if(CollectionUtils.isEmpty(adverbTransRepository.findByValueAndAdverb(adverbTrans.getValue(), adverbTrans.getAdverb()))){
+            adverbTransRepository.save(adverbTrans);
+            return true;
+        }
+        return false;
+    }
 
     public List<Adverb> findByValue(String value){
         return adverbRepository.findByValue(this.stringBDD(value));
@@ -38,6 +57,7 @@ public class AdverbService extends AbstractService{
         }
     }
 
+    //TODO GREG replace by find or create
     public Adverb add(Adverb adverb){
         if(adverb == null && StringUtils.isNotBlank(adverb.getValue())){
             log.error("Adverb is null");

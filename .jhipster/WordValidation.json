@@ -1,0 +1,62 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "value",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Value",
+            "fieldNameUnderscored": "value"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "translation",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Translation",
+            "fieldNameUnderscored": "translation"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "wordType",
+            "fieldType": "String",
+            "fieldNameCapitalized": "WordType",
+            "fieldNameUnderscored": "word_type"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "number",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Number",
+            "fieldNameUnderscored": "number"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "gender",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Gender",
+            "fieldNameUnderscored": "gender"
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "person",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Person",
+            "fieldNameUnderscored": "person"
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "tense",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Tense",
+            "fieldNameUnderscored": "tense"
+        }
+    ],
+    "fieldsContainOwnerManyToMany": false,
+    "fieldsContainOneToMany": false,
+    "fieldsContainLocalDate": false,
+    "fieldsContainCustomTime": false,
+    "fieldsContainBigDecimal": false,
+    "fieldsContainDateTime": false,
+    "fieldsContainDate": false,
+    "changelogDate": "20150312204447"
+}

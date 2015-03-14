@@ -1,6 +1,6 @@
 package com.gregdm.polco.service;
 
-import com.gregdm.polco.domain.Adjective;
+import com.gregdm.polco.domain.*;
 import com.gregdm.polco.exception.BadObjectException;
 import com.gregdm.polco.repository.*;
 import org.apache.commons.lang.StringUtils;
@@ -22,6 +22,29 @@ public class AdjectiveService extends AbstractService{
 
     @Inject
     private AdjectiveRepository adjectiveRepository;
+    @Inject
+    private AdjectiveTransRepository adjectiveTransRepository;
+
+    public boolean add(WordValidation word){
+        if(StringUtils.isBlank(word.getValue())){
+            return false;
+        }
+        Adjective adjective = new Adjective();
+        adjective.setValue(word.getValue());
+        adjective.setGender(word.getGender());
+        adjective.setNumber(word.getNumber());
+
+        adjective = add(adjective);
+
+        AdjectiveTrans adjectiveTrans = new AdjectiveTrans();
+        adjectiveTrans.setValue(word.getTranslation());
+        adjectiveTrans.setAdjective(adjective);
+        if(CollectionUtils.isEmpty(adjectiveTransRepository.findByValueAndAdjective(adjectiveTrans.getValue(), adjectiveTrans.getAdjective()))){
+            adjectiveTransRepository.save(adjectiveTrans);
+            return true;
+        }
+        return false;
+    }
 
     public List<Adjective> findByValue(String value){
         return adjectiveRepository.findByValue(this.stringBDD(value));

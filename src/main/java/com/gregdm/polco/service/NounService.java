@@ -1,6 +1,8 @@
 package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.Noun;
+import com.gregdm.polco.domain.NounTrans;
+import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.exception.BadObjectException;
 import com.gregdm.polco.repository.*;
 import org.apache.commons.lang.StringUtils;
@@ -22,6 +24,31 @@ public class NounService extends AbstractService{
 
     @Inject
     private NounRepository nounRepository;
+
+    @Inject
+    private NounTransRepository nounTransRepository;
+
+    public boolean add(WordValidation word){
+        if(StringUtils.isBlank(word.getValue())){
+            return false;
+        }
+        Noun noun = new Noun();
+        noun.setValue(word.getValue());
+        noun.setCompound("noun");
+        noun.setGender(word.getGender());
+        noun.setNumber(word.getNumber());
+
+        noun = add(noun);
+
+        NounTrans nounTrans = new NounTrans();
+        nounTrans.setValue(word.getTranslation());
+        nounTrans.setNoun(noun);
+        if(CollectionUtils.isEmpty(nounTransRepository.findByValueAndNoun(nounTrans.getValue(), nounTrans.getNoun()))){
+            nounTransRepository.save(nounTrans);
+            return true;
+        }
+        return false;
+    }
 
     public List<Noun> findByValue(String value){
         return nounRepository.findByValue(this.stringBDD(value));

@@ -1,8 +1,10 @@
 package com.gregdm.polco.service;
 
-import com.gregdm.polco.domain.Expression;
+import com.gregdm.polco.domain.*;
 import com.gregdm.polco.exception.BadObjectException;
+import com.gregdm.polco.repository.AdverbTransRepository;
 import com.gregdm.polco.repository.ExpressionRepository;
+import com.gregdm.polco.repository.ExpressionTransRepository;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,26 @@ public class ExpressionService extends AbstractService{
     @Inject
     private ExpressionRepository expressionRepository;
 
+    @Inject
+    private ExpressionTransRepository expressionTransRepository;
+
+    public boolean add(WordValidation word){
+        if(StringUtils.isBlank(word.getValue())){
+            return false;
+        }
+        Expression expression = new Expression();
+        expression.setValue(word.getValue());
+        expression = add(expression);
+
+        ExpressionTrans expressionTrans = new ExpressionTrans();
+        expressionTrans.setValue(word.getTranslation());
+        expressionTrans.setExpression(expression);
+        if(CollectionUtils.isEmpty(expressionTransRepository.findByValueAndExpression(expressionTrans.getValue(), expressionTrans.getExpression()))){
+            expressionTransRepository.save(expressionTrans);
+            return true;
+        }
+        return false;
+    }
     public List<Expression> findByValue(String value){
         return expressionRepository.findByValue(this.stringBDD(value));
     }

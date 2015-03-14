@@ -25,5 +25,6 @@
     <include file="classpath:config/liquibase/changelog/20150305023731_added_entity_VerbTrans.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150311231241_added_entity_Expression.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150311231538_added_entity_ExpressionTrans.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20150312204447_added_entity_WordValidation.xml" relativeToChangelogFile="false"/>
     <!-- JHipster will add liquibase changelogs here -->
 </databaseChangeLog>
