@@ -5,8 +5,6 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20150301161843_added_entity_BadWord.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20150301162626_added_entity_GoodWord.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150305021938_added_entity_Verb.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150305022215_added_entity_Noun.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150305022254_added_entity_NounTrans.xml" relativeToChangelogFile="false"/>

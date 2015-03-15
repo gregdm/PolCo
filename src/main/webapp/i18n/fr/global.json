@@ -6,8 +6,6 @@
             "home": "Accueil",
             "entities": {
                 "main": "Entités",
-                "badWord": "BadWord",
-                "goodWord": "GoodWord",
                 "verb": "Verb",
                 "noun": "Noun",
                 "nounTrans": "NounTrans",

@@ -1,7 +1,6 @@
 package com.gregdm.polco.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.gregdm.polco.repository.BadWordRepository;
 import com.gregdm.polco.security.AuthoritiesConstants;
 import com.gregdm.polco.service.TranslationService;
 import org.slf4j.Logger;
@@ -18,7 +17,7 @@ import javax.inject.Inject;
 import java.net.URISyntaxException;
 
 /**
- * REST controller for managing BadWord.
+ * REST controller for managing .
  */
 @RestController
 @RequestMapping("/api/import")

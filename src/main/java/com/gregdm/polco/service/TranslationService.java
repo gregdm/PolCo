@@ -1,10 +1,6 @@
 package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.*;
-import com.gregdm.polco.repository.BadWordRepository;
-import com.gregdm.polco.repository.GoodWordRepository;
-import com.gregdm.polco.repository.SearchBadWordRepository;
-import com.gregdm.polco.repository.SearchGoodWordRepository;
 import com.gregdm.polco.service.ImportXML.DicoSAXParser;
 import liquibase.util.csv.CSVReader;
 import org.apache.commons.lang.StringUtils;
@@ -22,7 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,18 +25,6 @@ import java.util.List;
 public class TranslationService {
 
     private final Logger log = LoggerFactory.getLogger(TranslationService.class);
-
-    @Inject
-    private BadWordRepository badWordRepository;
-
-    @Inject
-    private GoodWordRepository goodWordRepository;
-
-    @Inject
-    private SearchGoodWordRepository searchGoodWordRepository;
-
-    @Inject
-    private SearchBadWordRepository searchBadWordRepository;
 
     @Inject
     private NounService nounService;
@@ -70,10 +53,10 @@ public class TranslationService {
         String textTranslated = new String(text);
 
         for(int i=0; i<tokens.length;i++){
-            List<BadWord> badWordFind = searchBadWordRepository.findByValue(tokens[i].trim().toLowerCase());
-            if(!CollectionUtils.isEmpty(badWordFind)){
-                BadWord badWord = badWordFind.iterator().next();
-                String toReplace = badWord.getTranslations().iterator().next().getValue() ;
+            List<Expression> expressionFind = expressionService.findByValue(tokens[i].trim().toLowerCase());
+            if(!CollectionUtils.isEmpty(expressionFind)){
+                Expression expression = expressionFind.iterator().next();
+                String toReplace = expression.getExpressionTranss().iterator().next().getValue() ;
                 if(StringUtils.isNotBlank(toReplace)) {
                     textTranslated = textTranslated.replace(tokens[i], toReplace);
                 }
@@ -180,9 +163,9 @@ public class TranslationService {
         return true;
     }
 
-    public String importCSV(MultipartFile file){
+    public void importCSV(MultipartFile file) {
         if (!file.isEmpty()) {
-        try {
+        /*-try {
             CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()));
             String[] row = null;
             while((row = reader.readNext()) != null) {
@@ -234,5 +217,7 @@ public class TranslationService {
     } else {
         return "You failed to upload " + file.getName() + " because the file was empty.";
     }
+    }-*/
+        }
     }
 }
