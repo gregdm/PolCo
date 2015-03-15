@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('polcoApp')
-    .controller('WordValidationController', function ($scope, WordValidation, WordValidationOK) {
+    .controller('WordValidationController', function ($scope, WordValidation, WordValidationOK, Principal) {
+        $scope.isAuthenticated = Principal.isAuthenticated;
+        $scope.isInRole = Principal.isInRole;
         $scope.wordValidations = [];
         $scope.loadAll = function() {
             WordValidation.query(function(result) {

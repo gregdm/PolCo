@@ -3,6 +3,7 @@ package com.gregdm.polco.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.gregdm.polco.domain.BadWord;
 import com.gregdm.polco.repository.BadWordRepository;
+import com.gregdm.polco.security.AuthoritiesConstants;
 import com.gregdm.polco.service.TranslationService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.io.InputStream;
 import java.net.URI;
@@ -42,7 +44,8 @@ public class TranslationResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public String create(@RequestBody String text) throws URISyntaxException {
+    @RolesAllowed(AuthoritiesConstants.ANONYMOUS)
+    public String translate(@RequestBody String text) throws URISyntaxException {
 
         String translatedText = translationService.translateText(text);
         return "{ \"value\":\""+ translatedText +"\"}";
@@ -52,6 +55,7 @@ public class TranslationResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public String create(@RequestBody MultipartFile file) throws URISyntaxException {
         translationService.importCSV(file);
         return "{ \"value\":\"greg\"}";
@@ -61,6 +65,7 @@ public class TranslationResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public boolean importXML(@RequestBody MultipartFile file) throws URISyntaxException {
         return translationService.importXML(file);
     }

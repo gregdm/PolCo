@@ -5,6 +5,7 @@ import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.domain.util.EnumWordType;
 import com.gregdm.polco.exception.BadObjectException;
 import com.gregdm.polco.repository.NounRepository;
+import com.gregdm.polco.repository.WordValidationRepository;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,8 @@ public class WordValidationService extends AbstractService {
 
     private final Logger log = LoggerFactory.getLogger(WordValidationService.class);
 
+    @Inject
+    private WordValidationRepository wordValidationRepository;
     @Inject
     private NounService nounService;
     @Inject
@@ -75,6 +78,7 @@ public class WordValidationService extends AbstractService {
             default:
                 return false;
         }
+        wordValidationRepository.delete(word);
         return true;
     }
 }

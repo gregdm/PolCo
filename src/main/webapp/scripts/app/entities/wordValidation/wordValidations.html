@@ -19,7 +19,7 @@
                         <h4 class="modal-title" id="myWordValidationLabel" translate="polcoApp.wordValidation.home.createOrEditLabel">Create or edit a WordValidation</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
+                        <div class="form-group" ng-hide="true">
                             <label>ID</label>
                             <input type="text" class="form-control" name="id"
                                    ng-model="wordValidation.id" readonly>
@@ -37,28 +37,52 @@
                         </div>
                         <div class="form-group">
                             <label translate="polcoApp.wordValidation.wordType">WordType</label>
-                            <input type="text" class="form-control" name="wordType"
+                            <select type="text" class="form-control" name="wordType"
                                    ng-model="wordValidation.wordType">
+                                <option value="EXPRESSION">Expression</option>
+                                <option value="NOUN">Nom</option>
+                                <option value="ADJECTIVE">Ajectif</option>
+                                <option value="VERB">Verbe</option>
+                                <option value="INTERJECTION">Interjection</option>
+                                <option value="ADVERB">Adverbe</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label translate="polcoApp.wordValidation.number">Number</label>
-                            <input type="text" class="form-control" name="number"
-                                   ng-model="wordValidation.number">
+                            <select type="text" class="form-control" name="number"
+                                    ng-model="wordValidation.number">
+                                <option value="singular">Singulier</option>
+                                <option value="plural">Pluriel</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label translate="polcoApp.wordValidation.gender">Gender</label>
-                            <input type="text" class="form-control" name="gender"
-                                   ng-model="wordValidation.gender">
+                            <select type="text" class="form-control" name="gender"
+                                    ng-model="wordValidation.gender">
+                                <option value="masculine">masculine</option>
+                                <option value="feminine">feminine</option>
+                            </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-show="(wordValidation.wordType == 'VERB')">
                             <label translate="polcoApp.wordValidation.person">Person</label>
-                            <input type="text" class="form-control" name="person"
-                                   ng-model="wordValidation.person">
+                            <select type="text" class="form-control" name="person"
+                                    ng-model="wordValidation.person">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-show="(wordValidation.wordType == 'VERB')">
                             <label translate="polcoApp.wordValidation.tense">Tense</label>
-                            <input type="text" class="form-control" name="tense"
+                            <select type="text" class="form-control" name="tense"
                                    ng-model="wordValidation.tense">
+                            <option value="gerondif">gerondif</option>
+                            <option value="ind">ind</option>
+                            <option value="subj">subj</option>
+                            <option value="ppast">ppast</option>
+                            <option value="imp">imp</option>
+                            <option value="cond">cond</option>
+                        </select>
                         </div>
 
 

@@ -18,38 +18,9 @@
                     </a>
                 </li>
                 <li ui-sref-active="active" ng-switch-when="true" class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                <span>
-                                    <span class="glyphicon glyphicon-th-list"></span>
-                                    <span class="hidden-tablet" translate="global.menu.entities.main">
-                                        Proposer une traduction
-                                    </span>
-                                    <b class="caret"></b>
-                                </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li ui-sref-active="active" ><a ui-sref="nounTrans"><span class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.nounTrans">Ajouter un nom</span></a></li>
-                        <li ui-sref-active="active" ><a ui-sref="adjectiveTrans"><span class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.adjectiveTrans">Ajouter un adjectif</span></a></li>
-                       <!-- <li ui-sref-active="active" ><a ui-sref="prepositionTrans"><span class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.prepositionTrans">prepositionTrans</span></a></li>-->
-                        <li ui-sref-active="active" ><a ui-sref="interjectionTrans"><span class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.interjectionTrans">Ajouter une interjection</span></a></li>
-                       <!-- <li ui-sref-active="active" ><a ui-sref="prefixTrans"><span class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.prefixTrans">prefixTrans</span></a></li>-->
-                        <li ui-sref-active="active" ><a ui-sref="adverbTrans"><span class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.adverbTrans">Ajouter un adverbe</span></a></li>
-                        <!--<li ui-sref-active="active" ><a ui-sref="nominalDetTrans"><span class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.nominalDetTrans">nominalDetTrans</span></a></li>-->
-                        <li ui-sref-active="active" ><a ui-sref="verbTrans"><span class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.verbTrans">Ajouter un verbe</span></a></li>
-                        <li ui-sref-active="active" ><a ui-sref="expressionTrans"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.expressionTrans">Autre</span></a></li>
-                        <li ui-sref-active="active" ><a ui-sref="wordValidation"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.wordValidation">wordValidation</span></a></li>
-                        <!-- JHipster will add entities to the menu here -->
-                    </ul>
+                    <a ui-sref="wordValidation"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.entities.wordValidation">ajouter une traduction</span></a>
+
                 </li>
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
@@ -86,6 +57,8 @@
                                 </span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li ui-sref-active="active"><a ui-sref="import"><span class="glyphicon glyphicon-dashboard"></span>
+                            &#xA0;<span translate="global.menu.admin.metrics">Import</span></a></li>
                         <li ui-sref-active="active"><a ui-sref="metrics"><span class="glyphicon glyphicon-dashboard"></span>
                             &#xA0;<span translate="global.menu.admin.metrics">Metrics</span></a></li>
                         <li ui-sref-active="active"><a ui-sref="health"><span class="glyphicon glyphicon-heart"></span>

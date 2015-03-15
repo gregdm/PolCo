@@ -3,6 +3,7 @@ package com.gregdm.polco.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.repository.WordValidationRepository;
+import com.gregdm.polco.security.AuthoritiesConstants;
 import com.gregdm.polco.service.WordValidationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -40,6 +42,7 @@ public class WordValidationResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<Void> create(@RequestBody WordValidation wordValidation) throws URISyntaxException {
         log.debug("REST request to save WordValidation : {}", wordValidation);
         if (wordValidation.getId() != null) {
@@ -56,6 +59,7 @@ public class WordValidationResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> update(@RequestBody WordValidation wordValidation) throws URISyntaxException {
         log.debug("REST request to update WordValidation : {}", wordValidation);
         if (wordValidation.getId() == null) {
@@ -72,6 +76,7 @@ public class WordValidationResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public List<WordValidation> getAll() {
         log.debug("REST request to get all WordValidations");
         return wordValidationRepository.findAll();
@@ -84,6 +89,7 @@ public class WordValidationResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<WordValidation> get(@PathVariable Long id) {
         log.debug("REST request to get WordValidation : {}", id);
         return Optional.ofNullable(wordValidationRepository.findOne(id))
@@ -100,6 +106,7 @@ public class WordValidationResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public boolean validate(@PathVariable Long id) {
         log.debug("REST request to get WordValidation : {}", id);
         return this.wordValidationService.validate(wordValidationRepository.findOne(id));
@@ -112,6 +119,7 @@ public class WordValidationResource {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public void delete(@PathVariable Long id) {
         log.debug("REST request to delete WordValidation : {}", id);
         wordValidationRepository.delete(id);

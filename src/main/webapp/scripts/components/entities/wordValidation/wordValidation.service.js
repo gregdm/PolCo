@@ -18,7 +18,6 @@ angular.module('polcoApp')
     .factory('WordValidationOK', function ($http) {
         return {
             validate: function (id) {
-                debugger;
                 return $http.get('api/wordValidations/validate/'+id).then(function (response) {
                     return response.data;
                 });
