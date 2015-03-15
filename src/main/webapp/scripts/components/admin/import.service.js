@@ -3,13 +3,13 @@
 angular.module('polcoApp')
     .factory('ImportService',  ['$http', function($http) {
 
-        var urlBase = '/api/translation';
+        var urlBase = '/api/import';
         var dataFactory = {};
 
         dataFactory.uploadFileToUrl = function(file){
             var fd = new FormData();
             fd.append('file', file);
-            return $http.post(urlBase+"/import", fd, {
+            return $http.post(urlBase+"/CSV", fd, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             });
@@ -18,7 +18,7 @@ angular.module('polcoApp')
         dataFactory.uploadFileXML = function(file){
             var fd = new FormData();
             fd.append('file', file);
-            return $http.post(urlBase+"/importXML", fd, {
+            return $http.post(urlBase+"/XML", fd, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             });

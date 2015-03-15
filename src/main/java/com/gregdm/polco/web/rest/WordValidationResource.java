@@ -59,7 +59,7 @@ public class WordValidationResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<Void> update(@RequestBody WordValidation wordValidation) throws URISyntaxException {
         log.debug("REST request to update WordValidation : {}", wordValidation);
         if (wordValidation.getId() == null) {
@@ -76,7 +76,7 @@ public class WordValidationResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RolesAllowed(AuthoritiesConstants.USER)
     public List<WordValidation> getAll() {
         log.debug("REST request to get all WordValidations");
         return wordValidationRepository.findAll();

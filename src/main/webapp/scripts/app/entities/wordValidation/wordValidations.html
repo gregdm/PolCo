@@ -28,17 +28,18 @@
                         <div class="form-group">
                             <label translate="polcoApp.wordValidation.value">Value</label>
                             <input type="text" class="form-control" name="value"
-                                   ng-model="wordValidation.value">
+                                   ng-model="wordValidation.value" required>
                         </div>
                         <div class="form-group">
                             <label translate="polcoApp.wordValidation.translation">Translation</label>
                             <input type="text" class="form-control" name="translation"
-                                   ng-model="wordValidation.translation">
+                                   ng-model="wordValidation.translation" required>
                         </div>
                         <div class="form-group">
                             <label translate="polcoApp.wordValidation.wordType">WordType</label>
                             <select type="text" class="form-control" name="wordType"
                                    ng-model="wordValidation.wordType">
+                                <option value=""></option>
                                 <option value="EXPRESSION">Expression</option>
                                 <option value="NOUN">Nom</option>
                                 <option value="ADJECTIVE">Ajectif</option>
@@ -47,7 +48,7 @@
                                 <option value="ADVERB">Adverbe</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-show="(wordValidation.wordType == 'VERB') || (wordValidation.wordType == 'ADJECTIVE') || (wordValidation.wordType == 'NOUN')">
                             <label translate="polcoApp.wordValidation.number">Number</label>
                             <select type="text" class="form-control" name="number"
                                     ng-model="wordValidation.number">
@@ -55,7 +56,7 @@
                                 <option value="plural">Pluriel</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-show="(wordValidation.wordType == 'ADJECTIVE') || (wordValidation.wordType == 'NOUN')">
                             <label translate="polcoApp.wordValidation.gender">Gender</label>
                             <select type="text" class="form-control" name="gender"
                                     ng-model="wordValidation.gender">
@@ -150,7 +151,7 @@
                     <td>{{wordValidation.gender}}</td>
                     <td>{{wordValidation.person}}</td>
                     <td>{{wordValidation.tense}}</td>
-                    <td>
+                    <td ng-show="isInRole('ROLE_ADMIN')">
                         <button type="submit"
                                 ng-click="validate(wordValidation.id)"
                                 class="btn btn-info">

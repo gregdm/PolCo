@@ -50,23 +50,4 @@ public class TranslationResource {
         String translatedText = translationService.translateText(text);
         return "{ \"value\":\""+ translatedText +"\"}";
     }
-
-    @RequestMapping(value = "/translation/import",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public String create(@RequestBody MultipartFile file) throws URISyntaxException {
-        translationService.importCSV(file);
-        return "{ \"value\":\"greg\"}";
-    }
-
-    @RequestMapping(value = "/translation/importXML",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public boolean importXML(@RequestBody MultipartFile file) throws URISyntaxException {
-        return translationService.importXML(file);
-    }
 }
