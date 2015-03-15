@@ -38,7 +38,7 @@ public class PrepositionService extends AbstractService{
         }
     }
 
-    public Preposition add(Preposition prep){
+    public Preposition findOrCreate(Preposition prep){
         if(prep == null && StringUtils.isNotBlank(prep.getValue())){
             log.error("Preposition is null");
             throw new BadObjectException("Preposition is invalide");
@@ -49,7 +49,7 @@ public class PrepositionService extends AbstractService{
         if(CollectionUtils.isEmpty(PrepositionList)) {
             return prepositionRepository.save(prep);
         } else {
-            log.info("Preposition isn't add because he already existe null");
+            log.info("Preposition isn't findOrCreate because he already existe null");
             return PrepositionList.iterator().next();
         }
     }

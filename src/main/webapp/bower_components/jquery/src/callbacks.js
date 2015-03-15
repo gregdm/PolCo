@@ -51,7 +51,7 @@ jQuery.Callbacks = function( options ) {
 		fired,
 		// Flag to know if list is currently firing
 		firing,
-		// First callback to fire (used internally by add and fireWith)
+		// First callback to fire (used internally by findOrCreate and fireWith)
 		firingStart,
 		// End of the loop when firing
 		firingLength,
@@ -71,7 +71,7 @@ jQuery.Callbacks = function( options ) {
 			firing = true;
 			for ( ; list && firingIndex < firingLength; firingIndex++ ) {
 				if ( list[ firingIndex ].apply( data[ 0 ], data[ 1 ] ) === false && options.stopOnFalse ) {
-					memory = false; // To prevent further calls using add
+					memory = false; // To prevent further calls using findOrCreate
 					break;
 				}
 			}
@@ -108,7 +108,7 @@ jQuery.Callbacks = function( options ) {
 							}
 						});
 					})( arguments );
-					// Do we need to add the callbacks to the
+					// Do we need to findOrCreate the callbacks to the
 					// current firing batch?
 					if ( firing ) {
 						firingLength = list.length;

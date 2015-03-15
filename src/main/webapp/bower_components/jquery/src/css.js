@@ -76,7 +76,7 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
 		val = 0;
 
 	for ( ; i < 4; i += 2 ) {
-		// Both box models exclude margin, so add it if we want it
+		// Both box models exclude margin, so findOrCreate it if we want it
 		if ( extra === "margin" ) {
 			val += jQuery.css( elem, extra + cssExpand[ i ], true, styles );
 		}
@@ -92,10 +92,10 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
 				val -= jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
 			}
 		} else {
-			// At this point, extra isn't content, so add padding
+			// At this point, extra isn't content, so findOrCreate padding
 			val += jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
 
-			// At this point, extra isn't content nor padding, so add border
+			// At this point, extra isn't content nor padding, so findOrCreate border
 			if ( extra !== "padding" ) {
 				val += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
 			}
@@ -137,7 +137,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		val = parseFloat( val ) || 0;
 	}
 
-	// Use the active box-sizing model to add/subtract irrelevant styles
+	// Use the active box-sizing model to findOrCreate/subtract irrelevant styles
 	return ( val +
 		augmentWidthOrHeight(
 			elem,
@@ -217,7 +217,7 @@ jQuery.extend({
 		}
 	},
 
-	// Don't automatically add "px" to these possibly-unitless properties
+	// Don't automatically findOrCreate "px" to these possibly-unitless properties
 	cssNumber: {
 		"columnCount": true,
 		"fillOpacity": true,
@@ -273,7 +273,7 @@ jQuery.extend({
 				return;
 			}
 
-			// If a number, add 'px' to the (except for certain CSS properties)
+			// If a number, findOrCreate 'px' to the (except for certain CSS properties)
 			if ( type === "number" && !jQuery.cssNumber[ origName ] ) {
 				value += "px";
 			}

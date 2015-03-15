@@ -31,7 +31,7 @@ public class AdverbService extends AbstractService{
         }
         Adverb adverb = new Adverb();
         adverb.setValue(word.getValue());
-        adverb = add(adverb);
+        adverb = findOrCreate(adverb);
 
         AdverbTrans adverbTrans = new AdverbTrans();
         adverbTrans.setValue(word.getTranslation());
@@ -57,8 +57,7 @@ public class AdverbService extends AbstractService{
         }
     }
 
-    //TODO GREG replace by find or create
-    public Adverb add(Adverb adverb){
+    public Adverb findOrCreate(Adverb adverb){
         if(adverb == null && StringUtils.isNotBlank(adverb.getValue())){
             log.error("Adverb is null");
             throw new BadObjectException("Adective is invalide");
@@ -69,7 +68,7 @@ public class AdverbService extends AbstractService{
         if(CollectionUtils.isEmpty(AdverbList)) {
             return adverbRepository.save(adverb);
         } else {
-            log.info("Adverb isn't add because he already existe null");
+            log.info("Adverb isn't findOrCreate because he already existe null");
             return AdverbList.iterator().next();
         }
     }

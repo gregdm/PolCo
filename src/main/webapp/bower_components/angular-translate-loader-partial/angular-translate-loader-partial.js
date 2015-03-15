@@ -11,7 +11,7 @@ angular.module('pascalprecht.translate')
  * @description
  * By using a $translatePartialLoaderProvider you can configure a list of a needed
  * translation parts directly during the configuration phase of your application's
- * lifetime. All parts you add by using this provider would be loaded by
+ * lifetime. All parts you findOrCreate by using this provider would be loaded by
  * angular-translate at the startup as soon as possible.
  */
 .provider('$translatePartialLoader', function() {
@@ -21,7 +21,7 @@ angular.module('pascalprecht.translate')
    * @name Part
    *
    * @description
-   * Represents Part object to add and set parts at runtime.
+   * Represents Part object to findOrCreate and set parts at runtime.
    */
   function Part(name, priority) {
     this.name = name;
@@ -132,7 +132,7 @@ angular.module('pascalprecht.translate')
    * `angular-translate` gets into runtime phase. It does not actually load any
    * translation data, but only registers a part to be loaded in the future.
    *
-   * @param {string} name A name of the part to add
+   * @param {string} name A name of the part to findOrCreate
    * @param {int} [priority=0] Sets the load priority of this part.
    *
    * @returns {object} $translatePartialLoaderProvider, so this method is chainable
@@ -142,7 +142,7 @@ angular.module('pascalprecht.translate')
    */
   this.addPart = function(name, priority) {
     if (!isStringValid(name)) {
-      throw new TypeError('Couldn\'t add part, part name has to be a string!');
+      throw new TypeError('Couldn\'t findOrCreate part, part name has to be a string!');
     }
 
     if (!hasPart(name)) {
@@ -325,7 +325,7 @@ angular.module('pascalprecht.translate')
      * requests to get translation data. The new parts will be loaded in order of priority from the server next time
      * `angular-translate` asks the loader to load translations.
      *
-     * @param {string} name A name of the part to add
+     * @param {string} name A name of the part to findOrCreate
      * @param {int} [priority=0] Sets the load priority of this part.
      *
      * @returns {object} $translatePartialLoader, so this method is chainable
@@ -340,7 +340,7 @@ angular.module('pascalprecht.translate')
      */
     service.addPart = function(name, priority) {
       if (!isStringValid(name)) {
-        throw new TypeError('Couldn\'t add part, first arg has to be a string');
+        throw new TypeError('Couldn\'t findOrCreate part, first arg has to be a string');
       }
 
       if (!hasPart(name)) {

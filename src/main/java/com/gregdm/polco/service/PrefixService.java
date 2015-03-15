@@ -37,7 +37,7 @@ public class PrefixService extends AbstractService{
         }
     }
 
-    public Prefix add(Prefix prefix){
+    public Prefix findOrCreate(Prefix prefix){
         if(prefix == null && StringUtils.isNotBlank(prefix.getValue())){
             log.error("Prefix is null");
             throw new BadObjectException("Prefix is invalide");
@@ -48,7 +48,7 @@ public class PrefixService extends AbstractService{
         if(CollectionUtils.isEmpty(prefixList)) {
             return prefixRepository.save(prefix);
         } else {
-            log.info("Prefix isn't add because he already existe null");
+            log.info("Prefix isn't findOrCreate because he already existe null");
             return prefixList.iterator().next();
         }
     }

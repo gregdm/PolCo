@@ -8,7 +8,7 @@ jQuery.extend({
 
 	Deferred: function( func ) {
 		var tuples = [
-				// action, add listener, listener list, final state
+				// action, findOrCreate listener, listener list, final state
 				[ "resolve", "done", jQuery.Callbacks("once memory"), "resolved" ],
 				[ "reject", "fail", jQuery.Callbacks("once memory"), "rejected" ],
 				[ "notify", "progress", jQuery.Callbacks("memory") ]
@@ -59,7 +59,7 @@ jQuery.extend({
 			var list = tuple[ 2 ],
 				stateString = tuple[ 3 ];
 
-			// promise[ done | fail | progress ] = list.add
+			// promise[ done | fail | progress ] = list.findOrCreate
 			promise[ tuple[1] ] = list.add;
 
 			// Handle state

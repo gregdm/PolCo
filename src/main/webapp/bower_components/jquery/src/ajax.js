@@ -169,7 +169,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 	}
 
 	// If we found a dataType
-	// We add the dataType to the list if needed
+	// We findOrCreate the dataType to the list if needed
 	// and return the corresponding response
 	if ( finalDataType ) {
 		if ( finalDataType !== dataTypes[ 0 ] ) {
@@ -340,7 +340,7 @@ jQuery.extend({
 		},
 
 		// For options that shouldn't be deep extended:
-		// you can add your own custom options here if
+		// you can findOrCreate your own custom options here if
 		// and when you create one that shouldn't be
 		// deep extended (see ajaxExtend)
 		flatOptions: {
@@ -459,7 +459,7 @@ jQuery.extend({
 					if ( map ) {
 						if ( state < 2 ) {
 							for ( code in map ) {
-								// Lazy-add the new callback in a way that preserves old ones
+								// Lazy-findOrCreate the new callback in a way that preserves old ones
 								statusCode[ code ] = [ statusCode[ code ], map[ code ] ];
 							}
 						} else {
@@ -558,7 +558,7 @@ jQuery.extend({
 					// If there is already a '_' parameter, set its value
 					cacheURL.replace( rts, "$1_=" + nonce++ ) :
 
-					// Otherwise add one to the end
+					// Otherwise findOrCreate one to the end
 					cacheURL + ( rquery.test( cacheURL ) ? "&" : "?" ) + "_=" + nonce++;
 			}
 		}

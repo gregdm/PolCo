@@ -38,7 +38,7 @@ public class NounService extends AbstractService{
         noun.setGender(word.getGender());
         noun.setNumber(word.getNumber());
 
-        noun = add(noun);
+        noun = findOrCreate(noun);
 
         NounTrans nounTrans = new NounTrans();
         nounTrans.setValue(word.getTranslation());
@@ -68,7 +68,7 @@ public class NounService extends AbstractService{
         }
     }
 
-    public Noun add(Noun noun){
+    public Noun findOrCreate(Noun noun){
         if(noun == null && StringUtils.isNotBlank(noun.getValue())){
             log.error("Noun is null");
             throw new BadObjectException("Noun is invalide");
@@ -79,7 +79,7 @@ public class NounService extends AbstractService{
         if(CollectionUtils.isEmpty(nounList)) {
             return nounRepository.save(noun);
         } else {
-            log.info("Noun isn't add because he already existe null");
+            log.info("Noun isn't findOrCreate because he already existe null");
            return nounList.iterator().next();
         }
     }

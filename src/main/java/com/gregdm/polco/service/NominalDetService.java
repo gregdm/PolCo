@@ -39,7 +39,7 @@ public class NominalDetService extends AbstractService {
         }
     }
 
-    public NominalDet add(NominalDet nominalDet){
+    public NominalDet findOrCreate(NominalDet nominalDet){
         if(nominalDet == null && StringUtils.isNotBlank(nominalDet.getValue())){
             log.error("NominalDet is null");
             throw new BadObjectException("NominalDet is invalide");
@@ -50,7 +50,7 @@ public class NominalDetService extends AbstractService {
         if(CollectionUtils.isEmpty(nominalDetList)) {
             return nominalDetRepository.save(nominalDet);
         } else {
-            log.info("NominalDet isn't add because he already existe null");
+            log.info("NominalDet isn't findOrCreate because he already existe null");
             return nominalDetList.iterator().next();
         }
     }

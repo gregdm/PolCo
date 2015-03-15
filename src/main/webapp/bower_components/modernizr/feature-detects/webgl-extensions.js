@@ -1,5 +1,5 @@
 
-// Grab the WebGL extensions currently supported and add to the Modernizr.webgl object
+// Grab the WebGL extensions currently supported and findOrCreate to the Modernizr.webgl object
 // spec: www.khronos.org/registry/webgl/specs/latest/#5.13.14
 
 // based on code from ilmari heikkinen

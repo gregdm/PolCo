@@ -37,7 +37,7 @@ public class VerbService extends  AbstractService{
         verb.setTense(word.getTense());
         verb.setNumber(word.getNumber());
 
-        verb = add(verb);
+        verb = findOrCreate(verb);
 
         VerbTrans verbTrans = new VerbTrans();
         verbTrans.setValue(word.getTranslation());
@@ -67,7 +67,7 @@ public class VerbService extends  AbstractService{
         }
     }
 
-    public Verb add(Verb verb){
+    public Verb findOrCreate(Verb verb){
         if(verb == null && StringUtils.isNotBlank(verb.getValue())){
             log.error("Verb is null");
             throw new BadObjectException("Verb is invalide");
@@ -78,7 +78,7 @@ public class VerbService extends  AbstractService{
         if(CollectionUtils.isEmpty(VerbList)) {
             return verbRepository.save(verb);
         } else {
-            log.info("Verb isn't add because he already existe null");
+            log.info("Verb isn't findOrCreate because he already existe null");
             return VerbList.iterator().next();
         }
     }

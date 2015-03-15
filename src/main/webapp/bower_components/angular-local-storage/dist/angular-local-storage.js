@@ -121,7 +121,7 @@ angularLocalStorage.provider('localStorageService', function() {
         // When Safari (OS X or iOS) is in private browsing mode, it appears as though localStorage
         // is available, but trying to call .setItem throws an exception.
         //
-        // "QUOTA_EXCEEDED_ERR: DOM Exception 22: An attempt was made to add something to storage
+        // "QUOTA_EXCEEDED_ERR: DOM Exception 22: An attempt was made to findOrCreate something to storage
         // that exceeded the quota."
         var key = deriveQualifiedKey('__' + Math.round(Math.random() * 1e7));
         if (supported) {
@@ -142,7 +142,7 @@ angularLocalStorage.provider('localStorageService', function() {
 
     // Directly adds a value to local storage
     // If local storage is not available in the browser use cookies
-    // Example use: localStorageService.add('library','angular');
+    // Example use: localStorageService.findOrCreate('library','angular');
     var addToLocalStorage = function (key, value) {
       // Let's convert undefined values to null to get the value consistent
       if (isUndefined(value)) {
@@ -304,7 +304,7 @@ angularLocalStorage.provider('localStorageService', function() {
 
     // Directly adds a value to cookies
     // Typically used as a fallback is local storage is not available in the browser
-    // Example use: localStorageService.cookie.add('library','angular');
+    // Example use: localStorageService.cookie.findOrCreate('library','angular');
     var addToCookies = function (key, value) {
 
       if (isUndefined(value)) {

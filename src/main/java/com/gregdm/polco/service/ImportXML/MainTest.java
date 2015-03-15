@@ -95,7 +95,7 @@ class MySaxParser extends DefaultHandler {
             transformEntityInObjects(entryTemp);
             lvlEntry = true;
         } else if (INFLECTED.equals(qName)) {
-            entryTemp.inflecteds.add(inflectedTemp);
+            entryTemp.inflecteds.findOrCreate(inflectedTemp);
         } else if (FORM.equals(qName)) {
             if (!lvlEntry) {
                 inflectedTemp.form = tmpValue;

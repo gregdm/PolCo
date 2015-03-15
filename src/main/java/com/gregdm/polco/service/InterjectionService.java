@@ -4,7 +4,6 @@ import com.gregdm.polco.domain.*;
 import com.gregdm.polco.exception.BadObjectException;
 import com.gregdm.polco.repository.InterjectionTransRepository;
 import com.gregdm.polco.repository.InterjectionRepository;
-import com.gregdm.polco.repository.InterjectionTransRepository;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +33,7 @@ public class InterjectionService extends AbstractService{
         }
         Interjection interjection = new Interjection();
         interjection.setValue(word.getValue());
-        interjection = add(interjection);
+        interjection = findOrCreate(interjection);
 
         InterjectionTrans interjectionTrans = new InterjectionTrans();
         interjectionTrans.setValue(word.getTranslation());
@@ -60,7 +59,7 @@ public class InterjectionService extends AbstractService{
         }
     }
 
-    public Interjection add(Interjection interjection){
+    public Interjection findOrCreate(Interjection interjection){
         if(interjection == null && StringUtils.isNotBlank(interjection.getValue())){
             log.error("Interjection is null");
             throw new BadObjectException("Interjection is invalide");
@@ -71,7 +70,7 @@ public class InterjectionService extends AbstractService{
         if(CollectionUtils.isEmpty(InterjectionList)) {
             return interjectionRepository.save(interjection);
         } else {
-            log.info("Interjection isn't add because he already existe null");
+            log.info("Interjection isn't findOrCreate because he already existe null");
             return InterjectionList.iterator().next();
         }
     }

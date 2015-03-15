@@ -2,7 +2,6 @@ package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.*;
 import com.gregdm.polco.exception.BadObjectException;
-import com.gregdm.polco.repository.AdverbTransRepository;
 import com.gregdm.polco.repository.ExpressionRepository;
 import com.gregdm.polco.repository.ExpressionTransRepository;
 import org.apache.commons.lang.StringUtils;
@@ -34,7 +33,7 @@ public class ExpressionService extends AbstractService{
         }
         Expression expression = new Expression();
         expression.setValue(word.getValue());
-        expression = add(expression);
+        expression = findOrCreate(expression);
 
         ExpressionTrans expressionTrans = new ExpressionTrans();
         expressionTrans.setValue(word.getTranslation());
@@ -63,7 +62,7 @@ public class ExpressionService extends AbstractService{
         }
     }
 
-    public Expression add(Expression expression){
+    public Expression findOrCreate(Expression expression){
         if(expression == null && StringUtils.isNotBlank(expression.getValue())){
             log.error("Expression is null");
             throw new BadObjectException("Adective is invalide");
@@ -74,7 +73,7 @@ public class ExpressionService extends AbstractService{
         if(CollectionUtils.isEmpty(expressionList)) {
             return expressionRepository.save(expression);
         } else {
-            log.info("Expression isn't add because he already existe null");
+            log.info("Expression isn't findOrCreate because he already existe null");
             return expressionList.iterator().next();
         }
     }

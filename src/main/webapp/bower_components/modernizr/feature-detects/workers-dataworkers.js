@@ -3,7 +3,7 @@
 
 // This test is asynchronous. Watch out.
 
-// The test will potentially add garbage to console.
+// The test will potentially findOrCreate garbage to console.
 
 (function(){
   try {

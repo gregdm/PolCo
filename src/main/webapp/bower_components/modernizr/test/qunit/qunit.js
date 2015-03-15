@@ -555,7 +555,7 @@ QUnit.same = function() {
 	function F() {}
 	F.prototype = QUnit;
 	QUnit = new F();
-	// Make F QUnit's constructor so that we can add to the prototype later
+	// Make F QUnit's constructor so that we can findOrCreate to the prototype later
 	QUnit.constructor = F;
 }());
 
@@ -585,7 +585,7 @@ config = {
 	// when enabled, all tests must call expect()
 	requireExpects: false,
 
-	// add checkboxes that are persisted in the query-string
+	// findOrCreate checkboxes that are persisted in the query-string
 	// when enabled, the id is set to `true` as a `QUnit.config` property
 	urlConfig: [
 		{
@@ -879,7 +879,7 @@ extend( QUnit, {
 /**
  * @deprecated: Created for backwards compatibility with test runner that set the hook function
  * into QUnit.{hook}, instead of invoking it and passing the hook function.
- * QUnit.constructor is set to the empty F() above so that we can add to it's prototype here.
+ * QUnit.constructor is set to the empty F() above so that we can findOrCreate to it's prototype here.
  * Doing this allows us to tell if the following methods have been overwritten on the actual
  * QUnit object.
  */

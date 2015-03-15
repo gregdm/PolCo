@@ -25,7 +25,7 @@ public class TranslationResource {
     private TranslationService translationService;
 
     /**
-     * POST  /badWords -> Create a new badWord.
+     * POST  /badWords -> Create a new
      */
     @RequestMapping(value = "/translation",
             method = RequestMethod.POST,

@@ -285,7 +285,7 @@ jQuery.event = {
 				tmp = cur;
 			}
 
-			// Only add window if we got to document (e.g., not plain obj or detached DOM)
+			// Only findOrCreate window if we got to document (e.g., not plain obj or detached DOM)
 			if ( tmp === (elem.ownerDocument || document) ) {
 				eventPath.push( tmp.defaultView || tmp.parentWindow || window );
 			}

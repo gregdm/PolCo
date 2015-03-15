@@ -68,7 +68,7 @@ public class GZipServletFilter implements Filter {
             boolean shouldGzippedBodyBeZero = GZipResponseUtil.shouldGzippedBodyBeZero(compressedBytes, httpRequest);
             boolean shouldBodyBeZero = GZipResponseUtil.shouldBodyBeZero(httpRequest, wrapper.getStatus());
             if (shouldGzippedBodyBeZero || shouldBodyBeZero) {
-                // No reason to add GZIP headers or write body if no content was written or status code specifies no
+                // No reason to findOrCreate GZIP headers or write body if no content was written or status code specifies no
                 // content
                 response.setContentLength(0);
                 return;

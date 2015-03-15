@@ -94,7 +94,7 @@ function shallowClearAndCopy(src, dst) {
  *   `/user/:username`. If you are using a URL with a port number (e.g.
  *   `http://example.com:8080/api`), it will be respected.
  *
- *   If you are using a url with a suffix, just add the suffix, like this:
+ *   If you are using a url with a suffix, just findOrCreate the suffix, like this:
  *   `$resource('http://example.com/resource.json')` or `$resource('http://example.com/:id.json')`
  *   or even `$resource('http://example.com/resource/:resource_id.:format')`
  *   If the parameter before the suffix is empty, :resource_id in this case, then the `/.` will be

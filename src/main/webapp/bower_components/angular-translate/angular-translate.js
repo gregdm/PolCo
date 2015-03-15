@@ -403,7 +403,7 @@ angular.module('pascalprecht.translate').provider('$translate', ['$STORAGE_KEY',
    * `$translateProvider.translationNotFoundIndicatorLeft()` and
    * `$translateProvider.translationNotFoundIndicatorRight()`.
    *
-   * **Note**: These methods automatically add a whitespace between the indicators
+   * **Note**: These methods automatically findOrCreate a whitespace between the indicators
    * and the translation id.
    *
    * @param {string} indicator An indicator, could be any string.
@@ -1448,7 +1448,7 @@ angular.module('pascalprecht.translate').provider('$translate', ['$STORAGE_KEY',
           fallbackStack(langKey);
 
           // as we might have an async loader initiated and a new translation language might have been defined
-          // we need to add the promise to the stack also. So - iterate.
+          // we need to findOrCreate the promise to the stack also. So - iterate.
           if ($loaderFactory) {
             if ($fallbackLanguage && $fallbackLanguage.length) {
               for (var i = 0, len = $fallbackLanguage.length; i < len; i++) {

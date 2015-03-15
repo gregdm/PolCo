@@ -2,7 +2,6 @@ package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.*;
 import com.gregdm.polco.service.ImportXML.DicoSAXParser;
-import liquibase.util.csv.CSVReader;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,6 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.List;
 
@@ -124,14 +122,14 @@ public class TranslationService {
             //saxParser.parse(file.getInputStream(), dicoSAXParser);
             saxParser.parse(file.getInputStream(), dicoSAXParser);
 
-            dicoSAXParser.getVerbList().forEach(n -> verbService.add(n));
-            dicoSAXParser.getAdverbList().forEach(n -> adverbService.add(n));
-            dicoSAXParser.getInterjectionList().forEach(n -> interjectionService.add(n));
-            dicoSAXParser.getNominalDetList().forEach(n -> nominalDetService.add(n));
-            dicoSAXParser.getPrefixList().forEach(n -> prefixService.add(n));
-            dicoSAXParser.getPrepositionList().forEach(n -> prepositionService.add(n));
-            dicoSAXParser.getNounList().forEach(n -> nounService.add(n));
-            dicoSAXParser.getAdjectiveList().forEach(n -> adjectiveService.add(n));
+            dicoSAXParser.getVerbList().forEach(n -> verbService.findOrCreate(n));
+            dicoSAXParser.getAdverbList().forEach(n -> adverbService.findOrCreate(n));
+            dicoSAXParser.getInterjectionList().forEach(n -> interjectionService.findOrCreate(n));
+            dicoSAXParser.getNominalDetList().forEach(n -> nominalDetService.findOrCreate(n));
+            dicoSAXParser.getPrefixList().forEach(n -> prefixService.findOrCreate(n));
+            dicoSAXParser.getPrepositionList().forEach(n -> prepositionService.findOrCreate(n));
+            dicoSAXParser.getNounList().forEach(n -> nounService.findOrCreate(n));
+            dicoSAXParser.getAdjectiveList().forEach(n -> adjectiveService.findOrCreate(n));
         } catch (Exception e){
             log.error(e.getMessage());
             return false;

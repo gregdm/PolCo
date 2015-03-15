@@ -34,7 +34,7 @@ public class AdjectiveService extends AbstractService{
         adjective.setGender(word.getGender());
         adjective.setNumber(word.getNumber());
 
-        adjective = add(adjective);
+        adjective = findOrCreate(adjective);
 
         AdjectiveTrans adjectiveTrans = new AdjectiveTrans();
         adjectiveTrans.setValue(word.getTranslation());
@@ -63,7 +63,7 @@ public class AdjectiveService extends AbstractService{
         }
     }
 
-    public Adjective add(Adjective adj){
+    public Adjective findOrCreate(Adjective adj){
         if(adj == null && StringUtils.isNotBlank(adj.getValue())){
             log.error("Adjective is null");
             throw new BadObjectException("Adective is invalide");
@@ -74,7 +74,7 @@ public class AdjectiveService extends AbstractService{
         if(CollectionUtils.isEmpty(adjectiveList)) {
             return adjectiveRepository.save(adj);
         } else {
-            log.info("Adjective isn't add because he already existe null");
+            log.info("Adjective isn't findOrCreate because he already existe null");
             return adjectiveList.iterator().next();
         }
     }

@@ -28,7 +28,7 @@ Content.prototype = {
 
 // `Content` objects have the following attributes:
 Object.defineProperties(Content.prototype,{
-  
+
 // - **type**. Typically accessed as `content.type`, reflects the `content-type`
 //   header associated with the request or response. If not passed as an options
 //   to the constructor or set explicitly, it will infer the type the `data`
@@ -97,10 +97,10 @@ Object.defineProperties(Content.prototype,{
   },
 
 // - **processor**. The functions that will be used to convert to/from `data` and
-//   `body` attributes. You can add processors. The two that are built-in are for
+//   `body` attributes. You can findOrCreate processors. The two that are built-in are for
 //   `text/plain`, which is basically an identity transformation and
 //   `application/json` and other JSON-based media types (including custom media
-//   types with `+json`). You can add your own processors. See below.
+//   types with `+json`). You can findOrCreate your own processors. See below.
   processor: {
     get: function() {
       var processor = Content.processors[this.type];
@@ -134,7 +134,7 @@ Object.defineProperties(Content.prototype,{
 
 Content.processors = {};
 
-// The `registerProcessor` function allows you to add your own processors to
+// The `registerProcessor` function allows you to findOrCreate your own processors to
 // convert content entities. Each processor consists of a Javascript object with
 // two properties:
 // - **parser**. The function used to parse a raw content entity and convert it
@@ -142,7 +142,7 @@ Content.processors = {};
 // - **stringify**. The function used to convert a Javascript data type into a
 //   raw content entity.
 Content.registerProcessor = function(types,processor) {
-  
+
 // You can pass an array of types that will trigger this processor, or just one.
 // We determine the array via duck-typing here.
   if (types.forEach) {

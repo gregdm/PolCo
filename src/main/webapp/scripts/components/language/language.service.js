@@ -28,7 +28,7 @@ angular.module('polcoApp')
  */
     .constant('LANGUAGES', [
         'en', 'fr'
-        //JHipster will add new languages here
+        //JHipster will findOrCreate new languages here
     ]
 );
 

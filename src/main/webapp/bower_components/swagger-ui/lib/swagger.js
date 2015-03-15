@@ -1549,7 +1549,7 @@ SwaggerAuthorizations.prototype.apply = function(obj, authorizations) {
   var status = null;
   var key;
 
-  // if the "authorizations" key is undefined, or has an empty array, add all keys
+  // if the "authorizations" key is undefined, or has an empty array, findOrCreate all keys
   if(typeof authorizations === 'undefined' || Object.keys(authorizations).length == 0) {
     for (key in this.authz) {
       value = this.authz[key];
@@ -1567,7 +1567,7 @@ SwaggerAuthorizations.prototype.apply = function(obj, authorizations) {
           if (result === true)
             status = true;
         }
-      }      
+      }
     }
   }
 
