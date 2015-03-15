@@ -3,17 +3,16 @@
 angular.module('polcoApp')
     .controller('MainController', function ($scope, Principal, Translation) {
 
-        $scope.textToTranslate = "init to text ";
-        $scope.translatedText = "soon";
+        $scope.textToTranslate = "Je n'aime pas les aveugles depuis que je suis au chomage";
+        $scope.translatedText = "";
 
         $scope.translate = function () {
             $scope.translatedText = $scope.textToTranslate;
             Translation.getTranslation($scope.textToTranslate)
                 .success(function(data){
-                    console.log("Test" + data);
-                    $scope.translatedText = data.value;})
+                    $scope.translatedText = data;})
                 .error(function(data){
-                    $scope.translatedText = data;
+                    $scope.translatedText = "";
                 });
         };
 

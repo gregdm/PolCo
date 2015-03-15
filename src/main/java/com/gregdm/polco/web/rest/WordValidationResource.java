@@ -107,9 +107,13 @@ public class WordValidationResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public boolean validate(@PathVariable Long id) {
+    public ResponseEntity<Void>  validate(@PathVariable Long id) {
         log.debug("REST request to get WordValidation : {}", id);
-        return this.wordValidationService.validate(wordValidationRepository.findOne(id));
+        if(this.wordValidationService.validate(wordValidationRepository.findOne(id))){
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().header("Le proposition de mot n'est pas valide").build();
+        }
     }
 
     /**

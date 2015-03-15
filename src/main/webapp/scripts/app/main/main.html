@@ -2,16 +2,16 @@
     <div class="row">
         <div class="col-md-5">
             <textarea id = "textToTranslate" ng-model="textToTranslate"
-                  rows = "3"
+                  rows = "10" ng-maxlength="500"
                   cols = "60">Text à traduire</textarea>
         </div>
         <div class="col-md-2">
             <button type="button" ng-click="translate()">Trad</button>
         </div>
         <div class="col-md-5">
-            <textarea id = "translatedText" ng-model="translatedText"
-                  rows = "3"
-                  cols = "60">Text traduit</textarea>
+            <span id = "translatedText"
+                  rows = "10"
+                  cols = "60">{{translatedText}}</span>
         </div>
     </div>
     </div>
