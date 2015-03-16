@@ -51,6 +51,9 @@ public class InterjectionTrans implements Serializable {
         this.interjection = interjection;
     }
 
+    public void lowerStrings(){
+        this.setValue(this.getValue().toLowerCase().trim());
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

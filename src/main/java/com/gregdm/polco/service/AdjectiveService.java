@@ -40,6 +40,7 @@ public class AdjectiveService extends AbstractService{
         adjectiveTrans.setValue(word.getTranslation());
         adjectiveTrans.setAdjective(adjective);
         if(CollectionUtils.isEmpty(adjectiveTransRepository.findByValueAndAdjective(adjectiveTrans.getValue(), adjectiveTrans.getAdjective()))){
+            adjectiveTrans.lowerStrings();
             adjectiveTransRepository.save(adjectiveTrans);
             return true;
         }
@@ -58,7 +59,10 @@ public class AdjectiveService extends AbstractService{
             return adjectiveRepository.findByValueAndGenderAndNumber(
                 stringBDD(adj.getValue()), stringBDD(adj.getGender()),
                 stringBDD(adj.getNumber()));
-        } else {
+        } else if(adj != null &&
+            StringUtils.isNotBlank(adj.getValue())) {
+            return adjectiveRepository.findByValue(adj.getValue());
+        }  else {
             return Collections.EMPTY_LIST;
         }
     }

@@ -37,6 +37,7 @@ public class AdverbService extends AbstractService{
         adverbTrans.setValue(word.getTranslation());
         adverbTrans.setAdverb(adverb);
         if(CollectionUtils.isEmpty(adverbTransRepository.findByValueAndAdverb(adverbTrans.getValue(), adverbTrans.getAdverb()))){
+            adverbTrans.lowerStrings();
             adverbTransRepository.save(adverbTrans);
             return true;
         }

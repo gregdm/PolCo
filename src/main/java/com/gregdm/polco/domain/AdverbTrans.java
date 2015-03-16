@@ -50,6 +50,9 @@ public class AdverbTrans implements Serializable {
     public void setAdverb(Adverb adverb) {
         this.adverb = adverb;
     }
+    public void lowerStrings(){
+        this.setValue(this.getValue().toLowerCase().trim());
+    }
 
     @Override
     public boolean equals(Object o) {

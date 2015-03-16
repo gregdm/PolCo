@@ -51,6 +51,9 @@ public class NominalDetTrans implements Serializable {
         this.nominalDet = nominalDet;
     }
 
+    public void lowerStrings(){
+        this.setValue(this.getValue().toLowerCase().trim());
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -44,6 +44,7 @@ public class NounService extends AbstractService{
         nounTrans.setValue(word.getTranslation());
         nounTrans.setNoun(noun);
         if(CollectionUtils.isEmpty(nounTransRepository.findByValueAndNoun(nounTrans.getValue(), nounTrans.getNoun()))){
+            nounTrans.lowerStrings();
             nounTransRepository.save(nounTrans);
             return true;
         }
@@ -63,6 +64,9 @@ public class NounService extends AbstractService{
             return nounRepository.findByValueAndGenderAndNumberAndCompound(
                 stringBDD(noun.getValue()), stringBDD(noun.getGender()),
                 stringBDD(noun.getNumber()), stringBDD(noun.getCompound()));
+        } else if(noun != null &&
+            StringUtils.isNotBlank(noun.getValue())) {
+            return nounRepository.findByValue(noun.getValue());
         } else {
             return Collections.EMPTY_LIST;
         }

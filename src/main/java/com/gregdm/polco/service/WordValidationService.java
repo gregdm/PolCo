@@ -34,12 +34,6 @@ public class WordValidationService extends AbstractService {
     @Inject
     private VerbService verbService;
     @Inject
-    private PrefixService prefixService;
-    @Inject
-    private PrepositionService prepositionService;
-    @Inject
-    private NominalDetService nominalDetService;
-    @Inject
     private InterjectionService interjectionService;
     @Inject
     private AdverbService adverbService;

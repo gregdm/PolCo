@@ -43,6 +43,7 @@ public class VerbService extends  AbstractService{
         verbTrans.setValue(word.getTranslation());
         verbTrans.setVerb(verb);
         if(CollectionUtils.isEmpty(verbTransRepository.findByValueAndVerb(verbTrans.getValue(), verbTrans.getVerb()))){
+            verbTrans.lowerStrings();
             verbTransRepository.save(verbTrans);
             return true;
         }
@@ -62,6 +63,9 @@ public class VerbService extends  AbstractService{
             return verbRepository.findByValueAndPersonAndTenseAndNumber(
                 stringBDD(verb.getValue()), stringBDD(verb.getPerson()),
                 stringBDD(verb.getTense()), stringBDD(verb.getNumber()));
+        } else if(verb != null &&
+            StringUtils.isNotBlank(verb.getValue())) {
+            return verbRepository.findByValue(verb.getValue());
         } else {
             return Collections.EMPTY_LIST;
         }

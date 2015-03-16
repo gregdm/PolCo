@@ -39,11 +39,13 @@ public class ExpressionService extends AbstractService{
         expressionTrans.setValue(word.getTranslation());
         expressionTrans.setExpression(expression);
         if(CollectionUtils.isEmpty(expressionTransRepository.findByValueAndExpression(expressionTrans.getValue(), expressionTrans.getExpression()))){
+            expressionTrans.lowerStrings();
             expressionTransRepository.save(expressionTrans);
             return true;
         }
         return false;
     }
+
     public List<Expression> findByValue(String value){
         return expressionRepository.findByValue(this.stringBDD(value));
     }
@@ -68,6 +70,7 @@ public class ExpressionService extends AbstractService{
             throw new BadObjectException("Adective is invalide");
         }
         expression.lowerStrings();
+//TODO GREG check en fonction de la traduction afin qu'une expression puisse avoir plusieurs tranduction
 
         List<Expression> expressionList = this.findExpression(expression);
         if(CollectionUtils.isEmpty(expressionList)) {

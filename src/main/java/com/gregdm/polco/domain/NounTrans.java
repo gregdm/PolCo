@@ -51,6 +51,9 @@ public class NounTrans implements Serializable {
         this.noun = noun;
     }
 
+    public void lowerStrings(){
+        this.setValue(this.getValue().toLowerCase().trim());
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

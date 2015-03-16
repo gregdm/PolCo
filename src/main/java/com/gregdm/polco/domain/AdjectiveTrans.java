@@ -50,6 +50,9 @@ public class AdjectiveTrans implements Serializable {
     public void setAdjective(Adjective adjective) {
         this.adjective = adjective;
     }
+    public void lowerStrings(){
+        this.setValue(this.getValue().toLowerCase().trim());
+    }
 
     @Override
     public boolean equals(Object o) {

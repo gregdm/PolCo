@@ -39,6 +39,7 @@ public class InterjectionService extends AbstractService{
         interjectionTrans.setValue(word.getTranslation());
         interjectionTrans.setInterjection(interjection);
         if(CollectionUtils.isEmpty(interjectionTransRepository.findByValueAndInterjection(interjectionTrans.getValue(), interjectionTrans.getInterjection()))){
+            interjectionTrans.lowerStrings();
             interjectionTransRepository.save(interjectionTrans);
             return true;
         }

@@ -2,6 +2,7 @@ package com.gregdm.polco.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.gregdm.polco.security.AuthoritiesConstants;
+import com.gregdm.polco.service.ImportService;
 import com.gregdm.polco.service.TranslationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,8 @@ public class ImportResource {
 
     @Inject
     private TranslationService translationService;
+    @Inject
+    private ImportService importService;
 
     @RequestMapping(value = "/CSV",
         method = RequestMethod.POST,
@@ -34,7 +37,7 @@ public class ImportResource {
     @Timed
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public String create(@RequestBody MultipartFile file) throws URISyntaxException {
-        translationService.importCSV(file);
+        importService.importCSV(file);
         return "{ \"value\":\"greg\"}";
     }
 
@@ -44,6 +47,6 @@ public class ImportResource {
     @Timed
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public boolean importXML(@RequestBody MultipartFile file) throws URISyntaxException {
-        return translationService.importXML(file);
+        return importService.importXML(file);
     }
 }
