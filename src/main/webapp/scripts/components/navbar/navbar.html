@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
-        <div class="navbar-header">
+        <!--<div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#"><span translate="global.title">jhipster</span> <span class="navbar-version">v{{VERSION}}</span></a>
-        </div>
+        </div>-->
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
             <ul class="nav navbar-nav nav-pills navbar-right">
                 <li ui-sref-active="active">
@@ -38,6 +38,7 @@
                                     <b class="caret"></b>
                                 </span>
                     </a>
+
                     <ul class="dropdown-menu">
                         <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="settings"><span class="glyphicon glyphicon-wrench"></span>
                             &#xA0;<span translate="global.menu.account.settings">Settings</span></a></li>
@@ -79,7 +80,7 @@
                             &#xA0;<span translate="global.menu.admin.apidocs">API Docs</span></a></li>
                     </ul>
                 </li>
-                <li ui-sref-active="active" class="dropdown pointer" ng-controller="LanguageController">
+                <!--<li ui-sref-active="active" class="dropdown pointer" ng-controller="LanguageController">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                                 <span>
                                     <span class="glyphicon glyphicon-flag"></span>
@@ -92,7 +93,7 @@
                             <a href="" ng-click="changeLanguage(language)">{{'language.' + language| translate}}</a>
                         </li>
                     </ul>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
