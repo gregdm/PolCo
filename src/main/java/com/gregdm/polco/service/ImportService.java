@@ -1,26 +1,25 @@
 package com.gregdm.polco.service;
 
-import com.gregdm.polco.domain.*;
+import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.service.ImportXML.DicoSAXParser;
-import liquibase.util.csv.CSVReader;
-import liquibase.util.csv.opencsv.CSVWriter;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+
+import liquibase.util.csv.CSVReader;
 
 @Service
 @Transactional
@@ -56,10 +55,11 @@ public class ImportService {
 
                 CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()));
                 String[] row = null;
-                while((row = reader.readNext()) != null) {
-                    if(row.length>1){
+                while ((row = reader.readNext()) != null) {
+                    if (row.length > 1) {
                         WordValidation word = new WordValidation();
-                        if(StringUtils.isBlank(row[0]) || StringUtils.isBlank(row[1]) || StringUtils.isBlank(row[2])){
+                        if (StringUtils.isBlank(row[0]) || StringUtils.isBlank(row[1])
+                            || StringUtils.isBlank(row[2])) {
                             break;
                         }
                         word.setValue(row[0]);
@@ -77,7 +77,7 @@ public class ImportService {
                 e.printStackTrace();
             }
             words.forEach(w -> wordValidationService.validate(w));
-    }
+        }
     }
 
     //TODO GREG
@@ -86,7 +86,7 @@ public class ImportService {
 
     }
 
-    public boolean importXML(MultipartFile file){
+    public boolean importXML(MultipartFile file) {
         //TODO GREG A ameliorer faire un batch avec des commit flush par paquet dans hibernate
 
         //TODO GREG Arriver a récupere les nouveaux mots en temps réel du parser XML (peut être pas)
@@ -106,7 +106,7 @@ public class ImportService {
             dicoSAXParser.getPrepositionList().forEach(n -> prepositionService.findOrCreate(n));
             dicoSAXParser.getNounList().forEach(n -> nounService.findOrCreate(n));
             dicoSAXParser.getAdjectiveList().forEach(n -> adjectiveService.findOrCreate(n));
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             return false;
         }

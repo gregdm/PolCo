@@ -1,9 +1,12 @@
 package com.gregdm.polco.service;
 
-import com.gregdm.polco.domain.*;
 import com.gregdm.polco.domain.Verb;
+import com.gregdm.polco.domain.VerbTrans;
+import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.exception.BadObjectException;
-import com.gregdm.polco.repository.*;
+import com.gregdm.polco.repository.VerbRepository;
+import com.gregdm.polco.repository.VerbTransRepository;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,13 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 @Service
 @Transactional
-public class VerbService extends  AbstractService{
+public class VerbService extends AbstractService {
 
     private final Logger log = LoggerFactory.getLogger(VerbService.class);
 
@@ -27,8 +31,8 @@ public class VerbService extends  AbstractService{
     @Inject
     private VerbTransRepository verbTransRepository;
 
-    public boolean add(WordValidation word){
-        if(StringUtils.isBlank(word.getValue())){
+    public boolean add(WordValidation word) {
+        if (StringUtils.isBlank(word.getValue())) {
             return false;
         }
         Verb verb = new Verb();
@@ -42,7 +46,8 @@ public class VerbService extends  AbstractService{
         VerbTrans verbTrans = new VerbTrans();
         verbTrans.setValue(word.getTranslation());
         verbTrans.setVerb(verb);
-        if(CollectionUtils.isEmpty(verbTransRepository.findByValueAndVerb(verbTrans.getValue(), verbTrans.getVerb()))){
+        if (CollectionUtils.isEmpty(
+            verbTransRepository.findByValueAndVerb(verbTrans.getValue(), verbTrans.getVerb()))) {
             verbTrans.lowerStrings();
             verbTransRepository.save(verbTrans);
             return true;
@@ -50,36 +55,36 @@ public class VerbService extends  AbstractService{
         return false;
     }
 
-    public List<Verb> findByValue(String value){
+    public List<Verb> findByValue(String value) {
         return verbRepository.findByValue(this.stringBDD(value));
     }
 
-    public List<Verb> findVerb(Verb verb){
-        if(verb != null &&
-            StringUtils.isNotBlank(verb.getValue())&&
-            StringUtils.isNotBlank(verb.getNumber())&&
-            StringUtils.isNotBlank(verb.getTense())&&
+    public List<Verb> findVerb(Verb verb) {
+        if (verb != null &&
+            StringUtils.isNotBlank(verb.getValue()) &&
+            StringUtils.isNotBlank(verb.getNumber()) &&
+            StringUtils.isNotBlank(verb.getTense()) &&
             StringUtils.isNotBlank(verb.getPerson())) {
             return verbRepository.findByValueAndPersonAndTenseAndNumber(
                 stringBDD(verb.getValue()), stringBDD(verb.getPerson()),
                 stringBDD(verb.getTense()), stringBDD(verb.getNumber()));
-        } else if(verb != null &&
-            StringUtils.isNotBlank(verb.getValue())) {
+        } else if (verb != null &&
+                   StringUtils.isNotBlank(verb.getValue())) {
             return verbRepository.findByValue(verb.getValue());
         } else {
             return Collections.EMPTY_LIST;
         }
     }
 
-    public Verb findOrCreate(Verb verb){
-        if(verb == null && StringUtils.isNotBlank(verb.getValue())){
+    public Verb findOrCreate(Verb verb) {
+        if (verb == null && StringUtils.isNotBlank(verb.getValue())) {
             log.error("Verb is null");
             throw new BadObjectException("Verb is invalide");
         }
         verb.lowerStrings();
 
         List<Verb> VerbList = this.findVerb(verb);
-        if(CollectionUtils.isEmpty(VerbList)) {
+        if (CollectionUtils.isEmpty(VerbList)) {
             return verbRepository.save(verb);
         } else {
             log.info("Verb isn't findOrCreate because he already existe null");

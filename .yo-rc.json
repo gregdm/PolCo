@@ -1,19 +1,19 @@
 {
-  "generator-jhipster": {
-    "baseName": "PolCo",
-    "packageName": "com.gregdm.polco",
-    "packageFolder": "com/gregdm/polco",
-    "authenticationType": "session",
-    "hibernateCache": "ehcache",
-    "clusteredHttpSession": "no",
-    "websocket": "no",
-    "databaseType": "sql",
-    "devDatabaseType": "postgresql",
-    "prodDatabaseType": "postgresql",
-    "useCompass": false,
-    "buildTool": "maven",
-    "frontendBuilder": "grunt",
-    "javaVersion": "8",
-    "rememberMeKey": "b16e465a0c9100e2fc7e449b21beec89e761dc84"
-  }
+    "generator-jhipster": {
+        "baseName": "PolCo",
+        "packageName": "com.gregdm.polco",
+        "packageFolder": "com/gregdm/polco",
+        "authenticationType": "session",
+        "hibernateCache": "ehcache",
+        "clusteredHttpSession": "no",
+        "websocket": "no",
+        "databaseType": "sql",
+        "devDatabaseType": "postgresql",
+        "prodDatabaseType": "postgresql",
+        "useCompass": false,
+        "buildTool": "maven",
+        "frontendBuilder": "grunt",
+        "javaVersion": "8",
+        "rememberMeKey": "b16e465a0c9100e2fc7e449b21beec89e761dc84"
+    }
 }

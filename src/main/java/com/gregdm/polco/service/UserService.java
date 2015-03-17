@@ -1,13 +1,13 @@
 package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.Authority;
-import com.gregdm.polco.domain.PersistentToken;
 import com.gregdm.polco.domain.User;
 import com.gregdm.polco.repository.AuthorityRepository;
 import com.gregdm.polco.repository.PersistentTokenRepository;
 import com.gregdm.polco.repository.UserRepository;
 import com.gregdm.polco.security.SecurityUtils;
 import com.gregdm.polco.service.util.RandomUtil;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -17,11 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 /**
  * Service class for managing users.
@@ -58,7 +59,8 @@ public class UserService {
         return Optional.empty();
     }
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
+    public User createUserInformation(String login, String password, String firstName,
+                                      String lastName, String email,
                                       String langKey) {
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
@@ -93,7 +95,7 @@ public class UserService {
     }
 
     public void changePassword(String password) {
-        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u-> {
+        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
             String encryptedPassword = passwordEncoder.encode(password);
             u.setPassword(encryptedPassword);
             userRepository.save(u);
@@ -109,35 +111,31 @@ public class UserService {
     }
 
     /**
-     * Persistent Token are used for providing automatic authentication, they should be automatically deleted after
-     * 30 days.
-     * <p/>
-     * <p>
-     * This is scheduled to get fired everyday, at midnight.
-     * </p>
+     * Persistent Token are used for providing automatic authentication, they should be automatically
+     * deleted after 30 days. <p/> <p> This is scheduled to get fired everyday, at midnight. </p>
      */
     @Scheduled(cron = "0 0 0 * * ?")
     public void removeOldPersistentTokens() {
         LocalDate now = new LocalDate();
-        persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).stream().forEach(token ->{
-            log.debug("Deleting token {}", token.getSeries());
-            User user = token.getUser();
-            user.getPersistentTokens().remove(token);
-            persistentTokenRepository.delete(token);
-        });
+        persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).stream()
+            .forEach(token -> {
+                log.debug("Deleting token {}", token.getSeries());
+                User user = token.getUser();
+                user.getPersistentTokens().remove(token);
+                persistentTokenRepository.delete(token);
+            });
     }
 
     /**
-     * Not activated users should be automatically deleted after 3 days.
-     * <p/>
-     * <p>
-     * This is scheduled to get fired everyday, at 01:00 (am).
-     * </p>
+     * Not activated users should be automatically deleted after 3 days. <p/> <p> This is scheduled to
+     * get fired everyday, at 01:00 (am). </p>
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNotActivatedUsers() {
         DateTime now = new DateTime();
-        List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
+        List<User>
+            users =
+            userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);

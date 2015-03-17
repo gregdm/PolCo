@@ -1,16 +1,5 @@
 package com.gregdm.polco.service.ImportXML;
 
-import com.gregdm.polco.domain.*;
-import org.apache.commons.lang.StringUtils;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created by Greg on 04/03/2015.
  */

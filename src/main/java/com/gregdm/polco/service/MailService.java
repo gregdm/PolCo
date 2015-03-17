@@ -1,6 +1,7 @@
 package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.User;
+
 import org.apache.commons.lang.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,17 +14,15 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
+import java.util.Locale;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
-import java.util.Locale;
 
 /**
- * Service for sending e-mails.
- * <p/>
- * <p>
- * We use the @Async annotation to send e-mails asynchronously.
- * </p>
+ * Service for sending e-mails. <p/> <p> We use the @Async annotation to send e-mails
+ * asynchronously. </p>
  */
 @Service
 public class MailService {
@@ -38,7 +37,7 @@ public class MailService {
 
     @Inject
     private MessageSource messageSource;
-    
+
     @Inject
     private SpringTemplateEngine templateEngine;
 
@@ -53,14 +52,18 @@ public class MailService {
     }
 
     @Async
-    public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
-        log.debug("Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
-                isMultipart, isHtml, to, subject, content);
+    public void sendEmail(String to, String subject, String content, boolean isMultipart,
+                          boolean isHtml) {
+        log.debug(
+            "Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
+            isMultipart, isHtml, to, subject, content);
 
         // Prepare message using a Spring helper
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
-            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, CharEncoding.UTF_8);
+            MimeMessageHelper
+                message =
+                new MimeMessageHelper(mimeMessage, isMultipart, CharEncoding.UTF_8);
             message.setTo(to);
             message.setFrom(from);
             message.setSubject(subject);

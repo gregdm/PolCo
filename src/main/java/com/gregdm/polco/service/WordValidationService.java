@@ -1,23 +1,16 @@
 package com.gregdm.polco.service;
 
-import com.gregdm.polco.domain.Noun;
 import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.domain.util.EnumWordType;
 import com.gregdm.polco.exception.BadObjectException;
-import com.gregdm.polco.repository.NounRepository;
 import com.gregdm.polco.repository.WordValidationRepository;
-import org.apache.commons.lang.StringUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.List;
-
-import static com.gregdm.polco.domain.util.EnumWordType.*;
 
 @Service
 @Transactional
@@ -42,12 +35,14 @@ public class WordValidationService extends AbstractService {
 
     public boolean validate(WordValidation word) {
         if (word == null) {
-            throw new BadObjectException("Nous ne pouvons pas valider le mot car il n'est pas conforme");
+            throw new BadObjectException(
+                "Nous ne pouvons pas valider le mot car il n'est pas conforme");
         }
 
         EnumWordType enumWordType = EnumWordType.valueOf(word.getWordType());
         if (enumWordType == null) {
-            throw new BadObjectException("Nous ne pouvons pas valider le mot car il n'est pas conforme");
+            throw new BadObjectException(
+                "Nous ne pouvons pas valider le mot car il n'est pas conforme");
         }
 
         switch (enumWordType) {

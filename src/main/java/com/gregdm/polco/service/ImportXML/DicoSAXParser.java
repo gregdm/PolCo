@@ -1,29 +1,29 @@
 package com.gregdm.polco.service.ImportXML;
 
-import com.gregdm.polco.domain.*;
-import com.gregdm.polco.repository.*;
+import com.gregdm.polco.domain.Adjective;
+import com.gregdm.polco.domain.Adverb;
+import com.gregdm.polco.domain.Interjection;
+import com.gregdm.polco.domain.NominalDet;
+import com.gregdm.polco.domain.Noun;
+import com.gregdm.polco.domain.Prefix;
+import com.gregdm.polco.domain.Preposition;
+import com.gregdm.polco.domain.Verb;
 import com.gregdm.polco.service.NounService;
+
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.persistence.Entity;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Greg on 09/03/2015.
  */
 public class DicoSAXParser extends DefaultHandler {
-
-    @Inject
-    private NounService nounService;
 
     public static final String NOUN = "noun";
     public static final String ADJ = "adj";
@@ -33,7 +33,6 @@ public class DicoSAXParser extends DefaultHandler {
     public static final String ADVERB = "adverb";
     public static final String INTJ = "intj";
     public static final String NOMINALDET = "nominaldet";
-
     public static final String ENTRY = "entry";
     public static final String INFLECTED = "inflected";
     public static final String FORM = "form";
@@ -45,12 +44,12 @@ public class DicoSAXParser extends DefaultHandler {
     public static final String NONE = "none";
     public static final String TENSE = "tense";
     public static final String PERSON = "person";
-
     Entry entryTemp;
     Inflected inflectedTemp;
     String tmpValue;
     boolean lvlEntry = true;
-
+    @Inject
+    private NounService nounService;
     private List<Noun> nounList = new LinkedList<>();
 
     private List<Verb> verbList = new LinkedList<>();
@@ -77,7 +76,7 @@ public class DicoSAXParser extends DefaultHandler {
             //In characters
         } else {
             if (lvlEntry) {
-                entryTemp.compound=attributes.getValue(0);
+                entryTemp.compound = attributes.getValue(0);
             } else {
                 inflectedTemp.map.put(attributes.getValue(0), attributes.getValue(1));
             }
@@ -85,7 +84,7 @@ public class DicoSAXParser extends DefaultHandler {
     }
 
     public void endElement(String uri, String localName, String qName) throws
-        SAXException {
+                                                                       SAXException {
 
         // System.out.println("End  Element :" + qName);
 
@@ -103,7 +102,7 @@ public class DicoSAXParser extends DefaultHandler {
     }
 
     public void characters(char ch[], int start, int length) throws
-        SAXException {
+                                                             SAXException {
         tmpValue = new String(ch, start, length);
     }
 
@@ -113,7 +112,7 @@ public class DicoSAXParser extends DefaultHandler {
             for (Inflected i : e.inflecteds) {
                 Noun noun = new Noun();
                 noun.setValue(i.form);
-                if(StringUtils.isNotBlank(e.compound)) {
+                if (StringUtils.isNotBlank(e.compound)) {
                     noun.setCompound(e.compound);
                 } else {
                     noun.setCompound(NONE);
@@ -175,25 +174,25 @@ public class DicoSAXParser extends DefaultHandler {
                 prep.setValue(i.form);
                 prepositionList.add(prep);
             }
-        }  else if (INTJ.equals(e.pos)) {
+        } else if (INTJ.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
                 Interjection intj = new Interjection();
                 intj.setValue(i.form);
                 interjectionList.add(intj);
             }
-        }  else if (PREFIX.equals(e.pos)) {
+        } else if (PREFIX.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
                 Prefix prefix = new Prefix();
                 prefix.setValue(i.form);
                 prefixList.add(prefix);
             }
-        }  else if (ADVERB.equals(e.pos)) {
+        } else if (ADVERB.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
                 Adverb adv = new Adverb();
                 adv.setValue(i.form);
                 adverbList.add(adv);
             }
-        }   else if (NOMINALDET.equals(e.pos)) {
+        } else if (NOMINALDET.equals(e.pos)) {
             for (Inflected i : e.inflecteds) {
                 NominalDet nomDet = new NominalDet();
                 nomDet.setValue(i.form);
@@ -212,11 +211,9 @@ public class DicoSAXParser extends DefaultHandler {
     }
 
 
-
     public List<Adjective> getAdjectiveList() {
         return adjectiveList;
     }
-
 
 
     public List<Adverb> getAdverbList() {
