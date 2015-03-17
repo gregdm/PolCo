@@ -1,42 +1,43 @@
 package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.*;
-import com.gregdm.polco.service.ImportXML.DicoSAXParser;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.multipart.MultipartFile;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import javax.inject.Inject;
-import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
 @Service
 @Transactional
-public class TranslationService {
+public class PourcentageService {
 
-    private final Logger log = LoggerFactory.getLogger(TranslationService.class);
+    private final Logger log = LoggerFactory.getLogger(PourcentageService.class);
 
     @Inject
     private NounService nounService;
-
     @Inject
     private AdjectiveService adjectiveService;
     @Inject
     private VerbService verbService;
     @Inject
+    private PrefixService prefixService;
+    @Inject
+    private PrepositionService prepositionService;
+    @Inject
+    private NominalDetService nominalDetService;
+    @Inject
     private InterjectionService interjectionService;
+    @Inject
+    private AdverbService adverbService;
     @Inject
     private ExpressionService expressionService;
 
-    public String translateText(String text){
+    public String getPourcentage(String text){
         //TODO GREG keep the uppercase in word
         //Put into set
         String tokens[] = text.split("\\s+");
