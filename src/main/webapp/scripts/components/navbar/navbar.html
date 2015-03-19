@@ -10,22 +10,30 @@
             <a class="navbar-brand" href="#"><span translate="global.title">jhipster</span> <span class="navbar-version">v{{VERSION}}</span></a>
         </div>-->
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
+            <ul class="nav navbar-nav nav-pills navbar-left">
+                <li>
+                    <a ui-sref="home">
+                        <img src="polco.png" alt="PolCo">
+                        <span>POLCO</span>
+                    </a>
+                </li>
+            </ul>
             <ul class="nav navbar-nav nav-pills navbar-right">
                 <li ui-sref-active="active">
                     <a ui-sref="home">
-                        <span class="glyphicon glyphicon-home"></span>
-                        <span translate="global.menu.home">Home</span>
+                        <span class="glyphicon glyphicon-volume-off"></span>
+                        <span translate="global.menu.home">Traduire</span>
                     </a>
                 </li>
                 <li ui-sref-active="active">
                     <a ui-sref="pourcentage">
-                        <span class="glyphicon glyphicon-asterisk"></span>
-                        <span translate="global.menu.account.sessions">Pourcentage</span>
+                        <span class="glyphicon glyphicon-stats"></span>
+                        <span translate="global.menu.pourcentage">Pourcentage</span>
                     </a>
                 </li>
                 <li ui-sref-active="active">
-                    <a ui-sref="wordValidation"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.wordValidation">ajouter une traduction</span></a>
+                    <a ui-sref="wordValidation"><span class="glyphicon glyphicon-plus"></span>
+                        &#xA0;<span translate="global.menu.ajout.traduction">Ajouter un PolCo</span></a>
 
                 </li>
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
@@ -64,8 +72,8 @@
                                 </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active"><a ui-sref="import"><span class="glyphicon glyphicon-dashboard"></span>
-                            &#xA0;<span translate="global.menu.admin.metrics">Import</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="import"><span class="glyphicon glyphicon-circle-arrow-down"></span>
+                            &#xA0;<span translate="global.menu.admin.import">Import</span></a></li>
                         <li ui-sref-active="active"><a ui-sref="metrics"><span class="glyphicon glyphicon-dashboard"></span>
                             &#xA0;<span translate="global.menu.admin.metrics">Metrics</span></a></li>
                         <li ui-sref-active="active"><a ui-sref="health"><span class="glyphicon glyphicon-heart"></span>
