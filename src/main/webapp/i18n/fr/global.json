@@ -98,7 +98,9 @@
             "edit": "Editer",
             "delete": "Supprimer",
             "save": "Sauvegarder",
-            "view": "Voir"
+            "view": "Voir",
+            "add": "Ajouter",
+            "validate": "Valider"
         },
         "detail": {
             "field": "Champ",
@@ -108,5 +110,5 @@
             "title": "Confirmation de suppression"
         }
     },
-    "footer": "Created by gregdm"
+    "footer": "Créé par Grégoire de M"
 }

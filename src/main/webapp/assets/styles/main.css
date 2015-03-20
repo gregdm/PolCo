@@ -28,11 +28,42 @@ Developement Ribbon
 }
 
 /* ==========================================================================
+LOGO
+========================================================================== */
+.logo {
+    position: absolute;
+    width: 150px;
+    height: 48px;
+    top: 0;
+    left: 0;
+    border: 0;
+    z-index: 1000;
+    background-image: url("../images/polco.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.blueBorder{
+    border: 1px solid #087D93;
+}
+.logoMan {
+    position: absolute;
+    width: 70px;
+    height: 80px;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-image: url("../images/polco-man.png");
+    background-color: #ffffff;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/* ==========================================================================
 Version number in navbar
 ========================================================================== */
 .navbar-version {
     font-size: 10px;
-    color: #ccc
+    color: #ccc;
 }
 
 /* ==========================================================================
@@ -91,6 +122,51 @@ only screen and (                min-resolution: 2dppx) {
 
 .hand {
     cursor: pointer;
+}
+
+.navbar-default{
+    background-color: #FFFFFF;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: #FFFFFF;
+    background-color: #087D93;
+}
+
+body {
+    background: #087D93;
+}
+
+.whiteColor {
+    color: #FFFFFF;
+}
+
+.pageTitle{
+    color: #087D93;
+    font-family: initial;
+    text-align: center;
+    margin-bottom: 1em;
+}
+.height20{
+    height: 20em;
+}
+
+.width100{
+    width: 100%;
+}
+
+.well {
+    background-color: #FFFFFF;
+    border-radius: 0px;
+}
+
+.navbar {
+    border-radius: 0px;
+    border : 0px;
+}
+
+.nav-pills > li > a {
+    border-radius: 0px;
 }
 
 #threadDump .popover, #healthCheck .popover {

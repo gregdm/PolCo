@@ -2,23 +2,23 @@
     "polcoApp": {
         "wordValidation" : {
             "home": {
-                "title": "WordValidations",
-                "createLabel": "Créer un nouveau WordValidation",
-                "createOrEditLabel": "Créer ou éditer un WordValidation"
+                "title": "Ajout d'une traduction",
+                "createLabel": "Proposer une nouvelle traduction",
+                "createOrEditLabel": "Créer ou éditer une proposition"
             },
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le WordValidation {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer cette proposition {{ id }} ?"
             },
             "detail": {
-                "title": "WordValidation"
+                "title": "Ajout d'un traduction"
             },
-            "value": "Value",
-            "translation": "Translation",
-            "wordType": "WordType",
-            "number": "Number",
-            "gender": "Gender",
-            "person": "Person",
-            "tense": "Tense"
+            "value": "Pas PolCo",
+            "translation": "Traduction en PolCo",
+            "wordType": "Type de mot",
+            "number": "nombre",
+            "gender": "genre",
+            "person": "personne",
+            "tense": "temps"
         }
     }
 }

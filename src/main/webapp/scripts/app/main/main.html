@@ -1,19 +1,25 @@
 <div ng-cloak>
-    Mettre en francais par defaut
-
     <div class="row">
+        <div class="col-md-2"></div>
+         <h1 class="col-md-8 pageTitle">Transformation en Politiquement Correct</h1>
+        <div class="col-md-2"></div>
+
+    </div>
+
+    <div class="row height20">
         <div class="col-md-5">
             <textarea id = "textToTranslate" ng-model="textToTranslate"
-                  rows = "10" ng-maxlength="500"
-                  cols = "60">Text à traduire</textarea>
+                  rows = "14" ng-maxlength="500" class="width100 blueBorder height20">
+                Text à traduire</textarea>
         </div>
-        <div class="col-md-2">
-            <button type="button" ng-click="translate()">Trad</button>
+        <div class="col-md-1">
+
+            <button type="button" ng-click="translate()" class="logoMan blueBorder">
+            </button>
         </div>
-        <div class="col-md-5">
-            <span id = "translatedText"
-                  rows = "10"
-                  cols = "60">{{translatedText}}</span>
+        <div class="col-md-5 blueBorder height20">
+            <span id = "translatedText" class=""
+                  class="width100">{{translatedText}}</span>
         </div>
     </div>
     </div>
