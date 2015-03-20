@@ -58,6 +58,23 @@ LOGO
     background-repeat: no-repeat;
 }
 
+.marginBottom{
+    margin-bottom: 2em;
+}
+
+.pourcentageImg {
+    position: absolute;
+    width: 70px;
+    height: 80px;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-image: url("../images/pourcentage.png");
+    background-color: #ffffff;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
 /* ==========================================================================
 Version number in navbar
 ========================================================================== */
