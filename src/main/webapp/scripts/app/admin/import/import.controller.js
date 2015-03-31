@@ -8,9 +8,23 @@ angular.module('polcoApp')
             var file = $scope.myFile;
             Translation.uploadFileToUrl(file)
                 .success(function(data){
-                    $scope.translatedText = data.value;})
+
+                                     })
+                    //$scope.translatedText = data.value;})
                 .error(function(data){
-                    $scope.translatedText = data;
+                    //$scope.translatedText = data;
+                });
+        };
+
+        $scope.uploadExpression = function(){
+            var file = $scope.myCSVExpression;
+            Translation.uploadExpressionToUrl(file)
+                .success(function(data){
+
+                                     })
+                   // $scope.translatedText = data.value;})
+                .error(function(data){
+                    //$scope.translatedText = data;
                 });
         };
 
@@ -18,9 +32,11 @@ angular.module('polcoApp')
             var file = $scope.myFile;
             Translation.uploadFileXML(file)
                 .success(function(data){
-                    $scope.translatedText = data.value;})
+                                        //TODO GREG Handle error message
+                                     })
+                    //$scope.translatedText = data.value;})
                 .error(function(data){
-                    $scope.translatedText = data;
+                    //$scope.translatedText = data;
                 });
         };
     });

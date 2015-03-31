@@ -41,6 +41,16 @@ public class ImportResource {
         return "{ \"value\":\"greg\"}";
     }
 
+    @RequestMapping(value = "/expression",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public String importExpression(@RequestBody MultipartFile file) throws URISyntaxException {
+        importService.importExpression(file);
+        return "{ \"value\":\"greg\"}";
+    }
+
     @RequestMapping(value = "/XML",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)

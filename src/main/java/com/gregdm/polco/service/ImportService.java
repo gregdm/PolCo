@@ -84,6 +84,7 @@ public class ImportService {
     public void exportTraductionCSV() {
         ///CSVWriter write = new CSVWriter();
 
+
     }
 
     public boolean importXML(MultipartFile file) {
@@ -111,5 +112,9 @@ public class ImportService {
             return false;
         }
         return true;
+    }
+
+    public void importExpression(MultipartFile file) {
+
     }
 }

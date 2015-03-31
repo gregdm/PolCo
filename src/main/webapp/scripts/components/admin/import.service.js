@@ -15,6 +15,17 @@ angular.module('polcoApp')
             });
         };
 
+        dataFactory.uploadExpressionToUrl = function(file){
+            var fd = new FormData();
+            fd.append('file', file);
+            return $http.post(urlBase+"/expression", fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            });
+        };
+
+
+
         dataFactory.uploadFileXML = function(file){
             var fd = new FormData();
             fd.append('file', file);
