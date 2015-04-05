@@ -6,7 +6,12 @@ angular.module('polcoApp')
         var urlBase = '/api/import';
         var dataFactory = {};
 
-        dataFactory.uploadFileToUrl = function(file){
+        dataFactory.exportTrad = function(){
+
+            return $http.get(urlBase+"/exportTrad");
+        };
+
+         dataFactory.uploadFileToUrl = function(file){
             var fd = new FormData();
             fd.append('file', file);
             return $http.post(urlBase+"/CSV", fd, {

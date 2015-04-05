@@ -1,12 +1,28 @@
 'use strict';
 
 angular.module('polcoApp')
-    .controller('ImportController', function ($scope, $translate, $filter, AuditsService, Translation) {
+    .controller('ImportController', function ($scope, $translate, $filter, AuditsService, ImportService) {
 
+
+        $scope.exportTrad = function(){
+            ImportService.exportTrad()
+                .success(function(data, status, headers, config) {
+                             var element = angular.element('<a/>');
+                             element.attr({
+                                              href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+                                              target: '_blank',
+                                              download: 'traductions.csv'
+                                          })[0].click();
+
+                         }).
+                error(function(data, status, headers, config) {
+                          // if there's an error you should see it here
+                      });
+        };
 
         $scope.uploadFile = function(){
             var file = $scope.myFile;
-            Translation.uploadFileToUrl(file)
+            ImportService.uploadFileToUrl(file)
                 .success(function(data){
 
                                      })
@@ -18,7 +34,7 @@ angular.module('polcoApp')
 
         $scope.uploadExpression = function(){
             var file = $scope.myCSVExpression;
-            Translation.uploadExpressionToUrl(file)
+            ImportService.uploadExpressionToUrl(file)
                 .success(function(data){
 
                                      })
@@ -30,7 +46,7 @@ angular.module('polcoApp')
 
         $scope.uploadXMLFile = function(){
             var file = $scope.myFile;
-            Translation.uploadFileXML(file)
+            ImportService.uploadFileXML(file)
                 .success(function(data){
                                         //TODO GREG Handle error message
                                      })

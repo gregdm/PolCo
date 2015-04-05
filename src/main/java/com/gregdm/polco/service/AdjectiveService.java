@@ -2,6 +2,7 @@ package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.Adjective;
 import com.gregdm.polco.domain.AdjectiveTrans;
+import com.gregdm.polco.domain.AdverbTrans;
 import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.exception.BadObjectException;
 import com.gregdm.polco.repository.AdjectiveRepository;
@@ -29,6 +30,10 @@ public class AdjectiveService extends AbstractService {
     private AdjectiveRepository adjectiveRepository;
     @Inject
     private AdjectiveTransRepository adjectiveTransRepository;
+
+    public List<AdjectiveTrans> findAllAdjectiveTrans() {
+        return adjectiveTransRepository.findAll();
+    }
 
     public boolean add(WordValidation word) {
         if (StringUtils.isBlank(word.getValue())) {

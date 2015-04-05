@@ -58,6 +58,9 @@ public class NounService extends AbstractService {
     public List<Noun> findByValue(String value) {
         return nounRepository.findByValue(this.stringBDD(value));
     }
+    public List<NounTrans> findAllNounTrans() {
+        return nounTransRepository.findAll();
+    }
 
     public List<Noun> findNoun(Noun noun) {
         if (noun != null &&

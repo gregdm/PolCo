@@ -61,6 +61,10 @@ public class ExpressionService extends AbstractService {
         return expressionRepository.findAll();
     }
 
+    public List<ExpressionTrans> findAllTrans() {
+        return expressionTransRepository.findAll();
+    }
+
     public List<Expression> findExpression(Expression expression) {
         if (expression != null &&
             StringUtils.isNotBlank(expression.getValue())) {

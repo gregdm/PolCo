@@ -2,6 +2,7 @@ package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.Interjection;
 import com.gregdm.polco.domain.InterjectionTrans;
+import com.gregdm.polco.domain.VerbTrans;
 import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.exception.BadObjectException;
 import com.gregdm.polco.repository.InterjectionRepository;
@@ -30,6 +31,9 @@ public class InterjectionService extends AbstractService {
     @Inject
     private InterjectionTransRepository interjectionTransRepository;
 
+    public List<InterjectionTrans> findAllInterjectionTrans() {
+        return interjectionTransRepository.findAll();
+    }
 
     public boolean add(WordValidation word) {
         if (StringUtils.isBlank(word.getValue())) {

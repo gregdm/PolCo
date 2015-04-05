@@ -6,9 +6,9 @@ angular.module('polcoApp')
         $scope.text = "greg";
         $scope.pourcentage = "";
 
-        $scope.uploadFile = function(){
-
-            Pourcentage.getPourcentage($scope.text)
+        $scope.getPourcentage = function(){
+            $scope.translatedText = "in progress";
+            Pourcentage.getPourcentage($scope.textToTranslate)
                 .success(function(data){
                     $scope.pourcentage = data;})
                 .error(function(data){

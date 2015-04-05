@@ -1,5 +1,17 @@
 package com.gregdm.polco.service;
 
+import com.gregdm.polco.domain.Adjective;
+import com.gregdm.polco.domain.AdjectiveTrans;
+import com.gregdm.polco.domain.Adverb;
+import com.gregdm.polco.domain.AdverbTrans;
+import com.gregdm.polco.domain.Expression;
+import com.gregdm.polco.domain.ExpressionTrans;
+import com.gregdm.polco.domain.Interjection;
+import com.gregdm.polco.domain.InterjectionTrans;
+import com.gregdm.polco.domain.Noun;
+import com.gregdm.polco.domain.NounTrans;
+import com.gregdm.polco.domain.Verb;
+import com.gregdm.polco.domain.VerbTrans;
 import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.domain.util.EnumWordType;
 import com.gregdm.polco.exception.BadObjectException;
@@ -32,6 +44,63 @@ public class WordValidationService extends AbstractService {
     private AdverbService adverbService;
     @Inject
     private ExpressionService expressionService;
+
+    public WordValidation expressionTransToWordValidation(ExpressionTrans e){
+        WordValidation w = new WordValidation();
+        w.setTranslation(e.getValue());
+        w.setValue(e.getExpression().getValue());
+        w.setWordType(EnumWordType.EXPRESSION.name());
+        return w;
+    }
+    public WordValidation nounTransToWordValidation(NounTrans n){
+        WordValidation w = new WordValidation();
+        w.setTranslation(n.getValue());
+        Noun noun = n.getNoun();
+        w.setValue(noun.getValue());
+        w.setWordType(EnumWordType.NOUN.name());
+        w.setGender(noun.getGender());
+        w.setNumber(noun.getNumber());
+        return w;
+    }
+
+    public WordValidation adjectiveTransToWordValidation(AdjectiveTrans a){
+        WordValidation w = new WordValidation();
+        w.setTranslation(a.getValue());
+        Adjective adj = a.getAdjective();
+        w.setValue(adj.getValue());
+        w.setWordType(EnumWordType.ADJECTIVE.name());
+        w.setGender(adj.getGender());
+        w.setNumber(adj.getNumber());
+        return w;
+    }
+    public WordValidation verbTransToWordValidation(VerbTrans v){
+        WordValidation w = new WordValidation();
+        w.setTranslation(v.getValue());
+        Verb verb = v.getVerb();
+        w.setValue(verb.getValue());
+        w.setWordType(EnumWordType.VERB.name());
+        w.setNumber(verb.getNumber());
+        w.setPerson(verb.getPerson());
+        w.setTense(verb.getTense());
+        return w;
+    }
+    public WordValidation interjectionTransToWordValidation(InterjectionTrans i){
+        WordValidation w = new WordValidation();
+        w.setTranslation(i.getValue());
+        Interjection interj = i.getInterjection();
+        w.setValue(interj.getValue());
+        w.setWordType(EnumWordType.INTERJECTION.name());
+        return w;
+    }
+
+    public WordValidation adverbTransToWordValidation(AdverbTrans a){
+        WordValidation w = new WordValidation();
+        w.setTranslation(a.getValue());
+        Adverb adverb = a.getAdverb();
+        w.setValue(adverb.getValue());
+        w.setWordType(EnumWordType.ADVERB.name());
+        return w;
+    }
 
     public boolean validate(WordValidation word) {
         if (word == null) {

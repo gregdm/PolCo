@@ -1,5 +1,6 @@
 package com.gregdm.polco.service;
 
+import com.gregdm.polco.domain.AdjectiveTrans;
 import com.gregdm.polco.domain.Verb;
 import com.gregdm.polco.domain.VerbTrans;
 import com.gregdm.polco.domain.WordValidation;
@@ -31,6 +32,10 @@ public class VerbService extends AbstractService {
     @Inject
     private VerbTransRepository verbTransRepository;
 
+
+    public List<VerbTrans> findAllVerbTrans() {
+        return verbTransRepository.findAll();
+    }
     public boolean add(WordValidation word) {
         if (StringUtils.isBlank(word.getValue())) {
             return false;

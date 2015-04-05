@@ -1,5 +1,13 @@
 package com.gregdm.polco.service;
 
+import com.gregdm.polco.domain.AdjectiveTrans;
+import com.gregdm.polco.domain.Adverb;
+import com.gregdm.polco.domain.AdverbTrans;
+import com.gregdm.polco.domain.Expression;
+import com.gregdm.polco.domain.ExpressionTrans;
+import com.gregdm.polco.domain.InterjectionTrans;
+import com.gregdm.polco.domain.NounTrans;
+import com.gregdm.polco.domain.VerbTrans;
 import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.service.ImportXML.DicoSAXParser;
 
@@ -10,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -20,6 +29,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import liquibase.util.csv.CSVReader;
+import liquibase.util.csv.opencsv.CSVWriter;
 
 @Service
 @Transactional
@@ -29,7 +39,6 @@ public class ImportService {
 
     @Inject
     private NounService nounService;
-
     @Inject
     private AdjectiveService adjectiveService;
     @Inject
@@ -44,9 +53,43 @@ public class ImportService {
     private InterjectionService interjectionService;
     @Inject
     private AdverbService adverbService;
-
+    @Inject
+    private ExpressionService expressionService;
     @Inject
     private WordValidationService wordValidationService;
+
+    public CSVWriter exportTrad(CSVWriter writer) throws IOException {
+
+        List<WordValidation> words = new ArrayList<>();
+
+        List<ExpressionTrans> expressionTrans = expressionService.findAllTrans();
+        expressionTrans.forEach(e -> words.add(wordValidationService.expressionTransToWordValidation(e)));
+
+        List<NounTrans> allNounTrans = nounService.findAllNounTrans();
+        allNounTrans.forEach(n -> words.add(wordValidationService.nounTransToWordValidation(n)));
+
+        List<AdjectiveTrans> allAdjectiveTrans = adjectiveService.findAllAdjectiveTrans();
+        allAdjectiveTrans.forEach(n -> words.add(wordValidationService.adjectiveTransToWordValidation(
+            n)));
+
+        List<VerbTrans> allVerbTrans = verbService.findAllVerbTrans();
+        allVerbTrans.forEach(n -> words.add(wordValidationService.verbTransToWordValidation(n)));
+
+        List<InterjectionTrans> allInterjectionTrans = interjectionService.findAllInterjectionTrans();
+        allInterjectionTrans.forEach(n -> words.add(wordValidationService.interjectionTransToWordValidation(
+            n)));
+
+        List<AdverbTrans> allAdverbTrans = adverbService.findAllAdverbTrans();
+        allAdverbTrans.forEach(n -> words.add(wordValidationService.adverbTransToWordValidation(n)));
+
+        String[] header = {"Value","Traduction","WordType","Number","Gender","Person","Tense"};
+        writer.writeNext(header);
+        for(WordValidation word : words){
+            String[] row = {word.getValue(),word.getTranslation(),word.getWordType(),word.getNumber(),word.getGender(),word.getPerson(),word.getTense()};
+            writer.writeNext(row);
+        }
+        return writer;
+    }
 
     public void importCSV(MultipartFile file) {
         if (!file.isEmpty()) {
@@ -80,13 +123,6 @@ public class ImportService {
         }
     }
 
-    //TODO GREG
-    public void exportTraductionCSV() {
-        ///CSVWriter write = new CSVWriter();
-
-
-    }
-
     public boolean importXML(MultipartFile file) {
         //TODO GREG A ameliorer faire un batch avec des commit flush par paquet dans hibernate
 
@@ -112,9 +148,5 @@ public class ImportService {
             return false;
         }
         return true;
-    }
-
-    public void importExpression(MultipartFile file) {
-
     }
 }

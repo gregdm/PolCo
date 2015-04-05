@@ -2,6 +2,7 @@ package com.gregdm.polco.service;
 
 import com.gregdm.polco.domain.Adverb;
 import com.gregdm.polco.domain.AdverbTrans;
+import com.gregdm.polco.domain.NounTrans;
 import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.exception.BadObjectException;
 import com.gregdm.polco.repository.AdverbRepository;
@@ -29,6 +30,11 @@ public class AdverbService extends AbstractService {
     private AdverbRepository adverbRepository;
     @Inject
     private AdverbTransRepository adverbTransRepository;
+
+    public List<AdverbTrans> findAllAdverbTrans() {
+        return adverbTransRepository.findAll();
+    }
+
 
     public boolean add(WordValidation word) {
         if (StringUtils.isBlank(word.getValue())) {
