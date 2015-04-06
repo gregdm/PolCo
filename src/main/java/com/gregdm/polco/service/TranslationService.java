@@ -1,10 +1,23 @@
 package com.gregdm.polco.service;
 
+import com.google.common.base.Supplier;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multiset;
+
 import com.gregdm.polco.domain.Adjective;
+import com.gregdm.polco.domain.AdjectiveTrans;
+import com.gregdm.polco.domain.Adverb;
+import com.gregdm.polco.domain.AdverbTrans;
 import com.gregdm.polco.domain.Expression;
+import com.gregdm.polco.domain.ExpressionTrans;
 import com.gregdm.polco.domain.Interjection;
+import com.gregdm.polco.domain.InterjectionTrans;
 import com.gregdm.polco.domain.Noun;
+import com.gregdm.polco.domain.NounTrans;
 import com.gregdm.polco.domain.Verb;
+import com.gregdm.polco.domain.VerbTrans;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +28,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -33,10 +49,39 @@ public class TranslationService {
     @Inject
     private InterjectionService interjectionService;
     @Inject
+    private AdverbService adverbService;
+    @Inject
     private ExpressionService expressionService;
 
     public String translateText(String text) {
+
+        List<ExpressionTrans> expressionTrans = expressionService.findAllTrans();
+        List<NounTrans> allNounTrans = nounService.findAllNounTrans();
+        List<AdjectiveTrans> allAdjectiveTrans = adjectiveService.findAllAdjectiveTrans();
+        List<VerbTrans> allVerbTrans = verbService.findAllVerbTrans();
+        List<InterjectionTrans> allInterjectionTrans = interjectionService.findAllInterjectionTrans();
+        List<AdverbTrans> allAdverbTrans = adverbService.findAllAdverbTrans();
+
+
+        //TODO GREG Make it more clear
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        Map<String,String> map = expressionTrans.stream().collect(
+            Collectors.toMap((e) -> e.getExpression().getValue(), ExpressionTrans::getValue));
+
+        for (String key : map.keySet()) {
+            expressions.put(key, map.get(key));
+        }
+
+
+        for(String key : expressions.keySet()){
+            if(text.contains(key) ) {
+                text.replace(key, expressions.get(key).iterator().next());
+            }
+        }
+
         //TODO GREG keep the uppercase in word
+
         //Put into set
         String tokens[] = text.split("\\s+");
         String textTranslated = new String(text);

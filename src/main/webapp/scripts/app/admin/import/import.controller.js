@@ -3,7 +3,6 @@
 angular.module('polcoApp')
     .controller('ImportController', function ($scope, $translate, $filter, AuditsService, ImportService) {
 
-
         $scope.exportTrad = function(){
             ImportService.exportTrad()
                 .success(function(data, status, headers, config) {
