@@ -110,15 +110,20 @@ public class TranslationService {
         for(String key : this.expressionTrans.keySet()){
             //If text start with uppercase
             //Boundary, check if an entire word and not a substring ex: IN and INput
-            Pattern pInsensitive = Pattern.compile("\\b"+key+"\\b", Pattern.CASE_INSENSITIVE);
-            Pattern pSensitive = Pattern.compile("\\b"+key+"\\b");
+            String regexExpression = "\\b"+ key + "\\b";
+            Pattern pInsensitive = Pattern.compile(regexExpression, Pattern.CASE_INSENSITIVE);
+            Pattern pSensitive = Pattern.compile(regexExpression);
 
-            if(pSensitive.matcher(text).find()) {
+            Matcher matcherSensitive = pSensitive.matcher(text);
+            if(matcherSensitive.find()) {
                 String randomString = this.getRandomString(this.expressionTrans.get(key));
-                text = text.replace(key, randomString);
-            } else if(pInsensitive.matcher(text).find()) {
+                text = matcherSensitive.replaceAll(randomString);
+            }
+
+            Matcher matcherInsensitive = pInsensitive.matcher(text);
+            if(matcherInsensitive.find()) {
                 String randomString = this.getRandomString(this.expressionTrans.get(key));
-                text = text.replaceAll("(?i)"+key, StringUtils.capitalize(randomString));
+                text = matcherInsensitive.replaceAll(StringUtils.capitalize(randomString));
             }
         }
         return text;

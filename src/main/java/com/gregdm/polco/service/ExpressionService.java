@@ -38,14 +38,11 @@ public class ExpressionService extends AbstractService {
 
     public Multimap getMultimapTranslation(){
 
-        //TODO GREG Make it more clear
         Multimap<String, String> expressions = HashMultimap.create();
 
-        Map<String,String> map = this.findAllTrans().stream().collect(
-            Collectors.toMap(e -> e.getExpression().getValue(), ExpressionTrans::getValue));
-
         //Handle duplicate key, multiple values
-        map.keySet().forEach( k -> expressions.put(k, map.get(k)));
+        this.findAllTrans().forEach(
+            e -> expressions.put(e.getExpression().getValue(), e.getValue()));
 
         return expressions;
     }
