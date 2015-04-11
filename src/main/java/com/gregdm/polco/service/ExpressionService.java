@@ -1,5 +1,8 @@
 package com.gregdm.polco.service;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 import com.gregdm.polco.domain.Expression;
 import com.gregdm.polco.domain.ExpressionTrans;
 import com.gregdm.polco.domain.WordValidation;
@@ -16,6 +19,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -31,6 +36,19 @@ public class ExpressionService extends AbstractService {
     @Inject
     private ExpressionTransRepository expressionTransRepository;
 
+    public Multimap getMultimapTranslation(){
+
+        //TODO GREG Make it more clear
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        Map<String,String> map = this.findAllTrans().stream().collect(
+            Collectors.toMap(e -> e.getExpression().getValue(), ExpressionTrans::getValue));
+
+        //Handle duplicate key, multiple values
+        map.keySet().forEach( k -> expressions.put(k, map.get(k)));
+
+        return expressions;
+    }
     public boolean add(WordValidation word) {
         if (StringUtils.isBlank(word.getValue())) {
             return false;

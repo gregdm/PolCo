@@ -1,5 +1,9 @@
 package com.gregdm.polco.service;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
+import com.gregdm.polco.domain.ExpressionTrans;
 import com.gregdm.polco.domain.Noun;
 import com.gregdm.polco.domain.NounTrans;
 import com.gregdm.polco.domain.WordValidation;
@@ -16,6 +20,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -53,6 +59,19 @@ public class NounService extends AbstractService {
             return true;
         }
         return false;
+    }
+
+    public Multimap getMultimapTranslation(){
+
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        Map<String,String> map = this.findAllNounTrans().stream().collect(
+            Collectors.toMap(n -> n.getNoun().getValue(), NounTrans::getValue));
+
+        //Handle duplicate key, multiple values
+        map.keySet().forEach( k -> expressions.put(k, map.get(k)));
+
+        return expressions;
     }
 
     public List<Noun> findByValue(String value) {

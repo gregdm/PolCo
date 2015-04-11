@@ -1,8 +1,12 @@
 package com.gregdm.polco.service;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 import com.gregdm.polco.domain.Adjective;
 import com.gregdm.polco.domain.AdjectiveTrans;
 import com.gregdm.polco.domain.AdverbTrans;
+import com.gregdm.polco.domain.VerbTrans;
 import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.exception.BadObjectException;
 import com.gregdm.polco.repository.AdjectiveRepository;
@@ -17,6 +21,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -59,7 +65,22 @@ public class AdjectiveService extends AbstractService {
         return false;
     }
 
-    public List<Adjective> findByValue(String value) {
+    //TODO GREG do it abstract
+    //TODO GREG put a cache on this method
+    public Multimap getMultimapTranslation() {
+
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        Map<String, String> map = this.findAllAdjectiveTrans().stream().collect(
+            Collectors.toMap(n -> n.getAdjective().getValue(), AdjectiveTrans::getValue));
+
+        //Handle duplicate key, multiple values
+        map.keySet().forEach(k -> expressions.put(k, map.get(k)));
+
+        return expressions;
+    }
+
+        public List<Adjective> findByValue(String value) {
         return adjectiveRepository.findByValue(this.stringBDD(value));
     }
 

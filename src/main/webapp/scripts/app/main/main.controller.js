@@ -7,7 +7,6 @@ angular.module('polcoApp')
         $scope.translatedText = "";
 
         $scope.translate = function () {
-            $scope.translatedText = $scope.textToTranslate;
             Translation.getTranslation($scope.textToTranslate)
                 .success(function(data){
                     $scope.translatedText = data;})

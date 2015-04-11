@@ -1,16 +1,11 @@
 package com.gregdm.polco.service;
 
-import com.google.common.base.Supplier;
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Multiset;
 
 import com.gregdm.polco.domain.Adjective;
 import com.gregdm.polco.domain.AdjectiveTrans;
-import com.gregdm.polco.domain.Adverb;
 import com.gregdm.polco.domain.AdverbTrans;
-import com.gregdm.polco.domain.Expression;
 import com.gregdm.polco.domain.ExpressionTrans;
 import com.gregdm.polco.domain.Interjection;
 import com.gregdm.polco.domain.InterjectionTrans;
@@ -19,7 +14,7 @@ import com.gregdm.polco.domain.NounTrans;
 import com.gregdm.polco.domain.Verb;
 import com.gregdm.polco.domain.VerbTrans;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,7 +24,9 @@ import org.springframework.util.CollectionUtils;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -53,65 +50,78 @@ public class TranslationService {
     @Inject
     private ExpressionService expressionService;
 
-    public String translateText(String text) {
+    private Multimap<String, String> expressionTrans;
+    private Multimap<String, String> allNounTrans;
+    private Multimap<String, String> allAdjectiveTrans;
+    private Multimap<String, String> allVerbTrans;
+    private Multimap<String, String> allInterjectionTrans;
+    private Multimap<String, String> allAdverbTrans;
 
-        List<ExpressionTrans> expressionTrans = expressionService.findAllTrans();
-        List<NounTrans> allNounTrans = nounService.findAllNounTrans();
-        List<AdjectiveTrans> allAdjectiveTrans = adjectiveService.findAllAdjectiveTrans();
-        List<VerbTrans> allVerbTrans = verbService.findAllVerbTrans();
-        List<InterjectionTrans> allInterjectionTrans = interjectionService.findAllInterjectionTrans();
-        List<AdverbTrans> allAdverbTrans = adverbService.findAllAdverbTrans();
+    public String translateText(String textInitial) {
 
-
-        //TODO GREG Make it more clear
-        Multimap<String, String> expressions = HashMultimap.create();
-
-        Map<String,String> map = expressionTrans.stream().collect(
-            Collectors.toMap((e) -> e.getExpression().getValue(), ExpressionTrans::getValue));
-
-        for (String key : map.keySet()) {
-            expressions.put(key, map.get(key));
-        }
-
-
-        for(String key : expressions.keySet()){
-            if(text.contains(key) ) {
-                text.replace(key, expressions.get(key).iterator().next());
-            }
-        }
-
-        //TODO GREG keep the uppercase in word
+        initCollections();
+        String textTranslated = new String(textInitial);
+        textTranslated = translateExpressions(textTranslated);
+        textTranslated = translateWords(textTranslated);
 
         //Put into set
-        String tokens[] = text.split("\\s+");
-        String textTranslated = new String(text);
-
-        for (int i = 0; i < tokens.length; i++) {
-            List<Expression>
-                expressionFind =
-                expressionService.findByValue(tokens[i].trim().toLowerCase());
-            if (!CollectionUtils.isEmpty(expressionFind)) {
-                Expression expression = expressionFind.iterator().next();
-                String toReplace = expression.getExpressionTranss().iterator().next().getValue();
-                if (StringUtils.isNotBlank(toReplace)) {
-                    textTranslated = textTranslated.replace(tokens[i], toReplace);
-                }
-            }
-        }
+//        String tokens[] = textInitial.split("\\s+");
+//        String textTranslated = new String(textInitial);
+//
+//        for (int i = 0; i < tokens.length; i++) {
+//            List<Expression>
+//                expressionFind =
+//                expressionService.findByValue(tokens[i].trim().toLowerCase());
+//            if (!CollectionUtils.isEmpty(expressionFind)) {
+//                Expression expression = expressionFind.iterator().next();
+//                String toReplace = expression.getExpressionTranss().iterator().next().getValue();
+//                if (StringUtils.isNotBlank(toReplace)) {
+//                    textTranslated = textTranslated.replace(tokens[i], toReplace);
+//                }
+//            }
+//        }
 
         return textTranslated;
     }
 
-    private String translateExpression(String text) {
-        List<Expression> expressions = expressionService.findAll();
-        String newString = text;
-        for (Expression expression : expressions) {
-            if (text.contains(expression.getValue())) {
-                newString.replace(expression.getValue(),
-                                  expression.getExpressionTranss().iterator().next().getValue());
+    private String getRandomString(Collection<String> c){
+        int size = c.size();
+        int n = new Random().nextInt(size);
+        return c.toArray(new String[size])[n];
+    }
+
+    private void initCollections(){
+        this.expressionTrans = expressionService.getMultimapTranslation();
+        this.allNounTrans = nounService.getMultimapTranslation();
+        this.allAdjectiveTrans = adjectiveService.getMultimapTranslation();
+        this.allVerbTrans = verbService.getMultimapTranslation();
+        this.allInterjectionTrans = interjectionService.getMultimapTranslation();
+        this.allAdverbTrans = adverbService.getMultimapTranslation();
+    }
+
+    private String translateWords(String text) {
+
+        return text;
+    }
+
+    private String translateExpressions(String text) {
+
+        //Replace expression translation
+        for(String key : this.expressionTrans.keySet()){
+            //If text start with uppercase
+            //Boundary, check if an entire word and not a substring ex: IN and INput
+            Pattern pInsensitive = Pattern.compile("\\b"+key+"\\b", Pattern.CASE_INSENSITIVE);
+            Pattern pSensitive = Pattern.compile("\\b"+key+"\\b");
+
+            if(pSensitive.matcher(text).find()) {
+                String randomString = this.getRandomString(this.expressionTrans.get(key));
+                text = text.replace(key, randomString);
+            } else if(pInsensitive.matcher(text).find()) {
+                String randomString = this.getRandomString(this.expressionTrans.get(key));
+                text = text.replaceAll("(?i)"+key, StringUtils.capitalize(randomString));
             }
         }
-        return newString;
+        return text;
     }
 
     private String findTraduction(String s) {

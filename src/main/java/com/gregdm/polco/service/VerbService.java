@@ -1,6 +1,10 @@
 package com.gregdm.polco.service;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 import com.gregdm.polco.domain.AdjectiveTrans;
+import com.gregdm.polco.domain.NounTrans;
 import com.gregdm.polco.domain.Verb;
 import com.gregdm.polco.domain.VerbTrans;
 import com.gregdm.polco.domain.WordValidation;
@@ -17,6 +21,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -58,6 +64,20 @@ public class VerbService extends AbstractService {
             return true;
         }
         return false;
+    }
+
+    //TODO GREG do it abstract
+    public Multimap getMultimapTranslation(){
+
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        Map<String,String> map = this.findAllVerbTrans().stream().collect(
+            Collectors.toMap(n -> n.getVerb().getValue(), VerbTrans::getValue));
+
+        //Handle duplicate key, multiple values
+        map.keySet().forEach( k -> expressions.put(k, map.get(k)));
+
+        return expressions;
     }
 
     public List<Verb> findByValue(String value) {

@@ -1,5 +1,9 @@
 package com.gregdm.polco.service;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
+import com.gregdm.polco.domain.AdjectiveTrans;
 import com.gregdm.polco.domain.Interjection;
 import com.gregdm.polco.domain.InterjectionTrans;
 import com.gregdm.polco.domain.VerbTrans;
@@ -17,6 +21,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -55,6 +61,22 @@ public class InterjectionService extends AbstractService {
             return true;
         }
         return false;
+    }
+
+
+    //TODO GREG do it abstract
+    //TODO GREG put a cache on this method
+    public Multimap getMultimapTranslation() {
+
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        Map<String, String> map = this.findAllInterjectionTrans().stream().collect(
+            Collectors.toMap(n -> n.getInterjection().getValue(), InterjectionTrans::getValue));
+
+        //Handle duplicate key, multiple values
+        map.keySet().forEach(k -> expressions.put(k, map.get(k)));
+
+        return expressions;
     }
 
     public List<Interjection> findByValue(String value) {
