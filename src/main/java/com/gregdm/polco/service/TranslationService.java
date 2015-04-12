@@ -105,7 +105,6 @@ public class TranslationService {
     }
 
     private String translateExpressions(String text) {
-
         //Replace expression translation
         for(String key : this.expressionTrans.keySet()){
             //If text start with uppercase
@@ -115,16 +114,22 @@ public class TranslationService {
             Pattern pSensitive = Pattern.compile(regexExpression);
 
             Matcher matcherSensitive = pSensitive.matcher(text);
-            if(matcherSensitive.find()) {
+            StringBuffer sb = new StringBuffer();
+            //Get different translation for the same expression
+            while(matcherSensitive.find()) {
                 String randomString = this.getRandomString(this.expressionTrans.get(key));
-                text = matcherSensitive.replaceAll(randomString);
+                matcherSensitive.appendReplacement(sb, randomString);
             }
-
-            Matcher matcherInsensitive = pInsensitive.matcher(text);
-            if(matcherInsensitive.find()) {
+            matcherSensitive.appendTail(sb);
+            Matcher matcherInsensitive = pInsensitive.matcher(sb.toString());
+            sb = new StringBuffer(); // ADDED
+            while(matcherInsensitive.find()) {
                 String randomString = this.getRandomString(this.expressionTrans.get(key));
-                text = matcherInsensitive.replaceAll(StringUtils.capitalize(randomString));
+                matcherInsensitive.appendReplacement(sb,StringUtils.capitalize(randomString));
+//                text = matcherInsensitive.replaceAll(StringUtils.capitalize(randomString));
             }
+            matcherInsensitive.appendTail(sb);
+            text = sb.toString();
         }
         return text;
     }

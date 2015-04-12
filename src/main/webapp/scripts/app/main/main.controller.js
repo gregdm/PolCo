@@ -3,7 +3,7 @@
 angular.module('polcoApp')
     .controller('MainController', function ($scope, Principal, Translation) {
 
-        $scope.textToTranslate = "Je n'aime pas les aveugles depuis que je suis au chomage";
+        $scope.textToTranslate = "Andréa Andréa J'aime  Andréa andréa andréa Andréaa andréaa pour toujours";
         $scope.translatedText = "";
 
         $scope.translate = function () {
