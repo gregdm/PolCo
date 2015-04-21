@@ -126,7 +126,6 @@ public class TranslationService {
             while(matcherInsensitive.find()) {
                 String randomString = this.getRandomString(this.expressionTrans.get(key));
                 matcherInsensitive.appendReplacement(sb,StringUtils.capitalize(randomString));
-//                text = matcherInsensitive.replaceAll(StringUtils.capitalize(randomString));
             }
             matcherInsensitive.appendTail(sb);
             text = sb.toString();
