@@ -68,7 +68,9 @@ public class PourcentageService {
         nbMatch += nbMatch(text, allAdverbTrans);
         nbMatch += nbMatch(text, allVerbTrans);
         nbMatch += nbMatch(text, allExpressionTrans);
-        return "Pourcetage : " + nbMatch/nbTotalWord*100*3 + "%";
+        int result = Double.valueOf((nbMatch*300)/nbTotalWord).intValue();
+
+        return String.valueOf(result);
     }
 
     private int nbMatch(String text, Multimap<String,String> map){
