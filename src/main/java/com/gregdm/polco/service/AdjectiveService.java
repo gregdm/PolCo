@@ -71,11 +71,18 @@ public class AdjectiveService extends AbstractService {
 
         Multimap<String, String> expressions = HashMultimap.create();
 
-        Map<String, String> map = this.findAllAdjectiveTrans().stream().collect(
-            Collectors.toMap(n -> n.getAdjective().getValue(), AdjectiveTrans::getValue));
+        this.findAllAdjectiveTrans().forEach(
+            e -> expressions.put(e.getAdjective().getValue(), e.getValue()));
 
-        //Handle duplicate key, multiple values
-        map.keySet().forEach(k -> expressions.put(k, map.get(k)));
+        return expressions;
+    }
+
+    public Multimap getMultimapTranslationValue() {
+
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        this.findAllAdjectiveTrans().forEach(
+            e -> expressions.put(e.getValue(),e.getAdjective().getValue()));
 
         return expressions;
     }

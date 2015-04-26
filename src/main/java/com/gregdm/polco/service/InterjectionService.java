@@ -70,11 +70,19 @@ public class InterjectionService extends AbstractService {
 
         Multimap<String, String> expressions = HashMultimap.create();
 
-        Map<String, String> map = this.findAllInterjectionTrans().stream().collect(
-            Collectors.toMap(n -> n.getInterjection().getValue(), InterjectionTrans::getValue));
+        this.findAllInterjectionTrans().forEach(
+            e -> expressions.put(e.getInterjection().getValue(),e.getValue()));
 
-        //Handle duplicate key, multiple values
-        map.keySet().forEach(k -> expressions.put(k, map.get(k)));
+        return expressions;
+    }
+    //TODO GREG do it abstract
+    //TODO GREG put a cache on this method
+    public Multimap getMultimapTranslationValue() {
+
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        this.findAllInterjectionTrans().forEach(
+            e -> expressions.put(e.getValue(),e.getInterjection().getValue()));
 
         return expressions;
     }

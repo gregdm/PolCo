@@ -46,6 +46,17 @@ public class ExpressionService extends AbstractService {
 
         return expressions;
     }
+
+    public Multimap getMultimapTranslationValue(){
+
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        //Handle duplicate key, multiple values
+        this.findAllTrans().forEach(
+            e -> expressions.put(e.getValue(),e.getExpression().getValue()));
+
+        return expressions;
+    }
     public boolean add(WordValidation word) {
         if (StringUtils.isBlank(word.getValue())) {
             return false;

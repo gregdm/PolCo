@@ -65,11 +65,19 @@ public class NounService extends AbstractService {
 
         Multimap<String, String> expressions = HashMultimap.create();
 
-        Map<String,String> map = this.findAllNounTrans().stream().collect(
-            Collectors.toMap(n -> n.getNoun().getValue(), NounTrans::getValue));
+        //Handle duplicate key, multiple values
+        this.findAllNounTrans().forEach(
+            e -> expressions.put(e.getNoun().getValue(), e.getValue()));
+
+        return expressions;
+    }
+    public Multimap getMultimapTranslationValue(){
+
+        Multimap<String, String> expressions = HashMultimap.create();
 
         //Handle duplicate key, multiple values
-        map.keySet().forEach( k -> expressions.put(k, map.get(k)));
+        this.findAllNounTrans().forEach(
+            e -> expressions.put(e.getValue(),e.getNoun().getValue()));
 
         return expressions;
     }

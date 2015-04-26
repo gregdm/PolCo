@@ -4,7 +4,8 @@ angular.module('polcoApp')
     .controller('PourcentageController', function ($scope, $translate, $filter, AuditsService, Pourcentage) {
 
         $scope.text = "greg";
-        $scope.pourcentage = "";
+        $scope.pourcentage = "la plus belle greggou pipelette ";
+        $scope.textToTranslate = "la plus belle greggou pipelette ";
 
         $scope.getPourcentage = function(){
             $scope.translatedText = "in progress";

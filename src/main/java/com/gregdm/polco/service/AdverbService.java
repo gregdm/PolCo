@@ -70,11 +70,21 @@ public class AdverbService extends AbstractService {
 
         Multimap<String, String> expressions = HashMultimap.create();
 
-        Map<String, String> map = this.findAllAdverbTrans().stream().collect(
-            Collectors.toMap(n -> n.getAdverb().getValue(), AdverbTrans::getValue));
 
-        //Handle duplicate key, multiple values
-        map.keySet().forEach(k -> expressions.put(k, map.get(k)));
+        this.findAllAdverbTrans().forEach(
+            e -> expressions.put(e.getAdverb().getValue(),e.getValue()));
+
+        return expressions;
+    }
+
+    //TODO GREG do it abstract
+    //TODO GREG put a cache on this method
+    public Multimap<String, String> getMultimapTranslationValue() {
+
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        this.findAllAdverbTrans().forEach(
+            e -> expressions.put(e.getValue(),e.getAdverb().getValue()));
 
         return expressions;
     }

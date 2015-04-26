@@ -69,7 +69,6 @@ public class TranslationService {
     private Multimap<String, String> allNounTrans;
     private Multimap<String, String> allAdjectiveTrans;
     private Multimap<String, String> allVerbTrans;
-    private Multimap<String, String> allInterjectionTrans;
     private Multimap<String, String> allAdverbTrans;
     private POSModel modelDetectionType;
     private POSTaggerME tagger;
@@ -226,7 +225,6 @@ public class TranslationService {
         this.allNounTrans = nounService.getMultimapTranslation();
         this.allAdjectiveTrans = adjectiveService.getMultimapTranslation();
         this.allVerbTrans = verbService.getMultimapTranslation();
-        this.allInterjectionTrans = interjectionService.getMultimapTranslation();
         this.allAdverbTrans = adverbService.getMultimapTranslation();
     }
 
@@ -281,35 +279,6 @@ public class TranslationService {
         return text;
     }
 
-    private String findTraductionUnknowedWord(String s) {
-        List<Noun> nouns = nounService.findByValue(s);
-        List<Adjective> adjectives = adjectiveService.findByValue(s);
-        List<Interjection> interjections = interjectionService.findByValue(s);
-        List<Verb> verbs = verbService.findByValue(s);
-
-        if (collectionsEmpty(nouns, adjectives, interjections, verbs)) {
-            return s;
-        } else {
-            if (onlyOneCollectionNotEmpty(nouns, adjectives, interjections, verbs)) {
-                if (!CollectionUtils.isEmpty(nouns)) {
-                    return nouns.iterator().next().getTranslationss().iterator().next().getValue();
-                }
-                if (!CollectionUtils.isEmpty(adjectives)) {
-                    return adjectives.iterator().next().getTranslationss().iterator().next()
-                        .getValue();
-                }
-                if (!CollectionUtils.isEmpty(verbs)) {
-                    return verbs.iterator().next().getTranslationss().iterator().next().getValue();
-                }
-                if (!CollectionUtils.isEmpty(interjections)) {
-                    return interjections.iterator().next().getTranslationss().iterator().next()
-                        .getValue();
-                }
-            }
-            return s;
-        }
-    }
-
     private boolean onlyOneCollectionNotEmpty(Collection... collections) {
         int nbCollectionNotEmpty = 0;
         for (int i = 0; i < collections.length; i++) {
@@ -333,5 +302,4 @@ public class TranslationService {
         }
         return true;
     }
-
 }

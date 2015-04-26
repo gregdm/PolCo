@@ -1,5 +1,7 @@
 package com.gregdm.polco.service;
 
+import com.google.common.collect.Multimap;
+
 import com.gregdm.polco.domain.Adjective;
 import com.gregdm.polco.domain.Expression;
 import com.gregdm.polco.domain.Interjection;
@@ -15,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -43,91 +46,38 @@ public class PourcentageService {
     @Inject
     private ExpressionService expressionService;
 
+    private Multimap<String, String> allNounTrans;
+    private Multimap<String, String> allAdjectiveTrans;
+    private Multimap<String, String> allVerbTrans;
+    private Multimap<String, String> allAdverbTrans;
+    private Multimap<String, String> allExpressionTrans;
+
+
     public String getPourcentage(String text) {
-        //TODO GREG keep the uppercase in word
-        //Put into set
-        String tokens[] = text.split("\\s+");
-        String textTranslated = new String(text);
 
-        for (int i = 0; i < tokens.length; i++) {
-            List<Expression>
-                expressionFind =
-                expressionService.findByValue(tokens[i].trim().toLowerCase());
-            if (!CollectionUtils.isEmpty(expressionFind)) {
-                Expression expression = expressionFind.iterator().next();
-                String toReplace = expression.getExpressionTranss().iterator().next().getValue();
-                if (StringUtils.isNotBlank(toReplace)) {
-                    textTranslated = textTranslated.replace(tokens[i], toReplace);
-                }
-            }
-        }
+        allNounTrans = nounService.getMultimapTranslationValue();
+        allAdjectiveTrans = adjectiveService.getMultimapTranslationValue();
+        allVerbTrans = verbService.getMultimapTranslationValue();
+        allAdverbTrans = adverbService.getMultimapTranslationValue();
+        allExpressionTrans = expressionService.getMultimapTranslationValue();
 
-        return textTranslated;
+        int nbMatch = 0;
+        int nbTotalWord = text.split(" ").length;
+        nbMatch += nbMatch(text, allNounTrans);
+        nbMatch += nbMatch(text, allAdjectiveTrans);
+        nbMatch += nbMatch(text, allAdverbTrans);
+        nbMatch += nbMatch(text, allVerbTrans);
+        nbMatch += nbMatch(text, allExpressionTrans);
+        return "Pourcetage : " + nbMatch/nbTotalWord*100*3 + "%";
     }
 
-    private String translateExpression(String text) {
-        List<Expression> expressions = expressionService.findAll();
-        String newString = text;
-        for (Expression expression : expressions) {
-            if (text.contains(expression.getValue())) {
-                newString.replace(expression.getValue(),
-                                  expression.getExpressionTranss().iterator().next().getValue());
+    private int nbMatch(String text, Multimap<String,String> map){
+        int occurences = 0;
+        for(Map.Entry<String,String> entry : map.entries()){
+            if(text.toLowerCase().contains(entry.getKey().toLowerCase())){
+                occurences++;
             }
         }
-        return newString;
+        return occurences;
     }
-
-    private String findTraduction(String s) {
-        List<Noun> nouns = nounService.findByValue(s);
-        List<Adjective> adjectives = adjectiveService.findByValue(s);
-        List<Interjection> interjections = interjectionService.findByValue(s);
-        List<Verb> verbs = verbService.findByValue(s);
-
-        if (collectionsEmpty(nouns, adjectives, interjections, verbs)) {
-            return s;
-        } else {
-            if (onlyOneCollectionNotEmpty(nouns, adjectives, interjections, verbs)) {
-                if (!CollectionUtils.isEmpty(nouns)) {
-                    return nouns.iterator().next().getTranslationss().iterator().next().getValue();
-                }
-                if (!CollectionUtils.isEmpty(adjectives)) {
-                    return adjectives.iterator().next().getTranslationss().iterator().next()
-                        .getValue();
-                }
-                if (!CollectionUtils.isEmpty(verbs)) {
-                    return verbs.iterator().next().getTranslationss().iterator().next().getValue();
-                }
-                if (!CollectionUtils.isEmpty(interjections)) {
-                    return interjections.iterator().next().getTranslationss().iterator().next()
-                        .getValue();
-                }
-            }
-            return s;
-        }
-    }
-
-    private boolean onlyOneCollectionNotEmpty(Collection... collections) {
-        int nbCollectionNotEmpty = 0;
-        for (int i = 0; i < collections.length; i++) {
-            if (!CollectionUtils.isEmpty(collections[i])) {
-                nbCollectionNotEmpty++;
-            }
-        }
-
-        if (nbCollectionNotEmpty == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean collectionsEmpty(Collection... collections) {
-        for (int i = 0; i < collections.length; i++) {
-            if (!CollectionUtils.isEmpty(collections[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 }

@@ -71,11 +71,18 @@ public class VerbService extends AbstractService {
 
         Multimap<String, String> expressions = HashMultimap.create();
 
-        Map<String,String> map = this.findAllVerbTrans().stream().collect(
-            Collectors.toMap(n -> n.getVerb().getValue(), VerbTrans::getValue));
+        this.findAllVerbTrans().forEach(
+            e -> expressions.put(e.getVerb().getValue(),e.getValue()));
 
-        //Handle duplicate key, multiple values
-        map.keySet().forEach( k -> expressions.put(k, map.get(k)));
+        return expressions;
+    }
+
+    public Multimap getMultimapTranslationValue(){
+
+        Multimap<String, String> expressions = HashMultimap.create();
+
+        this.findAllVerbTrans().forEach(
+            e -> expressions.put(e.getValue(),e.getVerb().getValue()));
 
         return expressions;
     }
