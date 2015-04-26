@@ -39,6 +39,15 @@ public class WordValidation implements Serializable {
     @Column(name = "tense")
     private String tense;
 
+    public WordValidation(){
+
+    }
+
+    public WordValidation(String word, String type){
+        this.setValue(word);
+        this.setWordType(type);
+    }
+
     public Long getId() {
         return id;
     }

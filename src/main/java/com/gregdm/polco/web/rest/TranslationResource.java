@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
@@ -35,7 +37,8 @@ public class TranslationResource {
             method = RequestMethod.POST,
             produces = MediaType.TEXT_PLAIN_VALUE)
     @Timed
-    public ResponseEntity<String> translate(@RequestBody String text) throws URISyntaxException {
+    public ResponseEntity<String> translate(@RequestBody String text)
+        throws URISyntaxException, IOException {
         String translatedText = translationService.translateText(text);
         if(StringUtils.isNoneEmpty(translatedText)){
             return new ResponseEntity<>(translatedText,HttpStatus.OK);
