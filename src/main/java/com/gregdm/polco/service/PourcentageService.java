@@ -56,7 +56,7 @@ public class PourcentageService {
 
         double sum = nbPolCo - 1.5*nbNoPolCo;
         double nbTotalWord = text.split(" ").length;
-        double result = Double.valueOf((sum*300)/nbTotalWord).intValue();
+        int result = Double.valueOf((sum*300)/nbTotalWord).intValue();
 
         return String.valueOf(result);
     }
