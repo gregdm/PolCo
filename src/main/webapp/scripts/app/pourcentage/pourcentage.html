@@ -1,79 +1,140 @@
 <div>
     <div class="row">
-        <div class="col-md-2"></div>
+        <div class="col-md-2">
+        </div>
         <h1 class="col-md-8 pageTitle">Pourcentage de Politiquement Correct</h1>
-        <div class="col-md-2"></div>
 
-    </div>
-
-
-    <div class="row">
-        <h3 class="col-md-4">Essayer un text au hazard</h3>
-    </div>
-    <div class="row">
-
+        <div class="col-md-1"></div>
         <div class="col-md-1">
-            <button class="btn btn-success" ng-click="getTextPolCo()">
+            <a href="http://twitter.com/share" class="twitter-share-button"
+               data-count="vertical" data-via="PolCo">Tweet</a>
+            <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <h3 class="col-md-4">Cliquez! Essayer un texte!</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <button class="btn btn-success no-border-radius" ng-click="getTextPolCo()">
                 <span class="glyphicon glyphicon-random"></span>
                 <span>Polco</span>
             </button>
         </div>
         <div class="col-md-1">
-            <button class="btn btn-danger"  ng-click="getTextNonPolCo()">
+            <button class="btn btn-danger no-border-radius" ng-click="getTextNonPolCo()">
                 <span class="glyphicon glyphicon-random"></span>
                 <span>Pas PolCo</span>
             </button>
         </div>
     </div>
-    <br />
-    <a href="http://twitter.com/share" class="twitter-share-button"
-       data-count="vertical" data-via="PolCo">Tweet</a>
-
-
+    <br/>
 
     <div class="row height20">
         <div class="col-md-5">
-            <textarea id = "textToTranslate" ng-model="textToTranslate"
-                      rows = "14" ng-maxlength="500" class="width100 blueBorder height20">
+            <textarea id="textToTranslate" ng-model="textToTranslate"
+                      rows="14" ng-maxlength="500"
+                      class="width100 blueBorder height20 shadow-blue-border">
                 </textarea>
         </div>
         <div class="col-md-1">
 
-            <button type="button" ng-click="getPourcentage()" class="pourcentageImg blueBorder">
+            <button type="button" ng-click="getPourcentage()"
+                    class="pourcentageImg blueBorder shadow-blue-border">
             </button>
         </div>
         <div class="col-md-5">
-            <span id = "translatedText" ng-model="textranslatedText"
-                  class="width100">{{pourcentage}}</span>
+
+            <div ng-if="pourcentage > 99">
+                <div class="row">
+                    <div class="col-md-7">
+                        <img src="assets/images/caron.png">
+                    </div>
+                    <div class="col-md-5">
+                        <h2>{{pourcentage}}%</h2>
+                        <b>Quel score! Un discours du niveau d'Aymeric Caron</b>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="pourcentage < 100 && pourcentage >9">
+                <div class="row">
+                    <div class="col-md-7">
+                        <img src="assets/images/ruquier.png">
+                    </div>
+                    <div class="col-md-5">
+                        <h2>{{pourcentage}}%</h2>
+                        <b>Un texte bien rédigé! Vous êtes Ruquier </b>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="pourcentage < 10 && pourcentage >-1">
+                <div class="row">
+                    <div class="col-md-7">
+                        <img src="assets/images/bayrou.png">
+                    </div>
+                    <div class="col-md-5">
+                        <h2>{{pourcentage}}%</h2>
+                        <b>Un texte plus que normal! Vous êtes Bayrou </b>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="pourcentage < -99">
+                <div class="row">
+                    <div class="col-md-7">
+                        <img src="assets/images/zemmour.png">
+                    </div>
+                    <div class="col-md-5">
+                        <h2>{{pourcentage}}%</h2>
+                        <b>Quel mauvais score! Vous êtes Eric Zemmour </b>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="pourcentage < 0 && pourcentage > -100">
+                <div class="row">
+                    <div class="col-md-7">
+                        <img src="assets/images/oss.png">
+                    </div>
+                    <div class="col-md-5">
+                        <h2>{{pourcentage}}%</h2>
+                        <b>Votre score n'est pas très correcte! Vous êtes OSS 117 </b>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
 </div>
 
-     <h2 translate="">
-         pourcentage</h2>
+<h2 translate="">
+    pourcentage</h2>
 
-    Pourcentage
-
-
-    En fonction du pourcentage mettre des personnages genre 90% caron
-    "Voici un text politiquement correct du niveau d'aymeric caron"
-
-    "Ce text n'est pas polititquement correct du tout!! Attention"
-
-    Regarder les traductions et les mots correspondants au traduction
-
-    Potentiellement dire que la traduction est très duel si jamais il y a beaucoup de tranduction et beaucoup de mot
-    qui nécéssite une traduction
+Pourcentage
 
 
-    "Votre text n'est pas assez long pour être comparer a nos politologue"
+En fonction du pourcentage mettre des personnages genre 90% caron
+"Voici un text politiquement correct du niveau d'aymeric caron"
+
+"Ce text n'est pas polititquement correct du tout!! Attention"
+
+Regarder les traductions et les mots correspondants au traduction
+
+Potentiellement dire que la traduction est très duel si jamais il y a beaucoup de tranduction et beaucoup de mot
+qui nécéssite une traduction
 
 
-    Mettre plein de petite image avec un text écriver un text pour savoir votre niveau de politiquement correct
-    Dieudonnée Zemmour Le Pen
+"Votre text n'est pas assez long pour être comparer a nos politologue"
 
-    Mettre des discoures par défauts
 
-    Mettre bayrou : "Ce discours est normale"
+Mettre plein de petite image avec un text écriver un text pour savoir votre niveau de politiquement correct
+Dieudonnée Zemmour Le Pen
+
+Mettre des discoures par défauts
+
+Mettre bayrou : "Ce discours est normale"
 </div>

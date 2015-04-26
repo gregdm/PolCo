@@ -42,6 +42,15 @@ LOGO
     background-position: center center;
     background-repeat: no-repeat;
 }
+
+.shadow-blue-border{
+    box-shadow: 3px 3px 0px #087D93;
+}
+
+.no-border-radius {
+    border-radius: 0px !important;
+}
+
 .blueBorder{
     border: 1px solid #087D93;
 }

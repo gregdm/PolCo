@@ -2,21 +2,11 @@ package com.gregdm.polco.service;
 
 import com.google.common.collect.Multimap;
 
-import com.gregdm.polco.domain.Adjective;
-import com.gregdm.polco.domain.Expression;
-import com.gregdm.polco.domain.Interjection;
-import com.gregdm.polco.domain.Noun;
-import com.gregdm.polco.domain.Verb;
-
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -61,22 +51,48 @@ public class PourcentageService {
         allAdverbTrans = adverbService.getMultimapTranslationValue();
         allExpressionTrans = expressionService.getMultimapTranslationValue();
 
-        int nbMatch = 0;
-        int nbTotalWord = text.split(" ").length;
-        nbMatch += nbMatch(text, allNounTrans);
-        nbMatch += nbMatch(text, allAdjectiveTrans);
-        nbMatch += nbMatch(text, allAdverbTrans);
-        nbMatch += nbMatch(text, allVerbTrans);
-        nbMatch += nbMatch(text, allExpressionTrans);
-        int result = Double.valueOf((nbMatch*300)/nbTotalWord).intValue();
+        int nbPolCo = getNbPolCo(text);
+        int nbNoPolCo = getNbNoPolCo(text);
+
+        double sum = nbPolCo - 1.5*nbNoPolCo;
+        double nbTotalWord = text.split(" ").length;
+        double result = Double.valueOf((sum*300)/nbTotalWord).intValue();
 
         return String.valueOf(result);
     }
 
-    private int nbMatch(String text, Multimap<String,String> map){
+    private int getNbPolCo(String text){
+        int nbMatch = 0;
+        nbMatch += nbPolCo(text, allNounTrans);
+        nbMatch += nbPolCo(text, allAdjectiveTrans);
+        nbMatch += nbPolCo(text, allAdverbTrans);
+        nbMatch += nbPolCo(text, allVerbTrans);
+        nbMatch += nbPolCo(text, allExpressionTrans);
+        return nbMatch;
+    }
+    private int getNbNoPolCo(String text){
+        int nbMatch = 0;
+        nbMatch += nbNoPolCo(text, allNounTrans);
+        nbMatch += nbNoPolCo(text, allAdjectiveTrans);
+        nbMatch += nbNoPolCo(text, allAdverbTrans);
+        nbMatch += nbNoPolCo(text, allVerbTrans);
+        nbMatch += nbNoPolCo(text, allExpressionTrans);
+        return nbMatch;
+    }
+
+    private int nbPolCo(String text, Multimap<String, String> map){
         int occurences = 0;
         for(Map.Entry<String,String> entry : map.entries()){
             if(text.toLowerCase().contains(entry.getKey().toLowerCase())){
+                occurences++;
+            }
+        }
+        return occurences;
+    }
+    private int nbNoPolCo(String text, Multimap<String, String> map){
+        int occurences = 0;
+        for(Map.Entry<String,String> entry : map.entries()){
+            if(text.toLowerCase().contains(entry.getValue().toLowerCase())){
                 occurences++;
             }
         }

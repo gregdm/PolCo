@@ -2,27 +2,31 @@
     <div class="row">
         <div class="col-md-2"></div>
          <h1 class="col-md-8 pageTitle">Transformation en Politiquement Correct</h1>
-        <div class="col-md-2"></div>
-
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            <a href="http://twitter.com/share" class="twitter-share-button"
+               data-count="vertical" data-via="PolCo">Tweet</a>
+            <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+        </div>
     </div>
     <div class="row">
-        <h3 class="col-md-4">Essayer une citation au hazard</h3>
+        <h3 class="col-md-4">Cliquez! Essayer une phrase!</h3>
     </div>
     <div class="row">
         <div class="col-md-1">
-            <button class="btn btn-info" ng-click="getCitationDivers()">
+            <button class="btn btn-info no-border-radius" ng-click="getCitationDivers()">
                 <span class="glyphicon glyphicon-random"></span>
                 <span>Divers</span>
             </button>
         </div>
         <div class="col-md-1">
-            <button class="btn btn-warning"  ng-click="getCitationSexiste()">
+            <button class="btn btn-warning no-border-radius"  ng-click="getCitationSexiste()">
                 <span class="glyphicon glyphicon-random"></span>
-                <span>Sexist</span>
+                <span>Sexiste</span>
             </button>
         </div>
         <div class="col-md-1">
-            <button class="btn btn-danger"  ng-click="getCitationRaciste()">
+            <button class="btn btn-danger no-border-radius"  ng-click="getCitationRaciste()">
                 <span class="glyphicon glyphicon-random"></span>
                 <span>Raciste</span>
             </button>
@@ -32,15 +36,15 @@
     <div class="row height20">
         <div class="col-md-5">
             <textarea id = "textToTranslate" ng-model="textToTranslate"
-                  rows = "14" ng-maxlength="500" class="width100 blueBorder height20">
+                  rows = "14" ng-maxlength="500" class="width100 blueBorder shadow-blue-border height20">
                 Text à traduire</textarea>
         </div>
         <div class="col-md-1">
 
-            <button type="button" ng-click="translate()" class="logoMan blueBorder">
+            <button type="button" ng-click="translate()" class="logoMan shadow-blue-border blueBorder">
             </button>
         </div>
-        <div class="col-md-5 blueBorder height20">
+        <div class="col-md-5 blueBorder height20 shadow-blue-border">
             <span id = "translatedText"
                   class="width100">{{translatedText}}</span>
         </div>
