@@ -15,46 +15,23 @@ import java.util.Set;
 @Entity
 @Table(name = "T_EXPRESSION")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Expression implements Serializable {
+public class Expression extends AbstractWord implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
 
     @OneToMany(mappedBy = "expression")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ExpressionTrans> expressionTranss = new HashSet<>();
+    protected Set<ExpressionTrans> expressionTranss = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Set<ExpressionTrans> getExpressionTranss() {
-        return expressionTranss;
+    public Expression() {
     }
 
     public void setExpressionTranss(Set<ExpressionTrans> expressionTranss) {
         this.expressionTranss = expressionTranss;
     }
 
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
+    public Set<ExpressionTrans> getExpressionTranss() {
+        return expressionTranss;
     }
 
     @Override
@@ -62,27 +39,27 @@ public class Expression implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Expression)) {
+            return false;
+        }
+        if (!super.equals(o)) {
             return false;
         }
 
-        Expression expression = (Expression) o;
+        Expression that = (Expression) o;
 
-        if (id != null ? !id.equals(expression.id) : expression.id != null) return false;
+        if (expressionTranss != null ? !expressionTranss.equals(that.expressionTranss)
+                                     : that.expressionTranss != null) {
+            return false;
+        }
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
-
-    @Override
-    public String toString() {
-        return "Expression{" +
-                "id=" + id +
-                ", value='" + value + "'" +
-                '}';
+        int result = super.hashCode();
+        result = 31 * result + (expressionTranss != null ? expressionTranss.hashCode() : 0);
+        return result;
     }
 }

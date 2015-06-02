@@ -15,14 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "T_VERB")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Verb implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class Verb extends AbstractWord implements Serializable {
 
     @Column(name = "tense")
     private String tense;
@@ -38,21 +31,6 @@ public class Verb implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<VerbTrans> translationss = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public String getTense() {
         return tense;

@@ -15,14 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "T_INTERJECTIONTRANS")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class InterjectionTrans implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class InterjectionTrans extends AbstractWord implements Serializable {
 
     @ManyToOne
     private Interjection interjection;

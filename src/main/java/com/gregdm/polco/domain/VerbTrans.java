@@ -15,33 +15,10 @@ import java.util.Set;
 @Entity
 @Table(name = "T_VERBTRANS")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class VerbTrans implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class VerbTrans extends AbstractWord implements Serializable {
 
     @ManyToOne
     private Verb verb;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public Verb getVerb() {
         return verb;
@@ -51,9 +28,6 @@ public class VerbTrans implements Serializable {
         this.verb = verb;
     }
 
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -15,33 +15,10 @@ import java.util.Set;
 @Entity
 @Table(name = "T_ADJECTIVETRANS")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class AdjectiveTrans implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class AdjectiveTrans extends AbstractWord implements Serializable {
 
     @ManyToOne
     private Adjective adjective;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public Adjective getAdjective() {
         return adjective;
@@ -49,9 +26,6 @@ public class AdjectiveTrans implements Serializable {
 
     public void setAdjective(Adjective adjective) {
         this.adjective = adjective;
-    }
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
     }
 
     @Override

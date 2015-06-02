@@ -15,35 +15,12 @@ import java.util.Set;
 @Entity
 @Table(name = "T_NOMINALDET")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class NominalDet implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class NominalDet extends AbstractWord implements Serializable {
 
     @OneToMany(mappedBy = "nominalDet")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<NominalDetTrans> translationss = new HashSet<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public Set<NominalDetTrans> getTranslationss() {
         return translationss;
@@ -51,10 +28,6 @@ public class NominalDet implements Serializable {
 
     public void setTranslationss(Set<NominalDetTrans> nominalDetTranss) {
         this.translationss = nominalDetTranss;
-    }
-
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
     }
 
     @Override

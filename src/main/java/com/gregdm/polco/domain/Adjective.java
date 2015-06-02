@@ -15,14 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "T_ADJECTIVE")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Adjective implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class Adjective extends AbstractWord implements Serializable {
 
     @Column(name = "gender")
     private String gender;
@@ -34,22 +27,6 @@ public class Adjective implements Serializable {
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AdjectiveTrans> translationss = new HashSet<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public String getGender() {
         return gender;

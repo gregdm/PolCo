@@ -15,33 +15,10 @@ import java.util.Set;
 @Entity
 @Table(name = "T_PREPOSITIONTRANS")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class PrepositionTrans implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class PrepositionTrans extends AbstractWord implements Serializable {
 
     @ManyToOne
     private Preposition preposition;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public Preposition getPreposition() {
         return preposition;
@@ -49,10 +26,6 @@ public class PrepositionTrans implements Serializable {
 
     public void setPreposition(Preposition preposition) {
         this.preposition = preposition;
-    }
-
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
     }
 
     @Override

@@ -15,35 +15,12 @@ import java.util.Set;
 @Entity
 @Table(name = "T_PREFIX")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Prefix implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class Prefix extends AbstractWord implements Serializable {
 
     @OneToMany(mappedBy = "prefix")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PrefixTrans> translationss = new HashSet<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public Set<PrefixTrans> getTranslationss() {
         return translationss;
@@ -51,11 +28,6 @@ public class Prefix implements Serializable {
 
     public void setTranslationss(Set<PrefixTrans> prefixTranss) {
         this.translationss = prefixTranss;
-    }
-
-
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
     }
 
     @Override

@@ -15,33 +15,10 @@ import java.util.Set;
 @Entity
 @Table(name = "T_PREFIXTRANS")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class PrefixTrans implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class PrefixTrans extends AbstractWord implements Serializable {
 
     @ManyToOne
     private Prefix prefix;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public Prefix getPrefix() {
         return prefix;
@@ -51,9 +28,6 @@ public class PrefixTrans implements Serializable {
         this.prefix = prefix;
     }
 
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

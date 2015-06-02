@@ -15,33 +15,10 @@ import java.util.Set;
 @Entity
 @Table(name = "T_NOMINALDETTRANS")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class NominalDetTrans implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class NominalDetTrans extends AbstractWord implements Serializable {
 
     @ManyToOne
     private NominalDet nominalDet;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public NominalDet getNominalDet() {
         return nominalDet;
@@ -51,9 +28,6 @@ public class NominalDetTrans implements Serializable {
         this.nominalDet = nominalDet;
     }
 
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -15,33 +15,10 @@ import java.util.Set;
 @Entity
 @Table(name = "T_EXPRESSIONTRANS")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ExpressionTrans implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class ExpressionTrans extends AbstractWord implements Serializable {
 
     @ManyToOne
     private Expression expression;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public Expression getExpression() {
         return expression;
@@ -49,10 +26,6 @@ public class ExpressionTrans implements Serializable {
 
     public void setExpression(Expression expression) {
         this.expression = expression;
-    }
-
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
     }
 
     @Override

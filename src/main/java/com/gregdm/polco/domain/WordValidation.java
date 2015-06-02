@@ -12,14 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "T_WORDVALIDATION")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class WordValidation implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+public class WordValidation extends AbstractWord implements Serializable {
 
     @Column(name = "translation")
     private String translation;
@@ -46,22 +39,6 @@ public class WordValidation implements Serializable {
     public WordValidation(String word, String type){
         this.setValue(word);
         this.setWordType(type);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public String getTranslation() {

@@ -15,33 +15,11 @@ import java.util.Set;
 @Entity
 @Table(name = "T_ADVERBTRANS")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class AdverbTrans implements Serializable {
+public class AdverbTrans extends AbstractWord implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
 
     @ManyToOne
     private Adverb adverb;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public Adverb getAdverb() {
         return adverb;
@@ -49,9 +27,6 @@ public class AdverbTrans implements Serializable {
 
     public void setAdverb(Adverb adverb) {
         this.adverb = adverb;
-    }
-    public void lowerStrings(){
-        this.setValue(this.getValue().toLowerCase().trim());
     }
 
     @Override
