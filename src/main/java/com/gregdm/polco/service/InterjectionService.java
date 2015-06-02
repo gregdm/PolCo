@@ -15,6 +15,8 @@ import com.gregdm.polco.repository.InterjectionTransRepository;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -41,6 +43,7 @@ public class InterjectionService extends AbstractService {
         return interjectionTransRepository.findAll();
     }
 
+    @CacheEvict(value = { "multimapTransInterjection", "multimapInterjectionTrans" }, allEntries = true)
     public boolean add(WordValidation word) {
         if (StringUtils.isBlank(word.getValue())) {
             return false;
@@ -64,8 +67,7 @@ public class InterjectionService extends AbstractService {
     }
 
 
-    //TODO GREG do it abstract
-    //TODO GREG put a cache on this method
+    @Cacheable("multimapInterjectionTrans")
     public Multimap getMultimapTranslation() {
 
         Multimap<String, String> expressions = HashMultimap.create();
@@ -75,8 +77,8 @@ public class InterjectionService extends AbstractService {
 
         return expressions;
     }
-    //TODO GREG do it abstract
-    //TODO GREG put a cache on this method
+
+    @Cacheable("multimapTransInterjection")
     public Multimap getMultimapTranslationValue() {
 
         Multimap<String, String> expressions = HashMultimap.create();

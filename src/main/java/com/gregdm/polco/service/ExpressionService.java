@@ -13,6 +13,8 @@ import com.gregdm.polco.repository.ExpressionTransRepository;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -36,27 +38,29 @@ public class ExpressionService extends AbstractService {
     @Inject
     private ExpressionTransRepository expressionTransRepository;
 
+    @Cacheable("multimapExpressionTrans")
     public Multimap getMultimapTranslation(){
 
         Multimap<String, String> expressions = HashMultimap.create();
 
-        //Handle duplicate key, multiple values
         this.findAllTrans().forEach(
             e -> expressions.put(e.getExpression().getValue(), e.getValue()));
 
         return expressions;
     }
 
+    @Cacheable("multimapTransExpression")
     public Multimap getMultimapTranslationValue(){
 
         Multimap<String, String> expressions = HashMultimap.create();
 
-        //Handle duplicate key, multiple values
         this.findAllTrans().forEach(
             e -> expressions.put(e.getValue(),e.getExpression().getValue()));
 
         return expressions;
     }
+
+    @CacheEvict(value = { "multimapTransExpression", "multimapExpressionTrans" }, allEntries = true)
     public boolean add(WordValidation word) {
         if (StringUtils.isBlank(word.getValue())) {
             return false;

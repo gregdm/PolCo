@@ -14,6 +14,8 @@ import com.gregdm.polco.repository.NounTransRepository;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -37,6 +39,7 @@ public class NounService extends AbstractService {
     @Inject
     private NounTransRepository nounTransRepository;
 
+    @CacheEvict(value = { "multimapTransNoun", "multimapNounTrans" }, allEntries = true)
     public boolean add(WordValidation word) {
         if (StringUtils.isBlank(word.getValue())) {
             return false;
@@ -61,21 +64,22 @@ public class NounService extends AbstractService {
         return false;
     }
 
+    @Cacheable("multimapNounTrans")
     public Multimap getMultimapTranslation(){
 
         Multimap<String, String> expressions = HashMultimap.create();
 
-        //Handle duplicate key, multiple values
         this.findAllNounTrans().forEach(
             e -> expressions.put(e.getNoun().getValue(), e.getValue()));
 
         return expressions;
     }
+
+    @Cacheable("multimapTransNoun")
     public Multimap getMultimapTranslationValue(){
 
         Multimap<String, String> expressions = HashMultimap.create();
 
-        //Handle duplicate key, multiple values
         this.findAllNounTrans().forEach(
             e -> expressions.put(e.getValue(),e.getNoun().getValue()));
 
