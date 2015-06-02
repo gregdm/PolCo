@@ -111,7 +111,6 @@ public class ExpressionService extends AbstractService {
             throw new BadObjectException("Adective is invalide");
         }
         expression.lowerStrings();
-//TODO GREG check en fonction de la traduction afin qu'une expression puisse avoir plusieurs tranduction
 
         List<Expression> expressionList = this.findExpression(expression);
         if (CollectionUtils.isEmpty(expressionList)) {
