@@ -21,6 +21,50 @@
            timeToLiveSeconds="3600">
     </cache>
 
+    <cache name="multimapTransNoun"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="multimapNounTrans"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="multimapTransAdjective"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="multimapAdjectiveTrans"
+           timeToLiveSeconds="3600">
+    </cache>
+
+
+    <cache name="multimapTransVerb"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="multimapVerbTrans"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="multimapTransAdverb"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="multimapAdverbTrans"
+           timeToLiveSeconds="3600">
+    </cache>
+
+
+    <cache name="multimapTransInterjection"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="multimapInterjectionTrans"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="multimapTransExpression"
+           timeToLiveSeconds="3600">
+    </cache>
+    <cache name="multimapExpressionTrans"
+           timeToLiveSeconds="3600">
+    </cache>
+
     <cache name="com.gregdm.polco.domain.Authority"
            timeToLiveSeconds="3600">
     </cache>

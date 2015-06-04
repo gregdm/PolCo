@@ -12,6 +12,9 @@ import com.gregdm.polco.domain.WordValidation;
 import com.gregdm.polco.service.ImportXML.DicoSAXParser;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.annotations.BatchSize;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,8 +26,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -36,6 +42,9 @@ import liquibase.util.csv.opencsv.CSVWriter;
 public class ImportService {
 
     private final Logger log = LoggerFactory.getLogger(ImportService.class);
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Inject
     private NounService nounService;
@@ -123,19 +132,22 @@ public class ImportService {
         }
     }
 
-    public boolean importXML(MultipartFile file) {
-        //TODO GREG A ameliorer faire un batch avec des commit flush par paquet dans hibernate
 
-        //TODO GREG Arriver a récupere les nouveaux mots en temps réel du parser XML (peut être pas)
+    public boolean importXML(MultipartFile file) {
+
+        Session session = getCurrentSession();
+        //TODO GREG A ameliorer faire un batch avec des commit flush par paquet dans hibernate
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
             DicoSAXParser dicoSAXParser = new DicoSAXParser();
 
-            //saxParser.parse(file.getInputStream(), dicoSAXParser);
             saxParser.parse(file.getInputStream(), dicoSAXParser);
 
-            dicoSAXParser.getVerbList().forEach(n -> verbService.findOrCreate(n));
+            AtomicInteger index = new AtomicInteger();
+            Transaction tx = session.beginTransaction();
+            dicoSAXParser.getVerbList().forEach(n -> {verbService.findOrCreate(n); if(index.get() % 250 == 0){ session.flush();session.clear();}  index.incrementAndGet();});
+            tx.commit();
             dicoSAXParser.getAdverbList().forEach(n -> adverbService.findOrCreate(n));
             dicoSAXParser.getInterjectionList().forEach(n -> interjectionService.findOrCreate(n));
             dicoSAXParser.getNominalDetList().forEach(n -> nominalDetService.findOrCreate(n));
@@ -149,4 +161,9 @@ public class ImportService {
         }
         return true;
     }
+
+    protected Session getCurrentSession()  {
+        return entityManager.unwrap(Session.class);
+    }
+
 }
