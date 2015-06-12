@@ -5,6 +5,7 @@ angular.module('polcoApp')
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.isInRole = Principal.isInRole;
         $scope.wordValidations = [];
+        $scope.wordValidation = {};
         $scope.loadAll = function() {
             WordValidation.query(function(result) {
                $scope.wordValidations = result;

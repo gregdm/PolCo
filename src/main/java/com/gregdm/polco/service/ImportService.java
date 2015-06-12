@@ -107,6 +107,7 @@ public class ImportService {
 
                 CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()));
                 String[] row = null;
+                reader.readNext();
                 while ((row = reader.readNext()) != null) {
                     if (row.length > 1) {
                         WordValidation word = new WordValidation();

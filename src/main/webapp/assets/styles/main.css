@@ -51,6 +51,10 @@ LOGO
     border-radius: 0px !important;
 }
 
+.margin-negative-row {
+    margin-left: -15px;
+}
+
 .blueBorder{
     border: 1px solid #087D93;
 }
